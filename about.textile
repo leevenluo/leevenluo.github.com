@@ -1,0 +1,18 @@
+---
+title: About
+layout: master
+---
+
+h2. About Leeven Luo
+
+<img style="float:right; margin:5 0 0 0;" src="/images/my.bmp" />
+
+h2. Contact
+
+You are welcome to contact me at <a href="mailto:leevenlxj@gmail.com">leevenlxj@gmail.com</a>.
+
+---
+
+h2. About This Site
+
+This site is built using the "Jekyll":http://github.com/mojombo/jekyll library and hosted on "GitHub":http://github.com/. The source code used to create this library is "publicly available on GitHub":http://github.com/leevenluo/leevenluo.github.com as well.

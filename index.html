@@ -1,11 +1,74 @@
 ---
-layout: default
-title: 我的Blog
+layout: master
+title: Hacking Newer
+description: Leeven Luo的个人博客
 ---
-<h2>{{ page.title }}</h2>
-<p>最新文章</p>
-<ul>
-{% for post in site.posts %}
-<li>{{ post.date | date_to_string }} <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></li>
-{% endfor %}
-</ul>
+
+<div class='home_box' id='home_left'>
+	<h2><a href='http://feeds2.feedburner.com/dyang' class='float-right'><img src='/images/feed-icon.png' alt='Subscribe'/></a> Latest Blog Posts <span class="more">(<a href='/blog.html'>More</a>)</span></h2>
+
+	{% for post in site.posts limit:5 %}
+	<div id='wrapper'>
+		<div class='post'>
+			<h1><a href='{{post.url}}'>{{post.title}}</a>
+				<div class='date'> - {{post.date | date_to_string}}</div></h1>
+			<div class='body'>{{post.content}}</div>
+			<div class='sns'>
+				<!-- AddThis Button BEGIN -->
+				<div class="addthis_toolbox addthis_default_style ">
+					<a class="addthis_button_preferred_1"></a>
+					<a class="addthis_button_preferred_2"></a>
+					<a class="addthis_button_preferred_3"></a>
+					<a class="addthis_button_preferred_6"></a>
+					<a class="addthis_button_preferred_7"></a>
+					<a class="addthis_button_compact"></a>
+				</div>
+				<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+				<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4df3c7a42c2a2e7e"></script>
+				<!-- AddThis Button END -->  
+			</div>
+			<br>
+			<a href='{{post.url}}#disqus_thread'>View Comments</a>
+		</div>
+	</div>
+	{% endfor %}
+</div>
+
+<h2><span class="more"><a href='/blog.html'>More</a></span></h2>
+</div>
+<div class='home_box' id='home_right'>
+	<h2>Categories</h2>
+	<div id='github-projects'>
+		<div class="repo">
+			<h3><a href="/life.html">生活感悟({{ site.categories.life | size }})</a></h3>
+		</div>
+	</div>
+	<p>
+	<h2>Popular Posts</h2>
+	<div id='github-projects'>
+		<div class="repo">
+			<h3><a href="/life/2013/03/24/love.html">爱</a></h3>
+		</div>
+	</div>
+</div>
+
+<!--
+<script type="text/javascript" charset="utf-8">
+	$.githubUser('dyang', function(data) {
+			$('#github-projects').html('');
+
+			var repos = data.user.repositories;
+			repos.sort(function(a,b) {
+				return b.watchers - a.watchers;
+				});
+
+			$(repos.slice(0,6)).each(function() {
+				$('#github-projects').append("\
+					<div class='repo'>\
+					<h3><a href='" + this.url + "'>" + this.name + "</a></h3>\
+					<span class='desc'>"+this.description+"</span>\
+					</div>");
+				});
+			});
+		</script>
+		-->
