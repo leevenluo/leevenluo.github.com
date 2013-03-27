@@ -5,8 +5,6 @@ layout: master
 
 h2. About Leeven Luo
 
-<img style="float:right; margin:5 0 0 0;" src="/images/my.bmp" />
-
 h2. Contact
 
 You are welcome to contact me at <a href="mailto:leevenlxj@gmail.com">leevenlxj@gmail.com</a>.
