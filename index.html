@@ -5,9 +5,7 @@ description: Leeven Luo的个人博客
 ---
 
 <div class='home_box' id='home_left'>
-	<h2><a href='http://feeds2.feedburner.com/dyang' class='float-right'><img src='/images/feed-icon.png' alt='Subscribe'/></a> Latest Blog Posts <span class="more">(<a href='/blog.html'>More</a>)</span></h2>
-
-	{% for post in site.posts limit:5 %}
+	{% for post in site.posts limit:1 %}
 	<div id='wrapper'>
 		<div class='post'>
 			<h1><a href='{{post.url}}'>{{post.title}}</a>
@@ -41,6 +39,7 @@ description: Leeven Luo的个人博客
 	<div id='github-projects'>
 		<div class="repo">
 			<h3><a href="/life.html">生活感悟({{ site.categories.life | size }})</a></h3>
+			<h3><a href="/blog.html">博客讨论({{ site.categories.blog | size }})</a></h3>
 		</div>
 	</div>
 	<p>
@@ -48,6 +47,9 @@ description: Leeven Luo的个人博客
 	<div id='github-projects'>
 		<div class="repo">
 			<h3><a href="/life/2013/03/24/love.html">爱</a></h3>
+			<h3><a href="/blog/2013/03/28/buildBlog_1.html">让我们一起写博客吧-起始篇</a></h3>
+			<h3><a href="/blog/2013/03/28/buildBlog_2.html">让我们一起写博客吧-配置篇</a></h3>
+			<!-- <h3><a href="/blog/2013/03/28/buildBlog_3.html">让我们一起写博客吧-搭建篇</a></h3>-->
 		</div>
 	</div>
 </div>

@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    
+    <meta name="description" content="" />
+    
+    <title>Leeven Luo - 让大家一起来写blog吧-起始篇</title>
+    <link rel="stylesheet" href="/stylesheets/master.css" type="text/css" media="screen" charset="utf-8"/>
+    <script src="/javascripts/jquery.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/javascripts/jquery.github.js" type="text/javascript" charset="utf-8"></script>
+    <link rel='alternate' type='application/rss+xml' href='http://feeds.feedburner.com/JoinTheConversation' />
+  </head>
+  <body>
+      <div id='menu'>
+        <ul>
+          <li><a href='/'>Home</a></li>
+          <li><a href='/blog.html'>Blog</a></li>
+          <li><a href='/about.html'>About</a></li>
+          <li><a href='http://github.com/leevenluo/' target='_blank' rel='me'>GitHub</a></li>
+        </ul>
+      </div>
+      <div id='content'>
+        <div id='wrapper'>
+<div class='post'>
+  <span class='date'>28 Mar 2013</span>
+  <h1><a href='/blog/2013/03/28/buildBlog_1.html'>让大家一起来写blog吧-起始篇</a></h1>
+  <div class='body'><h3>起始篇</h3>
+<p>我这里所讲的博客搭建环境是:<b>github pages + jekyll</b></p>
+<p>在这里，先感谢以下文章的作者，是你们的博文让我可以成功搭建博客，在我的文章中或多或少的引用了你们文章中的片段，只为更多的朋友能早日建立属于他们自己的博客！<br />
+<a href="http://beiyuu.com/github-pages/">beiyuu博客</a><br />
+<a href="http://yanping.me/cn/blog/2012/03/18/github-pages-step-by-step/">yanping博客</a></p>
+<h3>一、什么是gitbub pages？</h3>
+<p>首先需要介绍下Github，GitHub 是一个用于使用Git版本控制系统项目的共享虚拟主机服务。它由GitHub公司（曾称Logical Awesome）的开发者Chris Wanstrath、PJ Hyett和Tom Preston-Werner使用Ruby on Rails编写而成。总的来说，github 是一个免费的代码管理仓库，负责开发项目的代码托管，关于github的相关信息可以 <a href="http://zh.wikipedia.org/wiki/GitHub">点击这里</a> 。</p>
+<p>github给你提供了项目的存储空间，在你的项目主页上可以浏览源码树:<br />
+<img width="552" height="230" src="/images/buildBlog_1.0.png"/></p>
+<p>不过这样的项目主页似乎不怎么友好，不能提供简易的操作和展示项目的模型和效果，所以github需要提供一个友好且易于展示项目的平台，github pages就这样诞生了。github Pages可以被认为是用户编写的、托管在github上的静态网页。</p>
+<p>github提供模板，允许站内生成网页，但也允许用户自己编写网页，然后上传。有意思的是，这种上传并不是单纯的上传，而是会经过Jekyll程序的再处理。</p>
+<h3>二、Jekyll是什么？</h3>
+<p>Jekyll（发音/&#8217;dʒiːk əl/，&quot;杰克尔&quot;）是一个静态站点生成器，它会根据网页源码生成静态文件。它提供了模板、变量、插件等功能，所以实际上可以用来编写整个网站。整个思路到这里就很明显了。你先在本地编写符合Jekyll规范的网站源码，然后上传到github，由github生成并托管整个网站。</p>
+<p>这种做法的好处是：</p>
+<ul>
+	<li>免费，无限流量。</li>
+	<li>享受git的版本管理功能，不用担心文章遗失。</li>
+	<li>你只要用自己喜欢的编辑器写文章就可以了，其他事情一概不用操心，都由github处理。</li>
+</ul>
+<p>它的缺点是：</p>
+<ul>
+	<li>有一定技术门槛，你必须要懂一点git和网页开发。</li>
+	<li>它生成的是静态网页，添加动态功能必须使用外部服务，比如评论功能就只能用disqus。</li>
+	<li>它不适合大型网站，因为没有用到数据库，每运行一次都必须遍历全部的文本文件，网站越大，生成时间越长。</li>
+</ul>
+<p>但是，综合来看，它不失为搭建中小型Blog或项目主页的最佳选项之一。</p></div>
+  <div class='sns'>
+    <!-- AddThis Button BEGIN -->
+    <div class="addthis_toolbox addthis_default_style ">
+    <a class="addthis_button_preferred_1"></a>
+    <a class="addthis_button_preferred_2"></a>
+    <a class="addthis_button_preferred_3"></a>
+    <a class="addthis_button_preferred_6"></a>
+    <a class="addthis_button_preferred_7"></a>
+    <a class="addthis_button_compact"></a>
+    </div>
+    <script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+    <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4df3c7a42c2a2e7e"></script>
+    <!-- AddThis Button END -->  
+  </div>
+</div>
+</div>
+
+<div class="related">
+  <h3>Related Posts</h3>
+  <table class="post-list">
+    
+      <tr>
+        <th><a href='/blog/2013/03/28/buildBlog_2.html'>让大家一起来写blog吧-配置篇</a></th>
+        <td>28 Mar 2013</td>
+        <td><a href='/blog/2013/03/28/buildBlog_2.html#disqus_thread'>Comments</a></td>
+      </tr>
+    
+      <tr>
+        <th><a href='/life/2013/03/24/love.html'>Love</a></th>
+        <td>24 Mar 2013</td>
+        <td><a href='/life/2013/03/24/love.html#disqus_thread'>Comments</a></td>
+      </tr>
+    
+  </table>
+</div>
+
+<script type="text/javascript" charset="utf-8">
+  var disqus_url = "http://dyang.github.com//blog/2013/03/28/buildBlog_1.html";
+  var disqus_developer = 1;
+</script>
+<div id="disqus_thread"></div>
+<script type="text/javascript" src="http://disqus.com/forums/dyang/embed.js"></script><noscript><a href="http://dyang.disqus.com/?url=ref">View the discussion thread.</a></noscript>
+
+        <div class='clearfix'></div>
+    </div>
+    <div id='footer'>
+      Copyright &copy; 2013 Leeven Luo. Theme and code by <a href="http://github.com/mbleigh">Michael Bleigh</a>. Hosted by <a href='http://github.com/dyang/dyang.github.com/' target='_blank'>GitHub</a> and powered by <a href='http://github.com/mojombo/jekyll'>Jekyll</a>.
+    </div>
+    <script type="text/javascript">
+      var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+      document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+      try {
+        var pageTracker = _gat._getTracker("UA-6237019-3");
+        pageTracker._trackPageview();
+		} catch(err) {}</script>
+  </body>
+</html>

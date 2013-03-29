@@ -1,17 +1,17 @@
 ---
 layout: master
-title: Blog
+title: 博客搭建
 full_posts: 5
 ---
 
-{% for post in site.posts %}
+{% for post in site.categories.blog %}
   {% if forloop.index < page.full_posts %}
   <div id='wrapper'>
   <div class='post'>
-  <h1><a href='{{post.url}}'>{{post.title}}</a>
-    <div class='date'> - {{post.date | date_to_string}}</div></h1>
+    <span class='date'>{{post.date | date_to_string}}</span>
+    <h1><a href='{{post.url}}'>{{post.title}}</a></h1>
     <div class='body'>{{post.content}}</div>
-      <div class='sns'>
+  <div class='sns'>
     <!-- AddThis Button BEGIN -->
     <div class="addthis_toolbox addthis_default_style ">
     <a class="addthis_button_preferred_1"></a>
@@ -24,10 +24,9 @@ full_posts: 5
     <script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
     <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4df3c7a42c2a2e7e"></script>
     <!-- AddThis Button END -->  
-  </div>
-  </div>
-    <br>
+  </div>    <br>
     <a href='{{post.url}}#disqus_thread'>View Comments</a>
+  </div>
   </div>
   {% else %}
     {% if forloop.index == page.full_posts %}
@@ -41,4 +40,6 @@ full_posts: 5
     </tr>
   {% endif %}
 {% endfor %}
+{% if site.categories.ci.size < page.full_posts %}
 </table>
+{% endif %}

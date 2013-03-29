@@ -4,8 +4,6 @@ title: 生活感悟
 full_posts: 5
 ---
 
-<a href='http://feeds2.feedburner.com/dyang' class='float-right'><img src='/images/feed-icon.png' alt='Subscribe to XML Feed'/></a>
-
 {% for post in site.categories.life %}
   {% if forloop.index < page.full_posts %}
   <div id='wrapper'>
