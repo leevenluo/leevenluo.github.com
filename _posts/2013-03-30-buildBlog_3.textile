@@ -1,0 +1,33 @@
+---
+layout: post
+title: 让大家一起来写blog吧-搭建篇
+categories: blog
+---
+
+h3. 搭建篇
+
+h3. GitHub Pages 搭建
+
+紧接着第二章配置篇，在第二章已经完成了本地Git环境配置，那么接下来就可以搭建Github Pages。其实只需要两步，就可以完成个人主页的搭建：
+
+h3. PS：若想创建形如“username.github.com”域名主页，每个用户名只能创建一个
+
+h3. 1、用你创建的GitHub帐号 "登录 Github":http://github.com, 接下来点击右上角“create a new repo”创建新的代码仓库
+
+PS:
+* 创建仓库名(Repository Name)格式：username.github.com, 比如：leevenluo.github.com；之后点击“Create Repository”完成创建
+
+h3. 2、点击代码代码仓库右边的"setting”:(若找不到，可点击刚创建的代码仓库名回到仓库主页面)
+
+!/images/buildBlog_5.0.jpg!
+
+在下面找到“Github Pages”-->"Automatic Page Generator", 到页面最下面点击“Continue To Layouts”, 然后就可以看到Github为你自动生成的主页，这时你可以在上面列出的几种主题里选择你喜欢的，然后点击“Publish”：
+
+!/images/buildBlog_6.0.jpg!
+
+恭喜你，这时你已经创建好了个人主页，主页域名是：username.github.com, 不过你需要短暂的等待几分钟才可以正常访问，因为github需要时间为你生效你的配置。
+
+细心的读者应该已经发现你创建的代码仓库里已经有了代码，没错，那个就是Github为你生成个人主页的模板,在下一篇里我会和你一起来了解该如何编写和提交个人主页代码。
+
+一些扩展：
+"Github Pages官方教程":https://help.github.com/categories/20/articles
