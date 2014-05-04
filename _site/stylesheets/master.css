@@ -1,5 +1,5 @@
 body {
-  font-family: ff-meta-serif-web-pro-1, ff-meta-serif-web-pro-2, Georgia, sans-serif;
+  font-family: Verdana, ff-meta-serif-web-pro-1, ff-meta-serif-web-pro-2, Georgia, sans-serif;
   background: #A4CFBE;
   color: #6C6E58;
 }
@@ -116,9 +116,13 @@ pre {
   overflow: auto;
   color: black;
   line-height: 120%;
-  font-family: "Consolas","Courier New",Courier,mono;
-  font-size: 12px;
+  font-family: "Consolas", "Courier New", Courier, mono;
+  font-size: 15px;
   letter-spacing: 0;
+}
+
+code {
+  font-family: Monaco, "Courier New", monospace;
 }
 
 table.post-list {
@@ -231,3 +235,7 @@ a img { border: 0; }
   float: left;
   margin: 4px 30px 4px 4px;	
 }
+
+/*code highlight*/
+.highlight pre {background-color: #505050;}
+.highlight pre code{color: white;}

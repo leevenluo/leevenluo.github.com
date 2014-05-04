@@ -12,7 +12,7 @@ h3. Hacking篇
 
 h3. 1、浏览jekyll规范的文件组织结构：
 
-<pre><code>
+{% highlight html %}
 Dir
 |-- _config.yml
 |-- _layouts
@@ -20,7 +20,7 @@ Dir
 |-- _posts
 |	|-- 日期-Title.html
 |-- index.html
-</pre></code>
+{% endhighlight %}
 
 各个文件和目录功能描述如下：
 
@@ -48,71 +48,78 @@ h3. 2、动手编写一个实例
 # 按照之前的文件组织在本地创建一份, 假设主目录名为MainDir
 
 #2 编写_config.yml
-<pre><code>
+
+{% highlight html %}
 baseurl:/MainDir
-</code></pre>
+{% endhighlight %}
 
 #3 编写_layouts目录下的default.html文件
-<pre><code>
+
+{% highlight html %}
 <!DOCTYPE html>
 <html>
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-	<title>\{\{ page.title \}\}</title>
+	<title>{{ "{{ page.title " }}}}</title>
 </head>
 <body>
-	\{\{ content \}\}
+    {{ "{{ content " }}}}
 </body>
 </html>
-</code></pre>
+{% endhighlight %}
 
 * PS:
-** 代码中的 “\{\{ \}\}” 是 "Liquid模板语言":https://github.com/shopify/liquid/wiki/liquid-for-designers , *转义符号"\"是没有的，在这里添加上去只是防止解析到本博客本身，下同*
-** \{\{ page.title \}\}表示文章标题，\{\{ content \}\}表示文章内容
+** {{ "{{ page.title " }}}}表示文章标题，{{ "{{ content " }}}}表示文章内容
 
 #4 编写_posts目录下的2013-04-03-buildBlog.html文件
-<pre><code>
+
+{% highlight html %}
 ---
 layout: default
 title: buildBlog
 ---
-<h2>\{\{ page.title \}\}</h2>
+<h2>{{ "{{ page.title " }}}}</h2>
 <p>Let's go to build own blog</p>
-<p>\{\{ page.date \| date_to_string \}\}</p>
-</code></pre>
+<p>{{ "{{ page.date | date_to_string " }}}}</p>
+{% endhighlight %}
 
 * PS:
 ** 在 <code>---</code> 之间的内容是yaml文件头，用于设置特定标识的元数据，比如 “layout” 参数设置使用_layouts目录下的同名模板作为博客的模板, 其他的设置项可以在 "这里":https://github.com/mojombo/jekyll/wiki/YAML-Front-Matter 查找
 
 #5 编写index.html文件
+
+{% highlight html %}
 <pre><code>
 ---
 layout: default
 title: 大家一起来写博客吧
 ---
-<h2>\{\{ page.title \}\}</h2>
+<h2>{{ "{{ page.title " }}}}</h2>
 <p>大家一起来写博客吧</p>
 <ul>
-	\{\% for post in site.posts \%\}
-	<li>\{\{ post.date | date_to_string \}\} <a href="\{\{ site.baseurl \}\}\{\{ post.url \}\}">\{\{ post.title \}\}</a></li>
-	\{\% endfor \%\}
+	{{ "{% for post in site.posts " }}%}
+	<li>{{ "{{ post.date | date_to_string " }}}}<a href="{{ "{{ site.baseurl " }}}} {{ "{{ post.url " }}}}">{{ "{{ post.title " }}}}</a></li>
+	{{ "{% endfor " }}%}
 </ul>
-</code></pre>
+{% endhighlight %}
 
 #6 编写完成，接下来需要进行测试，一种方法就是将代码push到github服务，然后用域名 “username.github.com” 访问，不过每次都这样为了测试频繁push似乎太麻烦了，能不能在本地进行jekyll测试呢？答案是肯定的，搞起：
-<pre><code>
+
+{% highlight bash %}
 linux 环境(推荐)：
 系统一般都预装了Ruby，Jekyll是Ruby开发的，可以直接安装, 
-$gem install Jekyll
-$jekyll --version
+$ gem install Jekyll
+$ jekyll --version
 Jekyll 0.12.1
-</code></pre>
+{% endhighlight %}
+
 windons 环境请参考 "这里":http://www.cnblogs.com/purediy/archive/2013/03/07/2948892.html 
 
 #7 本地jekyll测试环境搭建好后，测试开始：
-<pre><code>
-$cd MainDir
-$jekyll --server
+
+{% highlight bash %}
+$ cd MainDir
+$ jekyll --server
 WARNING: Could not read configuration. Using defaults (and options).
 	Invalid configuration - /home/lxinji/MainDir/_config.yml
 Building site: /home/lxinji/MainDir -> /home/lxinji/MainDir/_site
@@ -121,22 +128,24 @@ Successfully generated site: /home/lxinji/MainDir -> /home/lxinji/MainDir/_site
 [2013-04-04 03:03:37] INFO  ruby 1.8.7 (2011-06-30) [i686-linux]
 [2013-04-04 03:03:42] WARN  TCPServer Error: Address already in use - bind(2)
 [2013-04-04 03:03:42] INFO  WEBrick::HTTPServer#start: pid=13554 port=4000
-</code></pre>
+{% endhighlight %}
 
 * PS:
 ** 若看到上面的打印则表示jekyll已经帮你生成好了页面，服务绑定在localhost:4000，现在可以在浏览器中键入 http://localhost:4000/ 开始测试DIY的博客啦
 
 #8 若以上的过程都顺利完成了，那么接下来的最后一步就是将你的博客发布出去:
-<pre><code>
-$git clone http://github.com/username/username.github.com
-$cd username.github.com
-$rm -rf "除了.git外的所有文件"
-$cp -r ../MainDir ./
-$jekyll --server #再验证一次
-$git add .
-$git commit -am "first update"
-$git push
-</code></pre>
+
+{% highlight bash %}
+$ git clone http://github.com/username/username.github.com
+$ cd username.github.com
+$ rm -rf "除了.git外的所有文件"
+$ cp -r ../MainDir ./
+$ jekyll --server #再验证一次
+$ git add .
+$ git commit -am "first update"
+$ git push
+{% endhighlight %}
+
 * PS:
 ** 过几分钟你就可以用username.github.com访问你上传的博客了,恭喜 :)
 

@@ -9,6 +9,10 @@
     
     <title>Leeven Luo - Hacking Newer</title>
     <link rel="stylesheet" href="/stylesheets/master.css" type="text/css" media="screen" charset="utf-8"/>
+
+    <!--language highlight-->
+    <link rel="stylesheet" href="/stylesheets/highlight.css" type="text/css" media="all" charset="utf-8"/>
+
     <script src="/javascripts/jquery.js" type="text/javascript" charset="utf-8"></script>
     <script src="/javascripts/jquery.github.js" type="text/javascript" charset="utf-8"></script>
     <link rel='alternate' type='application/rss+xml' href='http://feeds.feedburner.com/JoinTheConversation' />
@@ -33,16 +37,14 @@
 <p>之前的搭建教程已经可以帮助你构建一个博客的雏形，不过目前的它还比较单调，因为所有的操作都是github帮你完成了，github已经为我们提供了免费的域名和空间，希望我们能自己动手DIY一个自己喜欢的博客样板，为github减轻一些负担，也为自己打造一个专属自己的博客。</p>
 <p>开始之前，我们需要简单回顾一下在起始篇中谈到的本次搭建博客的整体思路，即“先在本地编写符合Jekyll规范的网站源码，然后上传到github，由github生成并托管整个网站”,现在Git配置和Github的搭建已经完成，接下来就是要学习符合jekyll规范的编码和文件组织。</p>
 <h3>1、浏览jekyll规范的文件组织结构：</h3>
-<pre><code>
-Dir
+<div class="highlight"><pre><code class="html">Dir
 |-- _config.yml
 |-- _layouts
 |	|-- default.html
 |-- _posts
 |	|-- 日期-Title.html
 |-- index.html
-</pre><p></code></p>
-<p>各个文件和目录功能描述如下：</p>
+</code></pre></div><p>各个文件和目录功能描述如下：</p>
 <p>config.yml:</p>
 <ul>
 	<li>它是jekyll的配置文件，大多数只用设置baseurl选项，若缺少该文件，系统会自动生成一份默认配置，具体解释参考 <a href="https://github.com/mojombo/jekyll/wiki/Configuration">官方教程</a></li>
@@ -70,116 +72,104 @@ Dir
 	<li>按照之前的文件组织在本地创建一份, 假设主目录名为MainDir</li>
 </ol>
 <ol start="2">
-	<li>编写_config.yml<br />
-<pre><code>
-baseurl:/MainDir
-</code></pre></li>
+	<li>编写_config.yml</li>
 </ol>
-<ol start="3">
-	<li>编写_layouts目录下的default.html文件<br />
-<pre><code>
-&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;head&gt;
-	&lt;meta http-equiv="content-type" content="text/html; charset=utf-8" /&gt;
-	&lt;title&gt;\{\{ page.title \}\}&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-	\{\{ content \}\}
-&lt;/body&gt;
-&lt;/html&gt;
-</code></pre></li>
+<div class="highlight"><pre><code class="html">baseurl:/MainDir
+</code></pre></div><ol start="3">
+	<li>编写_layouts目录下的default.html文件</li>
 </ol>
-<ul>
+<div class="highlight"><pre><code class="html"><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+	<span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;content-type&quot;</span> <span class="na">content=</span><span class="s">&quot;text/html; charset=utf-8&quot;</span> <span class="nt">/&gt;</span>
+	<span class="nt">&lt;title&gt;</span>{{ page.title }}<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+    {{ content }}
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div><ul>
 	<li>PS:
 	<ul>
-		<li>代码中的 “\{\{ \}\}” 是 <a href="https://github.com/shopify/liquid/wiki/liquid-for-designers">Liquid模板语言</a> , <strong>转义符号&quot;\&quot;是没有的，在这里添加上去只是防止解析到本博客本身，下同</strong></li>
-		<li>\{\{ page.title \}\}表示文章标题，\{\{ content \}\}表示文章内容</li>
+		<li>{{ page.title }}表示文章标题，{{ content }}表示文章内容</li>
 	</ul></li>
 </ul>
 <ol start="4">
-	<li>编写_posts目录下的2013-04-03-buildBlog.html文件<br />
-<pre><code>
----
+	<li>编写_posts目录下的2013-04-03-buildBlog.html文件</li>
+</ol>
+<div class="highlight"><pre><code class="html">---
 layout: default
 title: buildBlog
 ---
-&lt;h2&gt;\{\{ page.title \}\}&lt;/h2&gt;
-&lt;p&gt;Let's go to build own blog&lt;/p&gt;
-&lt;p&gt;\{\{ page.date \| date_to_string \}\}&lt;/p&gt;
-</code></pre></li>
-</ol>
-<ul>
+<span class="nt">&lt;h2&gt;</span>{{ page.title }}<span class="nt">&lt;/h2&gt;</span>
+<span class="nt">&lt;p&gt;</span>Let&#39;s go to build own blog<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;p&gt;</span>{{ page.date | date_to_string }}<span class="nt">&lt;/p&gt;</span>
+</code></pre></div><ul>
 	<li>PS:
 	<ul>
 		<li>在 <code>---</code> 之间的内容是yaml文件头，用于设置特定标识的元数据，比如 “layout” 参数设置使用_layouts目录下的同名模板作为博客的模板, 其他的设置项可以在 <a href="https://github.com/mojombo/jekyll/wiki/YAML-Front-Matter">这里</a> 查找</li>
 	</ul></li>
 </ul>
 <ol start="5">
-	<li>编写index.html文件<br />
-<pre><code>
+	<li>编写index.html文件</li>
+</ol>
+<div class="highlight"><pre><code class="html"><span class="nt">&lt;pre&gt;&lt;code&gt;</span>
 ---
 layout: default
 title: 大家一起来写博客吧
 ---
-&lt;h2&gt;\{\{ page.title \}\}&lt;/h2&gt;
-&lt;p&gt;大家一起来写博客吧&lt;/p&gt;
-&lt;ul&gt;
-	\{\% for post in site.posts \%\}
-	&lt;li&gt;\{\{ post.date | date_to_string \}\} &lt;a href="\{\{ site.baseurl \}\}\{\{ post.url \}\}"&gt;\{\{ post.title \}\}&lt;/a&gt;&lt;/li&gt;
-	\{\% endfor \%\}
-&lt;/ul&gt;
-</code></pre></li>
+<span class="nt">&lt;h2&gt;</span>{{ page.title }}<span class="nt">&lt;/h2&gt;</span>
+<span class="nt">&lt;p&gt;</span>大家一起来写博客吧<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;ul&gt;</span>
+	{% for post in site.posts %}
+	<span class="nt">&lt;li&gt;</span>{{ post.date | date_to_string }}<span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;{{ site.baseurl }} {{ post.url }}&quot;</span><span class="nt">&gt;</span>{{ post.title }}<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+	{% endfor %}
+<span class="nt">&lt;/ul&gt;</span>
+</code></pre></div><ol start="6">
+	<li>编写完成，接下来需要进行测试，一种方法就是将代码push到github服务，然后用域名 “username.github.com” 访问，不过每次都这样为了测试频繁push似乎太麻烦了，能不能在本地进行jekyll测试呢？答案是肯定的，搞起：</li>
 </ol>
-<ol start="6">
-	<li>编写完成，接下来需要进行测试，一种方法就是将代码push到github服务，然后用域名 “username.github.com” 访问，不过每次都这样为了测试频繁push似乎太麻烦了，能不能在本地进行jekyll测试呢？答案是肯定的，搞起：<br />
-<pre><code>
-linux 环境(推荐)：
+<div class="highlight"><pre><code class="bash">linux 环境<span class="o">(</span>推荐<span class="o">)</span>：
 系统一般都预装了Ruby，Jekyll是Ruby开发的，可以直接安装, 
-$gem install Jekyll
-$jekyll --version
+<span class="nv">$ </span>gem install Jekyll
+<span class="nv">$ </span>jekyll --version
 Jekyll 0.12.1
-</code></pre><br />
-windons 环境请参考 <a href="http://www.cnblogs.com/purediy/archive/2013/03/07/2948892.html">这里</a></li>
-</ol>
+</code></pre></div><p>windons 环境请参考 <a href="http://www.cnblogs.com/purediy/archive/2013/03/07/2948892.html">这里</a></p>
 <ol start="7">
-	<li>本地jekyll测试环境搭建好后，测试开始：<br />
-<pre><code>
-$cd MainDir
-$jekyll --server
-WARNING: Could not read configuration. Using defaults (and options).
+	<li>本地jekyll测试环境搭建好后，测试开始：</li>
+</ol>
+<div class="highlight"><pre><code class="bash"><span class="nv">$ </span><span class="nb">cd </span>MainDir
+<span class="nv">$ </span>jekyll --server
+WARNING: Could not <span class="nb">read </span>configuration. Using defaults <span class="o">(</span>and options<span class="o">)</span>.
 	Invalid configuration - /home/lxinji/MainDir/_config.yml
 Building site: /home/lxinji/MainDir -&gt; /home/lxinji/MainDir/_site
 Successfully generated site: /home/lxinji/MainDir -&gt; /home/lxinji/MainDir/_site
-[2013-04-04 03:03:37] INFO  WEBrick 1.3.1
-[2013-04-04 03:03:37] INFO  ruby 1.8.7 (2011-06-30) [i686-linux]
-[2013-04-04 03:03:42] WARN  TCPServer Error: Address already in use - bind(2)
-[2013-04-04 03:03:42] INFO  WEBrick::HTTPServer#start: pid=13554 port=4000
-</code></pre></li>
-</ol>
-<ul>
+<span class="o">[</span>2013-04-04 03:03:37<span class="o">]</span> INFO  WEBrick 1.3.1
+<span class="o">[</span>2013-04-04 03:03:37<span class="o">]</span> INFO  ruby 1.8.7 <span class="o">(</span>2011-06-30<span class="o">)</span> <span class="o">[</span>i686-linux<span class="o">]</span>
+<span class="o">[</span>2013-04-04 03:03:42<span class="o">]</span> WARN  TCPServer Error: Address already in use - <span class="nb">bind</span><span class="o">(</span>2<span class="o">)</span>
+<span class="o">[</span>2013-04-04 03:03:42<span class="o">]</span> INFO  WEBrick::HTTPServer#start: <span class="nv">pid</span><span class="o">=</span>13554 <span class="nv">port</span><span class="o">=</span>4000
+</code></pre></div><ul>
 	<li>PS:
 	<ul>
 		<li>若看到上面的打印则表示jekyll已经帮你生成好了页面，服务绑定在localhost:4000，现在可以在浏览器中键入 http://localhost:4000/ 开始测试DIY的博客啦</li>
 	</ul></li>
 </ul>
 <ol start="8">
-	<li>若以上的过程都顺利完成了，那么接下来的最后一步就是将你的博客发布出去:<br />
-<pre><code>
-$git clone http://github.com/username/username.github.com
-$cd username.github.com
-$rm -rf "除了.git外的所有文件"
-$cp -r ../MainDir ./
-$jekyll --server #再验证一次
-$git add .
-$git commit -am "first update"
-$git push
-</code></pre></li>
+	<li>若以上的过程都顺利完成了，那么接下来的最后一步就是将你的博客发布出去:</li>
+</ol>
+<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>git clone http://github.com/username/username.github.com
+<span class="nv">$ </span><span class="nb">cd </span>username.github.com
+<span class="nv">$ </span>rm -rf <span class="s2">&quot;除了.git外的所有文件&quot;</span>
+<span class="nv">$ </span>cp -r ../MainDir ./
+<span class="nv">$ </span>jekyll --server <span class="c">#再验证一次</span>
+<span class="nv">$ </span>git add .
+<span class="nv">$ </span>git commit -am <span class="s2">&quot;first update&quot;</span>
+<span class="nv">$ </span>git push
+</code></pre></div><ul>
 	<li>PS:
 	<ul>
 		<li>过几分钟你就可以用username.github.com访问你上传的博客了,恭喜 :)</li>
 	</ul></li>
-</ol>
+</ul>
 <h3>一些扩展</h3>
 <ul>
 	<li><a href="http://www.kuqin.com/managetool/20110705/92113.html">10篇写给Git初学者的教程</a></li>
