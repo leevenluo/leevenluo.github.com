@@ -3,7 +3,7 @@
  
  <title>Happy Hacking</title>
  <link href="http://dyang.github.com/atom.xml" rel="self"/>
- <updated>2014-05-04T23:38:51+08:00</updated>
+ <updated>2015-01-20T20:18:17+08:00</updated>
  <id>http://dyang.github.com</id>
  <author>
    <name>Derek Yang</name>
@@ -12,91 +12,59 @@
 
  
  <entry>
-   <title>让大家一起来写blog吧-Hacking篇</title>
+   <title>一起写blog-Hacking篇</title>
    <link href="http://dyang.github.com/blog/2013/04/03/buildBlog_4.html"/>
    <updated>2013-04-03T00:00:00+08:00</updated>
    <id>http://dyang.github.com/blog/2013/04/03/buildBlog_4</id>
-   <content type="html">&lt;h3&gt;Hacking篇&lt;/h3&gt;
-&lt;p&gt;之前的搭建教程已经可以帮助你构建一个博客的雏形，不过目前的它还比较单调，因为所有的操作都是github帮你完成了，github已经为我们提供了免费的域名和空间，希望我们能自己动手DIY一个自己喜欢的博客样板，为github减轻一些负担，也为自己打造一个专属自己的博客。&lt;/p&gt;
-&lt;p&gt;开始之前，我们需要简单回顾一下在起始篇中谈到的本次搭建博客的整体思路，即“先在本地编写符合Jekyll规范的网站源码，然后上传到github，由github生成并托管整个网站”,现在Git配置和Github的搭建已经完成，接下来就是要学习符合jekyll规范的编码和文件组织。&lt;/p&gt;
-&lt;h3&gt;1、浏览jekyll规范的文件组织结构：&lt;/h3&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;html&quot;&gt;Dir
+   <content type="html">&lt;h1&gt;Hacking篇&lt;/h1&gt;
+&lt;p&gt;之前的搭建教程已经可以帮助你构建一个博客的雏形, 不过目前的它还比较单调, 因为所有的操作都是github帮你完成了, github已经为我们提供了免费的域名和空间, 希望我们能自己动手DIY一个自己喜欢的博客样板, 为github减轻一些负担, 也为自己打造一个专属自己的博客&lt;/p&gt;
+&lt;p&gt;开始之前, 我们需要简单回顾一下在起始篇中谈到的本次搭建博客的整体思路, 即: &lt;strong&gt;先在本地编写符合Jekyll规范的网站源码, 然后上传到github, 由github生成并托管整个网站&lt;/strong&gt; . 现在Git配置和Github的搭建已经完成, 接下来就是要学习符合jekyll规范的编码和文件组织&lt;/p&gt;
+&lt;h1&gt;jekyll配置介绍&lt;/h1&gt;
+&lt;h2&gt;jekyll目录结构&lt;/h2&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;Dir
 |-- _config.yml
 |-- _layouts
 |	|-- default.html
 |-- _posts
 |	|-- 日期-Title.html
-|-- index.html
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;各个文件和目录功能描述如下：&lt;/p&gt;
-&lt;p&gt;config.yml:&lt;/p&gt;
-&lt;ul&gt;
-	&lt;li&gt;它是jekyll的配置文件，大多数只用设置baseurl选项，若缺少该文件，系统会自动生成一份默认配置，具体解释参考 &lt;a href=&quot;https://github.com/mojombo/jekyll/wiki/Configuration&quot;&gt;官方教程&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;_layouts:&lt;/p&gt;
-&lt;ul&gt;
-	&lt;li&gt;这是一个用于存放模板文件的目录，可以自定义页面的排版，Jekyll使用 &lt;a href=&quot;https://github.com/shopify/liquid/wiki/liquid-for-designers&quot;&gt;Liquid模板语言&lt;/a&gt; ，可参考 &lt;a href=&quot;https://github.com/mojombo/jekyll/wiki/Template-Data&quot;&gt;官方文档&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;_posts:&lt;/p&gt;
-&lt;ul&gt;
-	&lt;li&gt;这里就是存放你博文的目录，有固定的命名方式&amp;quot;年-月-日-文章标题.后缀名&amp;quot;，至于后缀名则看你所使用的文档编写语言，纯网页代码则是.html后缀；若使用了轻量级标记语言，如markdown则.md后缀，textile则.textile后缀&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;index.html:&lt;/p&gt;
-&lt;ul&gt;
-	&lt;li&gt;经常和web打交道的同学应该很熟系这个文件，这里也用它表示博客的首页&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;下面用简单的图来表示这些文件的逻辑关系：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;/images/buildBlog_7.0.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-&lt;p&gt;PS:&lt;/p&gt;
-&lt;ul&gt;
-	&lt;li&gt;为图补些文字说明，其实最想表达的核心思想就是 模板+博文+环境配置=每一页博客，而且这这个式子里，只有博文是不同，模板和环境一般都只用配置一次。当然你也可以把博客里的每一页都设置成不同的样式, 决定权完全取决于你 :)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3&gt;2、动手编写一个实例&lt;/h3&gt;
-&lt;ol&gt;
-	&lt;li&gt;按照之前的文件组织在本地创建一份, 假设主目录名为MainDir&lt;/li&gt;
-&lt;/ol&gt;
-&lt;ol start=&quot;2&quot;&gt;
-	&lt;li&gt;编写_config.yml&lt;/li&gt;
-&lt;/ol&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;html&quot;&gt;baseurl:/MainDir
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&quot;3&quot;&gt;
-	&lt;li&gt;编写_layouts目录下的default.html文件&lt;/li&gt;
-&lt;/ol&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;html&quot;&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;!DOCTYPE html&amp;gt;&lt;/span&gt;
+|-- index.html&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2&gt;jekyll文件和目录介绍&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;config.yml :&lt;/strong&gt;&lt;br /&gt;
+它是jekyll的配置文件, 大多数只用设置baseurl选项, 若缺少该文件, 系统会自动生成一份默认配置, 具体解释参考 &lt;a href=&quot;https://github.com/mojombo/jekyll/wiki/Configuration&quot;&gt;官方教程&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;_layouts :&lt;/strong&gt;&lt;br /&gt;
+这是一个用于存放模板文件的目录, 可以自定义页面的排版, Jekyll使用 &lt;a href=&quot;https://github.com/shopify/liquid/wiki/liquid-for-designers&quot;&gt;Liquid模板语言&lt;/a&gt; , 可参考 &lt;a href=&quot;https://github.com/mojombo/jekyll/wiki/Template-Data&quot;&gt;官方文档&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;_posts :&lt;/strong&gt;&lt;br /&gt;
+这里就是存放你博文的目录, 有固定的命名方式&amp;quot;年-月-日-文章标题.后缀名&amp;quot;, 至于后缀名则看你所使用的文档编写语言, 纯网页代码则是.html后缀: 若使用了轻量级标记语言, 如markdown则.md后缀, textile则.textile后缀&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;index.html :&lt;/strong&gt;&lt;br /&gt;
+经常和web打交道的同学应该很熟系这个文件, 这里也用它表示博客的首页&lt;/p&gt;
+&lt;p&gt;核心思想就是 &lt;strong&gt;模板+博文+环境配置=每一页博客&lt;/strong&gt; , 而且这这个式子里, 只有博文是不同, 模板和环境一般都只用配置一次. 当然你也可以把博客里的每一页都设置成不同的样式, 决定权完全取决于你&lt;/p&gt;
+&lt;h1&gt;小试牛刀&lt;/h1&gt;
+&lt;p&gt;按照之前的文件组织在本地创建一份, 假设主目录名为MainDir&lt;/p&gt;
+&lt;h2&gt;_config.yml文件&lt;/h2&gt;
+&lt;p&gt;jekyll 的全局配置在 _config.yml 文件中配置, 比如网站的名字, 网站的域名, 网站的链接格式, _config.yml简单例子:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;baseurl:/MainDir&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2&gt;default.html文件&lt;/h2&gt;
+&lt;p&gt;对于网站的布局, 我们一般会写成模板的形式, 这样对于写实质性的内容时, 比如文章, 只需要专心写文章的内容, 然后加个标签指定用哪个模板即可. 对于内容, 属于继承模板. 为什么这样说呢? 因为这个模板时可以多层嵌套的, 内容实际上是模板的叶子节点而已. _layouts目录下的default.html文件例子:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;!DOCTYPE html&amp;gt;&lt;/span&gt;
 &lt;span class=&quot;nt&quot;&gt;&amp;lt;html&amp;gt;&lt;/span&gt;
 &lt;span class=&quot;nt&quot;&gt;&amp;lt;head&amp;gt;&lt;/span&gt;
-	&lt;span class=&quot;nt&quot;&gt;&amp;lt;meta&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;http-equiv=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;content-type&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;content=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;text/html; charset=utf-8&amp;quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
-	&lt;span class=&quot;nt&quot;&gt;&amp;lt;title&amp;gt;&lt;/span&gt;{{ page.title }}&lt;span class=&quot;nt&quot;&gt;&amp;lt;/title&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;meta&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;http-equiv=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;content-type&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;content=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;text/html; charset=utf-8&amp;quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;title&amp;gt;&lt;/span&gt;{{ page.title }}&lt;span class=&quot;nt&quot;&gt;&amp;lt;/title&amp;gt;&lt;/span&gt;
 &lt;span class=&quot;nt&quot;&gt;&amp;lt;/head&amp;gt;&lt;/span&gt;
 &lt;span class=&quot;nt&quot;&gt;&amp;lt;body&amp;gt;&lt;/span&gt;
     {{ content }}
 &lt;span class=&quot;nt&quot;&gt;&amp;lt;/body&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/html&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
-	&lt;li&gt;PS:
-	&lt;ul&gt;
-		&lt;li&gt;{{ page.title }}表示文章标题，{{ content }}表示文章内容&lt;/li&gt;
-	&lt;/ul&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;ol start=&quot;4&quot;&gt;
-	&lt;li&gt;编写_posts目录下的2013-04-03-buildBlog.html文件&lt;/li&gt;
-&lt;/ol&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;html&quot;&gt;---
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/html&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;PS : {{ page.title }}表示文章标题, {{ content }}表示文章内容&lt;/p&gt;
+&lt;h2&gt;blog文件&lt;/h2&gt;
+&lt;p&gt;博客文章内容, 编写_posts目录下的2013-04-03-buildBlog.html文件例子:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;---
 layout: default
 title: buildBlog
 ---
 &lt;span class=&quot;nt&quot;&gt;&amp;lt;h2&amp;gt;&lt;/span&gt;{{ page.title }}&lt;span class=&quot;nt&quot;&gt;&amp;lt;/h2&amp;gt;&lt;/span&gt;
 &lt;span class=&quot;nt&quot;&gt;&amp;lt;p&amp;gt;&lt;/span&gt;Let&amp;#39;s go to build own blog&lt;span class=&quot;nt&quot;&gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;p&amp;gt;&lt;/span&gt;{{ page.date | date_to_string }}&lt;span class=&quot;nt&quot;&gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
-	&lt;li&gt;PS:
-	&lt;ul&gt;
-		&lt;li&gt;在 &lt;code&gt;---&lt;/code&gt; 之间的内容是yaml文件头，用于设置特定标识的元数据，比如 “layout” 参数设置使用_layouts目录下的同名模板作为博客的模板, 其他的设置项可以在 &lt;a href=&quot;https://github.com/mojombo/jekyll/wiki/YAML-Front-Matter&quot;&gt;这里&lt;/a&gt; 查找&lt;/li&gt;
-	&lt;/ul&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;ol start=&quot;5&quot;&gt;
-	&lt;li&gt;编写index.html文件&lt;/li&gt;
-&lt;/ol&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;pre&amp;gt;&amp;lt;code&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;p&amp;gt;&lt;/span&gt;{{ page.date | date_to_string }}&lt;span class=&quot;nt&quot;&gt;&amp;lt;/p&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;PS: 在 &lt;code&gt;---&lt;/code&gt; 之间的内容是yaml文件头, 用于设置特定标识的元数据, 比如 “layout” 参数设置使用_layouts目录下的同名模板作为博客的模板, 其他的设置项可以在 &lt;a href=&quot;https://github.com/mojombo/jekyll/wiki/YAML-Front-Matter&quot;&gt;这里&lt;/a&gt; 查找&lt;/p&gt;
+&lt;h2&gt;index.html文件&lt;/h2&gt;
+&lt;p&gt;博客首页, 编写index.html文件例子:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;pre&amp;gt;&amp;lt;code&amp;gt;&lt;/span&gt;
 ---
 layout: default
 title: 大家一起来写博客吧
@@ -104,119 +72,92 @@ title: 大家一起来写博客吧
 &lt;span class=&quot;nt&quot;&gt;&amp;lt;h2&amp;gt;&lt;/span&gt;{{ page.title }}&lt;span class=&quot;nt&quot;&gt;&amp;lt;/h2&amp;gt;&lt;/span&gt;
 &lt;span class=&quot;nt&quot;&gt;&amp;lt;p&amp;gt;&lt;/span&gt;大家一起来写博客吧&lt;span class=&quot;nt&quot;&gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
 &lt;span class=&quot;nt&quot;&gt;&amp;lt;ul&amp;gt;&lt;/span&gt;
-	{% for post in site.posts %}
-	&lt;span class=&quot;nt&quot;&gt;&amp;lt;li&amp;gt;&lt;/span&gt;{{ post.date | date_to_string }}&lt;span class=&quot;nt&quot;&gt;&amp;lt;a&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;{{ site.baseurl }} {{ post.url }}&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;{{ post.title }}&lt;span class=&quot;nt&quot;&gt;&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;&lt;/span&gt;
-	{% endfor %}
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/ul&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&quot;6&quot;&gt;
-	&lt;li&gt;编写完成，接下来需要进行测试，一种方法就是将代码push到github服务，然后用域名 “username.github.com” 访问，不过每次都这样为了测试频繁push似乎太麻烦了，能不能在本地进行jekyll测试呢？答案是肯定的，搞起：&lt;/li&gt;
-&lt;/ol&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;linux 环境&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;推荐&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;：
-系统一般都预装了Ruby，Jekyll是Ruby开发的，可以直接安装, 
+    {% for post in site.posts %}
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;li&amp;gt;&lt;/span&gt;{{ post.date | date_to_string }}
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;a&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;{{ site.baseurl }} {{ post.url }}&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;{{ post.title }}&lt;span class=&quot;nt&quot;&gt;&amp;lt;/a&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;/li&amp;gt;&lt;/span&gt;
+    {% endfor %}
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/ul&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2&gt;本地测试&lt;/h2&gt;
+&lt;p&gt;编写完成, 接下来需要进行测试, 一种方法就是将代码push到github服务, 然后用域名 “username.github.com” 访问, 不过每次都这样为了测试频繁push似乎太麻烦了, 能不能在本地进行jekyll测试呢? 答案是肯定的, 搞起:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;linux 环境&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;推荐&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;:
+系统一般都预装了Ruby, Jekyll是Ruby开发的, 可以直接安装,
 &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;gem install Jekyll
 &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;jekyll --version
-Jekyll 0.12.1
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;windons 环境请参考 &lt;a href=&quot;http://www.cnblogs.com/purediy/archive/2013/03/07/2948892.html&quot;&gt;这里&lt;/a&gt;&lt;/p&gt;
-&lt;ol start=&quot;7&quot;&gt;
-	&lt;li&gt;本地jekyll测试环境搭建好后，测试开始：&lt;/li&gt;
-&lt;/ol&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;MainDir
+Jekyll 0.12.1&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;windons 环境请参考 &lt;a href=&quot;http://www.cnblogs.com/purediy/archive/2013/03/07/2948892.html&quot;&gt;这里&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;本地jekyll测试环境搭建好后, 测试开始:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;MainDir
 &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;jekyll --server
 WARNING: Could not &lt;span class=&quot;nb&quot;&gt;read &lt;/span&gt;configuration. Using defaults &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;and options&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;.
-	Invalid configuration - /home/lxinji/MainDir/_config.yml
+    Invalid configuration - /home/lxinji/MainDir/_config.yml
 Building site: /home/lxinji/MainDir -&amp;gt; /home/lxinji/MainDir/_site
 Successfully generated site: /home/lxinji/MainDir -&amp;gt; /home/lxinji/MainDir/_site
 &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;2013-04-04 03:03:37&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; INFO  WEBrick 1.3.1
 &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;2013-04-04 03:03:37&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; INFO  ruby 1.8.7 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;2011-06-30&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;i686-linux&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
 &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;2013-04-04 03:03:42&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; WARN  TCPServer Error: Address already in use - &lt;span class=&quot;nb&quot;&gt;bind&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;2&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;2013-04-04 03:03:42&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; INFO  WEBrick::HTTPServer#start: &lt;span class=&quot;nv&quot;&gt;pid&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;13554 &lt;span class=&quot;nv&quot;&gt;port&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;4000
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
-	&lt;li&gt;PS:
-	&lt;ul&gt;
-		&lt;li&gt;若看到上面的打印则表示jekyll已经帮你生成好了页面，服务绑定在localhost:4000，现在可以在浏览器中键入 http://localhost:4000/ 开始测试DIY的博客啦&lt;/li&gt;
-	&lt;/ul&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;ol start=&quot;8&quot;&gt;
-	&lt;li&gt;若以上的过程都顺利完成了，那么接下来的最后一步就是将你的博客发布出去:&lt;/li&gt;
-&lt;/ol&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git clone http://github.com/username/username.github.com
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;2013-04-04 03:03:42&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; INFO  WEBrick::HTTPServer#start: &lt;span class=&quot;nv&quot;&gt;pid&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;13554&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;port&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;4000&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;PS: 若看到上面的打印则表示jekyll已经帮你生成好了页面, 服务绑定在localhost:4000, 现在可以在浏览器中键入 http://localhost:4000/ 开始测试DIY的博客啦&lt;/p&gt;
+&lt;p&gt;若以上的过程都顺利完成了, 那么接下来的最后一步就是将你的博客发布出去:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git clone http://github.com/username/username.github.com
 &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;username.github.com
 &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;rm -rf &lt;span class=&quot;s2&quot;&gt;&amp;quot;除了.git外的所有文件&amp;quot;&lt;/span&gt;
 &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;cp -r ../MainDir ./
 &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;jekyll --server &lt;span class=&quot;c&quot;&gt;#再验证一次&lt;/span&gt;
 &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git add .
 &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git commit -am &lt;span class=&quot;s2&quot;&gt;&amp;quot;first update&amp;quot;&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git push
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
-	&lt;li&gt;PS:
-	&lt;ul&gt;
-		&lt;li&gt;过几分钟你就可以用username.github.com访问你上传的博客了,恭喜 :)&lt;/li&gt;
-	&lt;/ul&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3&gt;一些扩展&lt;/h3&gt;
-&lt;ul&gt;
-	&lt;li&gt;&lt;a href=&quot;http://www.kuqin.com/managetool/20110705/92113.html&quot;&gt;10篇写给Git初学者的教程&lt;/a&gt;&lt;/li&gt;
-	&lt;li&gt;&lt;a href=&quot;http://www.yangzhiping.com/tech/writing-space.html&quot;&gt;理想的写作环境：git+github+markdown+jekyll&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;最后也恭喜下自己，因为4月2日博客的访问量突破50PV，激动之余决定赶夜把最后一篇写完，在这里感谢关注我博客的同学，希望给我多提意见和建议，谢谢:)&lt;/p&gt;</content>
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git push&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;PS: 过几分钟你就可以用username.github.com访问你上传的博客了,恭喜 : )&lt;/p&gt;
+&lt;h1&gt;一些扩展&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.kuqin.com/managetool/20110705/92113.html&quot;&gt;10篇写给Git初学者的教程&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&quot;http://www.yangzhiping.com/tech/writing-space.html&quot;&gt;理想的写作环境:git+github+markdown+jekyll&lt;/a&gt;&lt;/p&gt;</content>
  </entry>
  
  <entry>
-   <title>让大家一起来写blog吧-搭建篇</title>
+   <title>一起写blog-搭建篇</title>
    <link href="http://dyang.github.com/blog/2013/03/30/buildBlog_3.html"/>
    <updated>2013-03-30T00:00:00+08:00</updated>
    <id>http://dyang.github.com/blog/2013/03/30/buildBlog_3</id>
-   <content type="html">&lt;h3&gt;搭建篇&lt;/h3&gt;
-&lt;h3&gt;GitHub Pages 搭建&lt;/h3&gt;
-&lt;p&gt;紧接着第二章配置篇，在第二章已经完成了本地Git环境配置，那么接下来就可以搭建Github Pages。其实只需要两步，就可以完成个人主页的搭建：&lt;/p&gt;
-&lt;h3&gt;PS：若想创建形如“username.github.com”域名主页，每个用户名只能创建一个&lt;/h3&gt;
-&lt;h3&gt;1、用你创建的GitHub帐号 &lt;a href=&quot;http://github.com&quot;&gt;登录 Github&lt;/a&gt;, 接下来点击右上角“create a new repo”创建新的代码仓库&lt;/h3&gt;
-&lt;p&gt;PS:&lt;/p&gt;
-&lt;ul&gt;
-	&lt;li&gt;创建仓库名(Repository Name)格式：username.github.com, 比如：leevenluo.github.com；之后点击“Create Repository”完成创建&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3&gt;2、点击代码代码仓库右边的&amp;quot;setting”:(若找不到，可点击刚创建的代码仓库名回到仓库主页面)&lt;/h3&gt;
+   <content type="html">&lt;h1&gt;搭建篇&lt;/h1&gt;
+&lt;h1&gt;GitHub Pages 搭建&lt;/h1&gt;
+&lt;p&gt;紧接着第二章配置篇, 在第二章已经完成了本地Git环境配置, 那么接下来就可以搭建Github Pages。其实只需要两步, 就可以完成个人主页的搭建:&lt;/p&gt;
+&lt;p&gt;PS: 若想创建形如“username.github.com”域名主页, 每个用户名只能创建一个&lt;/p&gt;
+&lt;h2&gt;创建GitHub帐号&lt;/h2&gt;
+&lt;p&gt;用你创建的GitHub帐号 &lt;a href=&quot;http://github.com&quot;&gt;登录 Github&lt;/a&gt;, 接下来点击右上角“create a new repo”创建新的代码仓库&lt;/p&gt;
+&lt;p&gt;PS: 创建仓库名(Repository Name)格式:username.github.com, 比如:leevenluo.github.com；之后点击“Create Repository”完成创建&lt;/p&gt;
+&lt;h2&gt;生成项目个人主页&lt;/h2&gt;
+&lt;p&gt;点击代码代码仓库右边的&amp;quot;setting”:(若找不到, 可点击刚创建的代码仓库名回到仓库主页面)&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;/images/buildBlog_5.0.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-&lt;p&gt;在下面找到“Github Pages”&amp;#8212;&amp;gt;&amp;quot;Automatic Page Generator&amp;quot;, 到页面最下面点击“Continue To Layouts”, 然后就可以看到Github为你自动生成的主页，这时你可以在上面列出的几种主题里选择你喜欢的，然后点击“Publish”：&lt;/p&gt;
+&lt;p&gt;在下面找到“Github Pages”&amp;#8212;&amp;gt;&amp;quot;Automatic Page Generator&amp;quot;, 到页面最下面点击“Continue To Layouts”, 然后就可以看到Github为你自动生成的主页, 这时你可以在上面列出的几种主题里选择你喜欢的, 然后点击“Publish”:&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;/images/buildBlog_6.0.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-&lt;p&gt;恭喜你，这时你已经创建好了个人主页，主页域名是：username.github.com, 不过你需要短暂的等待几分钟才可以正常访问，因为github需要时间为你生效你的配置。&lt;/p&gt;
-&lt;p&gt;细心的读者应该已经发现你创建的代码仓库里已经有了代码，没错，那个就是Github为你生成个人主页的模板,在下一篇里我会和你一起来了解该如何编写和提交个人主页代码。&lt;/p&gt;
-&lt;p&gt;一些扩展：&lt;br /&gt;
-&lt;a href=&quot;https://help.github.com/categories/20/articles&quot;&gt;Github Pages官方教程&lt;/a&gt;&lt;/p&gt;</content>
+&lt;p&gt;恭喜你, 这时你已经创建好了个人主页, 主页域名是:username.github.com, 不过你需要短暂的等待几分钟才可以正常访问, 因为github需要时间为你生效你的配置。&lt;/p&gt;
+&lt;p&gt;细心的读者应该已经发现你创建的代码仓库里已经有了代码, 没错, 那个就是Github为你生成个人主页的模板,在下一篇里我会和你一起来了解该如何编写和提交个人主页代码。&lt;/p&gt;
+&lt;h1&gt;一些扩展&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&quot;https://help.github.com/categories/20/articles&quot;&gt;Github Pages官方教程&lt;/a&gt;&lt;/p&gt;</content>
  </entry>
  
  <entry>
-   <title>让大家一起来写blog吧-配置篇</title>
+   <title>一起写blog-配置篇</title>
    <link href="http://dyang.github.com/blog/2013/03/28/buildBlog_2.html"/>
    <updated>2013-03-28T00:00:00+08:00</updated>
    <id>http://dyang.github.com/blog/2013/03/28/buildBlog_2</id>
-   <content type="html">&lt;h3&gt;配置篇&lt;/h3&gt;
-&lt;h3&gt;一、配置和使用Github&lt;/h3&gt;
-&lt;p&gt;要使用Git，需要安装它的客户端，推荐在Linux下使用Git，会比较方便。Windows版的下载地址在 &lt;a href=&quot;http://code.google.com/p/msysgit/downloads/list&quot;&gt;这里&lt;/a&gt; 。其他系统的安装也可以参考 &lt;a href=&quot;https://help.github.com/articles/set-up-git&quot;&gt;官方的安装教程&lt;/a&gt; 。&lt;br /&gt;
-下载安装客户端之后，各个系统的配置就类似了，我们使用windows作为例子，Linux和Mac与此类似。&lt;br /&gt;
-为了更好的完成下面的步骤，建议先到 &lt;a href=&quot;http://github.com&quot;&gt;Github站点&lt;/a&gt; 申请自己的帐号，因为后面的步骤中需要用到。&lt;br /&gt;
-在Windows下，打开Git Bash，其他系统下面则打开终端（Terminal）&lt;/p&gt;
-&lt;h3&gt;注意：下面的步骤是设置给Github提交代码的权限&lt;/h3&gt;
-&lt;h3&gt;1、检查SSH keys的设置&lt;/h3&gt;
-&lt;p&gt;首先我们需要检查你电脑上现有的ssh key：&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ~/.ssh
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;如果显示“No such file or directory”，跳到第三步，否则继续。&lt;/p&gt;
-&lt;h3&gt;2、备份和移除原来的ssh key设置：&lt;/h3&gt;
-&lt;p&gt;因为已经存在key文件，所以需要备份旧的数据并删除：&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;ls 
+   <content type="html">&lt;h1&gt;配置篇&lt;/h1&gt;
+&lt;h1&gt;配置和使用Github&lt;/h1&gt;
+&lt;p&gt;要使用Git, 需要安装它的客户端, 推荐在Linux下使用Git, 会比较方便. Windows版的下载地址在 &lt;a href=&quot;http://code.google.com/p/msysgit/downloads/list&quot;&gt;这里&lt;/a&gt; . 其他系统的安装也可以参考 &lt;a href=&quot;https://help.github.com/articles/set-up-git&quot;&gt;官方的安装教程&lt;/a&gt; .&lt;/p&gt;
+&lt;p&gt;下载安装客户端之后, 各个系统的配置就类似了, 我们使用windows作为例子, Linux和Mac与此类似. 为了更好的完成下面的步骤, 建议先到 &lt;a href=&quot;http://github.com&quot;&gt;Github站点&lt;/a&gt; 申请自己的帐号, 因为后面的步骤中需要用到. 在Windows下, 打开Git Bash, 其他系统下面则打开终端（Terminal）&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;注意: 下面的步骤是设置给Github提交代码的权限&lt;/strong&gt;&lt;/p&gt;
+&lt;h2&gt;检查SSH keys的设置&lt;/h2&gt;
+&lt;p&gt;首先我们需要检查你电脑上现有的ssh key:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ~/.ssh&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;如果显示“No such file or directory”, 跳到第三步, 否则继续.&lt;/p&gt;
+&lt;h2&gt;保存ssh key设置&lt;/h2&gt;
+&lt;p&gt;因为已经存在key文件, 所以需要备份旧的数据并删除:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;ls
 id_rsa  id_rsa.pub  known_hosts
 &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;mkdir key_backup
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;mv id_rsa* key_backup
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3&gt;3、生成新的SSH Key：&lt;/h3&gt;
-&lt;p&gt;输入下面的代码，就可以生成新的key文件，我们只需要默认设置就好，所以当需要输入文件名的时候，回车就好。&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;ssh-keygen -t rsa -C &lt;span class=&quot;s2&quot;&gt;&amp;quot;邮件地址@youremail.com&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;mv id_rsa* key_backup&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2&gt;生成新的SSH Key&lt;/h2&gt;
+&lt;p&gt;输入下面的代码, 就可以生成新的key文件, 我们只需要默认设置就好, 所以当需要输入文件名的时候, 回车就好.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;ssh-keygen -t rsa -C &lt;span class=&quot;s2&quot;&gt;&amp;quot;邮件地址@youremail.com&amp;quot;&lt;/span&gt;
 Generating public/private rsa key pair.
-Enter file in which to save the key &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;/Users/your_user_directory/.ssh/id_rsa&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;:&amp;lt;回车就好&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;然后系统会要你输入加密串（Passphrase）：&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;Enter passphrase &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;empty &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;no passphrase&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;:&amp;lt;输入加密串&amp;gt;
-Enter same passphrase again:&amp;lt;再次输入加密串&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;最后看到这样的界面，就成功设置ssh key了：&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;Your identification has been saved in /home/lxinji/.ssh/id_rsa.
+Enter file in which to save the key &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;/Users/your_user_directory/.ssh/id_rsa&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;:&amp;lt;回车就好&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;然后系统会要你输入加密串（Passphrase）:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;Enter passphrase &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;empty &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; no passphrase&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;:&amp;lt;输入加密串&amp;gt;
+Enter same passphrase again:&amp;lt;再次输入加密串&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;最后看到这样的界面, 就成功设置ssh key了:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;Your identification has been saved in /home/lxinji/.ssh/id_rsa.
 Your public key has been saved in /home/lxinji/.ssh/id_rsa.pub.
 The key fingerprint is:
 6a:a4:c9:98:85:48:c4:c9:38:9e:90:fa:23:b8:ca:54 loxinji@gmail.com
@@ -231,74 +172,53 @@ The key&lt;span class=&quot;err&quot;&gt;&amp;#39;&lt;/span&gt;s randomart image
 &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; +o.+ o          &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt;+    .           &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt;o.               &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt;
-+-----------------+
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3&gt;4、添加SSH Key到GitHub：&lt;/h3&gt;
-&lt;p&gt;在本机设置SSH Key之后，需要添加到GitHub上，以完成SSH链接的设置。&lt;br /&gt;
-用文本编辑工具打开id_rsa.pub文件，如果看不到这个文件，你需要设置显示隐藏文件。准确的复制这个文件的内容，才能保证设置的成功。&lt;br /&gt;
-在GitHub的主页上右上角点击设置按钮：&lt;/p&gt;
++-----------------+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2&gt;添加SSH Key到GitHub&lt;/h2&gt;
+&lt;p&gt;在本机设置SSH Key之后, 需要添加到GitHub上, 以完成SSH链接的设置. 用文本编辑工具打开id_rsa.pub文件, 如果看不到这个文件, 你需要设置显示隐藏文件. 准确的复制这个文件的内容, 才能保证设置的成功. 在GitHub的主页上右上角点击设置按钮:&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;/images/buildBlog_4.0.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-&lt;p&gt;在左侧选择SSH Keys项，点击“Add &lt;span class=&quot;caps&quot;&gt;SSH&lt;/span&gt; key”, 把复制的内容粘贴进去，然后点击Add Key按钮即可，注意：若添加不成功，请重新复制本地SSH Keys&lt;/p&gt;
-&lt;h3&gt;5、测试一下&lt;/h3&gt;
-&lt;p&gt;可以输入下面的命令，看看设置是否成功，git@github.com的部分不要修改：&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;ssh -T git@github.com
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;如果是下面的反应(本人配置没有出现过，若出现可以参考以下方法)：&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;The authenticity of host &lt;span class=&quot;s1&quot;&gt;&amp;#39;github.com (207.97.227.239)&amp;#39;&lt;/span&gt; can&lt;span class=&quot;err&quot;&gt;&amp;#39;&lt;/span&gt;t be established.
+&lt;p&gt;在左侧选择SSH Keys项, 点击“Add &lt;span class=&quot;caps&quot;&gt;SSH&lt;/span&gt; key”, 把复制的内容粘贴进去, 然后点击Add Key按钮即可, 注意: 若添加不成功, 请重新复制本地SSH Keys&lt;/p&gt;
+&lt;h2&gt;验证效果&lt;/h2&gt;
+&lt;p&gt;可以输入下面的命令, 看看设置是否成功, git@github.com的部分不要修改:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;ssh -T git@github.com&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;如果是下面的反应(本人配置没有出现过, 若出现可以参考以下方法):&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;The authenticity of host &lt;span class=&quot;s1&quot;&gt;&amp;#39;github.com (207.97.227.239)&amp;#39;&lt;/span&gt; can&lt;span class=&quot;err&quot;&gt;&amp;#39;&lt;/span&gt;t be established.
 RSA key fingerprint is 16:27:ac:a5:76:28:2d:36:63:1b:56:4d:eb:df:a6:48.
-Are you sure you want to &lt;span class=&quot;k&quot;&gt;continue &lt;/span&gt;connecting &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;yes/no&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;?
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;不要紧张，输入yes就好，然后会看到：&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;Hi &amp;lt;em&amp;gt;username&amp;lt;/em&amp;gt;! You&lt;span class=&quot;err&quot;&gt;&amp;#39;&lt;/span&gt;ve successfully authenticated, but GitHub does not provide shell access.
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;到这里，已经生成了SSH Key，这里的主要作用是在本地Git和Github进行连接时必须要进行身份确认，SSH key就是认证凭证。&lt;/p&gt;
-&lt;h3&gt;6、设置你的账号信息&lt;/h3&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git config --global user.name &lt;span class=&quot;s2&quot;&gt;&amp;quot;你的名字&amp;quot;&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git config --global user.email &lt;span class=&quot;s2&quot;&gt;&amp;quot;your_email@youremail.com&amp;quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;现在你可以成功连接GitHub了,测试连接放在下一篇里，因为现在你的远程仓库中还没有代码可以pull到本地。&lt;/p&gt;</content>
+Are you sure you want to &lt;span class=&quot;k&quot;&gt;continue&lt;/span&gt; connecting &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;yes/no&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;?&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;不要紧张, 输入yes就好, 然后会看到:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;Hi &amp;lt;em&amp;gt;username&amp;lt;/em&amp;gt;! You&lt;span class=&quot;err&quot;&gt;&amp;#39;&lt;/span&gt;ve successfully authenticated, but GitHub does not provide shell access.&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;到这里, 已经生成了SSH Key, 这里的主要作用是在本地Git和Github进行连接时必须要进行身份确认, &lt;span class=&quot;caps&quot;&gt;SSH&lt;/span&gt; key就是认证凭证.&lt;/p&gt;
+&lt;h2&gt;设置你的账号信息&lt;/h2&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git config --global user.name &lt;span class=&quot;s2&quot;&gt;&amp;quot;你的名字&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git config --global user.email &lt;span class=&quot;s2&quot;&gt;&amp;quot;your_email@youremail.com&amp;quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;现在你可以成功连接GitHub了,测试连接放在下一篇里, 因为现在你的远程仓库中还没有代码可以pull到本地.&lt;/p&gt;</content>
  </entry>
  
  <entry>
-   <title>让大家一起来写blog吧-起始篇</title>
+   <title>一起写blog-起始篇</title>
    <link href="http://dyang.github.com/blog/2013/03/28/buildBlog_1.html"/>
    <updated>2013-03-28T00:00:00+08:00</updated>
    <id>http://dyang.github.com/blog/2013/03/28/buildBlog_1</id>
-   <content type="html">&lt;h3&gt;起始篇&lt;/h3&gt;
-&lt;p&gt;我这里所讲的博客搭建环境是:&lt;b&gt;github pages + jekyll&lt;/b&gt;&lt;/p&gt;
-&lt;p&gt;在这里，先感谢以下文章的作者，是你们的博文让我可以成功搭建博客，在我的文章中或多或少的引用了你们文章中的片段，只为更多的朋友能早日建立属于他们自己的博客！&lt;br /&gt;
-&lt;a href=&quot;http://beiyuu.com/github-pages/&quot;&gt;beiyuu博客&lt;/a&gt;&lt;br /&gt;
+   <content type="html">&lt;h1&gt;起始篇&lt;/h1&gt;
+&lt;p&gt;我这里所讲的博客搭建环境是: &lt;b&gt;github pages + jekyll&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;在这里, 先感谢以下文章的作者, 是你们的博文让我可以成功搭建博客, 在我的文章中或多或少的引用了你们文章中的片段, 只为更多的朋友能早日建立属于他们自己的博客！&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://beiyuu.com/github-pages/&quot;&gt;beiyuu博客&lt;/a&gt;&lt;br /&gt;
 &lt;a href=&quot;http://yanping.me/cn/blog/2012/03/18/github-pages-step-by-step/&quot;&gt;yanping博客&lt;/a&gt;&lt;/p&gt;
-&lt;h3&gt;一、什么是gitbub pages？&lt;/h3&gt;
-&lt;p&gt;首先需要介绍下Github，GitHub 是一个用于使用Git版本控制系统项目的共享虚拟主机服务。它由GitHub公司（曾称Logical Awesome）的开发者Chris Wanstrath、PJ Hyett和Tom Preston-Werner使用Ruby on Rails编写而成。总的来说，github 是一个免费的代码管理仓库，负责开发项目的代码托管，关于github的相关信息可以 &lt;a href=&quot;http://zh.wikipedia.org/wiki/GitHub&quot;&gt;点击这里&lt;/a&gt; 。&lt;/p&gt;
-&lt;p&gt;github给你提供了项目的存储空间，在你的项目主页上可以浏览源码树:&lt;br /&gt;
-&lt;img width=&quot;552&quot; height=&quot;230&quot; src=&quot;/images/buildBlog_1.0.png&quot;/&gt;&lt;/p&gt;
-&lt;p&gt;不过这样的项目主页似乎不怎么友好，不能提供简易的操作和展示项目的模型和效果，所以github需要提供一个友好且易于展示项目的平台，github pages就这样诞生了。github Pages可以被认为是用户编写的、托管在github上的静态网页。&lt;/p&gt;
-&lt;p&gt;github提供模板，允许站内生成网页，但也允许用户自己编写网页，然后上传。有意思的是，这种上传并不是单纯的上传，而是会经过Jekyll程序的再处理。&lt;/p&gt;
-&lt;h3&gt;二、Jekyll是什么？&lt;/h3&gt;
-&lt;p&gt;Jekyll（发音/&amp;#8217;dʒiːk əl/，&amp;quot;杰克尔&amp;quot;）是一个静态站点生成器，它会根据网页源码生成静态文件。它提供了模板、变量、插件等功能，所以实际上可以用来编写整个网站。整个思路到这里就很明显了。你先在本地编写符合Jekyll规范的网站源码，然后上传到github，由github生成并托管整个网站。&lt;/p&gt;
-&lt;p&gt;这种做法的好处是：&lt;/p&gt;
+&lt;h1&gt;什么是gitbub pages？&lt;/h1&gt;
+&lt;p&gt;首先需要介绍下Github, GitHub 是一个用于使用Git版本控制系统项目的共享虚拟主机服务. 它由GitHub公司（曾称Logical Awesome）的开发者Chris Wanstrath、PJ Hyett和Tom Preston-Werner使用Ruby on Rails编写而成. 总的来说, github 是一个免费的代码管理仓库, 负责开发项目的代码托管, 关于github的相关信息可以 &lt;a href=&quot;http://zh.wikipedia.org/wiki/GitHub&quot;&gt;点击这里&lt;/a&gt; .&lt;/p&gt;
+&lt;p&gt;github给你提供了项目的存储空间, 在你的项目主页上可以浏览源码树:&lt;/p&gt;
+&lt;p&gt;&lt;img width=&quot;552&quot; height=&quot;230&quot; src=&quot;/images/buildBlog_1.0.png&quot;/&gt;&lt;/p&gt;
+&lt;p&gt;不过这样的项目主页似乎不怎么友好, 不能提供简易的操作和展示项目的模型和效果, 所以github需要提供一个友好且易于展示项目的平台, github pages就这样诞生了. github Pages可以被认为是用户编写的、托管在github上的静态网页.&lt;/p&gt;
+&lt;p&gt;github提供模板, 允许站内生成网页, 但也允许用户自己编写网页, 然后上传. 有意思的是, 这种上传并不是单纯的上传, 而是会经过Jekyll程序的再处理.&lt;/p&gt;
+&lt;h1&gt;Jekyll是什么？&lt;/h1&gt;
+&lt;p&gt;Jekyll（发音/&amp;#8217;dʒiːk əl/, &amp;quot;杰克尔&amp;quot;）是一个静态站点生成器, 它会根据网页源码生成静态文件. 它提供了模板、变量、插件等功能, 所以实际上可以用来编写整个网站. 整个思路到这里就很明显了. 你先在本地编写符合Jekyll规范的网站源码, 然后上传到github, 由github生成并托管整个网站.&lt;/p&gt;
+&lt;p&gt;这种做法的好处是:&lt;/p&gt;
 &lt;ul&gt;
-	&lt;li&gt;免费，无限流量。&lt;/li&gt;
-	&lt;li&gt;享受git的版本管理功能，不用担心文章遗失。&lt;/li&gt;
-	&lt;li&gt;你只要用自己喜欢的编辑器写文章就可以了，其他事情一概不用操心，都由github处理。&lt;/li&gt;
+	&lt;li&gt;免费, 无限流量.&lt;/li&gt;
+	&lt;li&gt;享受git的版本管理功能, 不用担心文章遗失.&lt;/li&gt;
+	&lt;li&gt;你只要用自己喜欢的编辑器写文章就可以了, 其他事情一概不用操心, 都由github处理.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;它的缺点是：&lt;/p&gt;
+&lt;p&gt;它的缺点是:&lt;/p&gt;
 &lt;ul&gt;
-	&lt;li&gt;有一定技术门槛，你必须要懂一点git和网页开发。&lt;/li&gt;
-	&lt;li&gt;它生成的是静态网页，添加动态功能必须使用外部服务，比如评论功能就只能用disqus。&lt;/li&gt;
-	&lt;li&gt;它不适合大型网站，因为没有用到数据库，每运行一次都必须遍历全部的文本文件，网站越大，生成时间越长。&lt;/li&gt;
+	&lt;li&gt;有一定技术门槛, 你必须要懂一点git和网页开发.&lt;/li&gt;
+	&lt;li&gt;它生成的是静态网页, 添加动态功能必须使用外部服务, 比如评论功能就只能用disqus.&lt;/li&gt;
+	&lt;li&gt;它不适合大型网站, 因为没有用到数据库, 每运行一次都必须遍历全部的文本文件, 网站越大, 生成时间越长.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;但是，综合来看，它不失为搭建中小型Blog或项目主页的最佳选项之一。&lt;/p&gt;</content>
- </entry>
- 
- <entry>
-   <title>Love</title>
-   <link href="http://dyang.github.com/life/2013/03/24/love.html"/>
-   <updated>2013-03-24T00:00:00+08:00</updated>
-   <id>http://dyang.github.com/life/2013/03/24/love</id>
-   <content type="html">&lt;p&gt;喜欢让世界充满爱。&lt;/p&gt;
-&lt;p&gt;生活当中的我们，其实时时刻刻都被各种各种的“爱”所包围着，比如父母对我们的“疼爱”，朋友和同事对我们的“关爱”等等，我们既是爱的接收者，同时，我们也是爱的发送者，让身边的他人感受到我对他们的爱。&lt;br /&gt;
-“爱”既是虚的也是实实在在的，在刚刚所表述的在与他人建立“爱”的这层关系上，爱是以“虚”的状态而存在，它就像是媒介负责传递着一种特有的感情；而对于我们自身这个秉承着传递者和接受者这两种重要角色而言，当“爱”给我们传递感情时，感受却是真实的。&lt;br /&gt;
-打小开始，我就是家中的宝，父母对我关怀备至的爱让我可以无忧无虑的躲在温室中，直到我读到高中，那一年，母亲对我的关心在乎在那时的我看来要比父亲对我的多得多。一天的深夜，因为课程量较大，我不得不“赶夜车”到凌晨，平常父母亲都已经熟睡，可是就在这时我听到了父亲熟悉的脚步声，他轻敲门后，手里端着一碗热腾腾的面走到我的书桌前，说：“今天功课很多吧，这么晚还没睡，肚子饿坏了吧，给你下了一碗面”，紧接着一阵深深感动&amp;#8230;之后的生活让我逐渐理解到，其实父亲和母亲都在一直关心爱护着我的一切，只是以不同的方式把爱给予我。&lt;br /&gt;
-父母对我的爱给我产生了非常积极正面的影响，教会了我如何去爱身边的每一个人。&lt;br /&gt;
-三年的高中时光虽然让我步入了理想的大学，但是也让我远离了我的父母。虽然以后很多的事情都不可以再依赖父母，不过我相信我可以独立，因为父母的爱让我坚强。大学不再像高中那样单纯，而在面对这些的时候，我始终抱着一种“以爱换爱”的态度来面对。“以爱换爱”等同于“以心换心”，要想赢得别人对自己的信任首先自己得先信任别人。无论是对待同学或同事，我都会坚持这样的原则来行事。虽然不能保证这样的结果一定是好的，至少作为自己可以问心无愧。转眼间，四年的大学时光已经接近尾声，回首四年，大多数的朋友都是自己的知己，学业完成之时我要感谢一路陪我走过的朋友们，是你们的关心让我走到现在，纵使以后不能工作同一城市，但凡朋友有需要的地方，我都会竭尽全力帮忙。&lt;br /&gt;
-在我的演讲中，我无法阐释爱的全部，因为爱无法界定。不过正是它的无法界定，才让它变得如此伟大。它可以缩小人与人之间的隔阂，可以增强人与人之间的情感；它让社会变得更加的融洽，让阴暗面消亡殆尽；它是真善美的诠释，世间万物都需要它！&lt;/p&gt;</content>
+&lt;p&gt;但是, 综合来看, 它不失为搭建中小型Blog或项目主页的最佳选项之一.&lt;/p&gt;</content>
  </entry>
  
  

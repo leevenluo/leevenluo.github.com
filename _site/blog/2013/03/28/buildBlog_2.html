@@ -1,68 +1,81 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
-  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<!--html4-->
+<!--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">-->
 
+<!--html5-->
+<!DOCTYPE html>
 <html>
-  <head>
-    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <head>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8">
 
-    
-        <meta name="description" content="" />
-    
+        
+            <meta name="description" content="" />
+        
 
-    <title>Leeven Luo - 让大家一起来写blog吧-配置篇</title>
-    <link rel="stylesheet" href="/stylesheets/master.css" type="text/css" media="screen" charset="utf-8"/>
+        <title>Leeven Luo - 一起写blog-配置篇</title>
+        <link rel="stylesheet" href="/dist/css/bootstrap.min.css" type="text/css" media="screen" charset="utf-8"/>
+        <link rel="stylesheet" href="/stylesheets/master.css" type="text/css" media="screen" charset="utf-8"/>
 
-    <!--language highlight-->
-    <link rel="stylesheet" href="/stylesheets/highlight.css" type="text/css" media="all" charset="utf-8"/>
-    <link rel='alternate' type='application/rss+xml' href='http://feeds.feedburner.com/JoinTheConversation' />
+        <!--language highlight-->
+        <link rel="stylesheet" href="/stylesheets/highlight.css" type="text/css" media="all" charset="utf-8"/>
+        <link rel='alternate' type='application/rss+xml' href='http://feeds.feedburner.com/JoinTheConversation'/>
+    </head>
 
-    <script src="/javascripts/jquery.js" type="text/javascript" charset="utf-8"></script>
-    <script src="/javascripts/jquery.github.js" type="text/javascript" charset="utf-8"></script>
+    <body>
+        <header id="header">
+            <hgroup>
+                <h1>leevenluo</h1>
+                <h2>-- Don't put off till tomorrow what shoude be done today</h2>
+            </hgroup>
+        </header>
 
-  </head>
+        <div id="header-hold">
+            <nav id="header-nav">
+                <ul id="main-nav">
+                    <li><a href='/'><span>Home</span></a></li>
+                    <li><a href='/about.html'><span>About</span></a></li>
+                    <li><a href='http://github.com/leevenluo/' target='_blank' rel='me'><span>GitHub</span></a></li>
+                </ul>
 
-  <body>
-  <div id='menu'>
-      <ul>
-          <li><a href='/'>Home</a></li>
-          <li><a href='/blog.html'>Blog</a></li>
-          <li><a href='/about.html'>About</a></li>
-          <li><a href='http://github.com/leevenluo/' target='_blank' rel='me'>GitHub</a></li>
-      </ul>
-  </div>
+                <!-- remain search input
+                <div id="main-search" class="input-group">
+                    <input type="text" id="main-search-input" class="form-control">
+                </div>
+                -->
+            </nav>
+        </div>
 
-  <div id='content'>
-      <div id='wrapper'>
-<div class='post'>
-  <span class='date'>28 Mar 2013</span>
-  <h1><a href='/blog/2013/03/28/buildBlog_2.html'>让大家一起来写blog吧-配置篇</a></h1>
-  <div class='body'><h3>配置篇</h3>
-<h3>一、配置和使用Github</h3>
-<p>要使用Git，需要安装它的客户端，推荐在Linux下使用Git，会比较方便。Windows版的下载地址在 <a href="http://code.google.com/p/msysgit/downloads/list">这里</a> 。其他系统的安装也可以参考 <a href="https://help.github.com/articles/set-up-git">官方的安装教程</a> 。<br />
-下载安装客户端之后，各个系统的配置就类似了，我们使用windows作为例子，Linux和Mac与此类似。<br />
-为了更好的完成下面的步骤，建议先到 <a href="http://github.com">Github站点</a> 申请自己的帐号，因为后面的步骤中需要用到。<br />
-在Windows下，打开Git Bash，其他系统下面则打开终端（Terminal）</p>
-<h3>注意：下面的步骤是设置给Github提交代码的权限</h3>
-<h3>1、检查SSH keys的设置</h3>
-<p>首先我们需要检查你电脑上现有的ssh key：</p>
-<div class="highlight"><pre><code class="bash"><span class="nv">$ </span><span class="nb">cd</span> ~/.ssh
-</code></pre></div><p>如果显示“No such file or directory”，跳到第三步，否则继续。</p>
-<h3>2、备份和移除原来的ssh key设置：</h3>
-<p>因为已经存在key文件，所以需要备份旧的数据并删除：</p>
-<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>ls 
+        <div id='content'>
+            <div class='home_box' id='home_left'>
+                <div id='wrapper'>
+    <div class='post'>
+        <h1>
+            <a href=''>一起写blog-配置篇</a>
+            <div class='date'> - 28 Mar 2013</div>
+        </h1>
+
+        <div class='body'>
+            <div data-spy="scroll" data-target="#article-catalog" data-offset="0">
+                <h1>配置篇</h1>
+<h1>配置和使用Github</h1>
+<p>要使用Git, 需要安装它的客户端, 推荐在Linux下使用Git, 会比较方便. Windows版的下载地址在 <a href="http://code.google.com/p/msysgit/downloads/list">这里</a> . 其他系统的安装也可以参考 <a href="https://help.github.com/articles/set-up-git">官方的安装教程</a> .</p>
+<p>下载安装客户端之后, 各个系统的配置就类似了, 我们使用windows作为例子, Linux和Mac与此类似. 为了更好的完成下面的步骤, 建议先到 <a href="http://github.com">Github站点</a> 申请自己的帐号, 因为后面的步骤中需要用到. 在Windows下, 打开Git Bash, 其他系统下面则打开终端（Terminal）</p>
+<p><strong>注意: 下面的步骤是设置给Github提交代码的权限</strong></p>
+<h2>检查SSH keys的设置</h2>
+<p>首先我们需要检查你电脑上现有的ssh key:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span><span class="nb">cd</span> ~/.ssh</code></pre></div><p>如果显示“No such file or directory”, 跳到第三步, 否则继续.</p>
+<h2>保存ssh key设置</h2>
+<p>因为已经存在key文件, 所以需要备份旧的数据并删除:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>ls
 id_rsa  id_rsa.pub  known_hosts
 <span class="nv">$ </span>mkdir key_backup
-<span class="nv">$ </span>mv id_rsa* key_backup
-</code></pre></div><h3>3、生成新的SSH Key：</h3>
-<p>输入下面的代码，就可以生成新的key文件，我们只需要默认设置就好，所以当需要输入文件名的时候，回车就好。</p>
-<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>ssh-keygen -t rsa -C <span class="s2">&quot;邮件地址@youremail.com&quot;</span>
+<span class="nv">$ </span>mv id_rsa* key_backup</code></pre></div><h2>生成新的SSH Key</h2>
+<p>输入下面的代码, 就可以生成新的key文件, 我们只需要默认设置就好, 所以当需要输入文件名的时候, 回车就好.</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>ssh-keygen -t rsa -C <span class="s2">&quot;邮件地址@youremail.com&quot;</span>
 Generating public/private rsa key pair.
-Enter file in which to save the key <span class="o">(</span>/Users/your_user_directory/.ssh/id_rsa<span class="o">)</span>:&lt;回车就好&gt;
-</code></pre></div><p>然后系统会要你输入加密串（Passphrase）：</p>
-<div class="highlight"><pre><code class="bash">Enter passphrase <span class="o">(</span>empty <span class="k">for </span>no passphrase<span class="o">)</span>:&lt;输入加密串&gt;
-Enter same passphrase again:&lt;再次输入加密串&gt;
-</code></pre></div><p>最后看到这样的界面，就成功设置ssh key了：</p>
-<div class="highlight"><pre><code class="bash">Your identification has been saved in /home/lxinji/.ssh/id_rsa.
+Enter file in which to save the key <span class="o">(</span>/Users/your_user_directory/.ssh/id_rsa<span class="o">)</span>:&lt;回车就好&gt;</code></pre></div><p>然后系统会要你输入加密串（Passphrase）:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">Enter passphrase <span class="o">(</span>empty <span class="k">for</span> no passphrase<span class="o">)</span>:&lt;输入加密串&gt;
+Enter same passphrase again:&lt;再次输入加密串&gt;</code></pre></div><p>最后看到这样的界面, 就成功设置ssh key了:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">Your identification has been saved in /home/lxinji/.ssh/id_rsa.
 Your public key has been saved in /home/lxinji/.ssh/id_rsa.pub.
 The key fingerprint is:
 6a:a4:c9:98:85:48:c4:c9:38:9e:90:fa:23:b8:ca:54 loxinji@gmail.com
@@ -77,92 +90,198 @@ The key<span class="err">&#39;</span>s randomart image is:
 <span class="p">|</span> +o.+ o          <span class="p">|</span>
 <span class="p">|</span>+    .           <span class="p">|</span>
 <span class="p">|</span>o.               <span class="p">|</span>
-+-----------------+
-</code></pre></div><h3>4、添加SSH Key到GitHub：</h3>
-<p>在本机设置SSH Key之后，需要添加到GitHub上，以完成SSH链接的设置。<br />
-用文本编辑工具打开id_rsa.pub文件，如果看不到这个文件，你需要设置显示隐藏文件。准确的复制这个文件的内容，才能保证设置的成功。<br />
-在GitHub的主页上右上角点击设置按钮：</p>
++-----------------+</code></pre></div><h2>添加SSH Key到GitHub</h2>
+<p>在本机设置SSH Key之后, 需要添加到GitHub上, 以完成SSH链接的设置. 用文本编辑工具打开id_rsa.pub文件, 如果看不到这个文件, 你需要设置显示隐藏文件. 准确的复制这个文件的内容, 才能保证设置的成功. 在GitHub的主页上右上角点击设置按钮:</p>
 <p><img src="/images/buildBlog_4.0.jpg" alt="" /></p>
-<p>在左侧选择SSH Keys项，点击“Add <span class="caps">SSH</span> key”, 把复制的内容粘贴进去，然后点击Add Key按钮即可，注意：若添加不成功，请重新复制本地SSH Keys</p>
-<h3>5、测试一下</h3>
-<p>可以输入下面的命令，看看设置是否成功，git@github.com的部分不要修改：</p>
-<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>ssh -T git@github.com
-</code></pre></div><p>如果是下面的反应(本人配置没有出现过，若出现可以参考以下方法)：</p>
-<div class="highlight"><pre><code class="bash">The authenticity of host <span class="s1">&#39;github.com (207.97.227.239)&#39;</span> can<span class="err">&#39;</span>t be established.
+<p>在左侧选择SSH Keys项, 点击“Add <span class="caps">SSH</span> key”, 把复制的内容粘贴进去, 然后点击Add Key按钮即可, 注意: 若添加不成功, 请重新复制本地SSH Keys</p>
+<h2>验证效果</h2>
+<p>可以输入下面的命令, 看看设置是否成功, git@github.com的部分不要修改:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>ssh -T git@github.com</code></pre></div><p>如果是下面的反应(本人配置没有出现过, 若出现可以参考以下方法):</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">The authenticity of host <span class="s1">&#39;github.com (207.97.227.239)&#39;</span> can<span class="err">&#39;</span>t be established.
 RSA key fingerprint is 16:27:ac:a5:76:28:2d:36:63:1b:56:4d:eb:df:a6:48.
-Are you sure you want to <span class="k">continue </span>connecting <span class="o">(</span>yes/no<span class="o">)</span>?
-</code></pre></div><p>不要紧张，输入yes就好，然后会看到：</p>
-<div class="highlight"><pre><code class="bash">Hi &lt;em&gt;username&lt;/em&gt;! You<span class="err">&#39;</span>ve successfully authenticated, but GitHub does not provide shell access.
-</code></pre></div><p>到这里，已经生成了SSH Key，这里的主要作用是在本地Git和Github进行连接时必须要进行身份确认，SSH key就是认证凭证。</p>
-<h3>6、设置你的账号信息</h3>
-<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>git config --global user.name <span class="s2">&quot;你的名字&quot;</span>
-<span class="nv">$ </span>git config --global user.email <span class="s2">&quot;your_email@youremail.com&quot;</span>
-</code></pre></div><p>现在你可以成功连接GitHub了,测试连接放在下一篇里，因为现在你的远程仓库中还没有代码可以pull到本地。</p></div>
-  <div class='sns'>
-    <!-- AddThis Button BEGIN -->
-    <div class="addthis_toolbox addthis_default_style ">
-    <a class="addthis_button_preferred_1"></a>
-    <a class="addthis_button_preferred_2"></a>
-    <a class="addthis_button_preferred_3"></a>
-    <a class="addthis_button_preferred_6"></a>
-    <a class="addthis_button_preferred_7"></a>
-    <a class="addthis_button_compact"></a>
+Are you sure you want to <span class="k">continue</span> connecting <span class="o">(</span>yes/no<span class="o">)</span>?</code></pre></div><p>不要紧张, 输入yes就好, 然后会看到:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">Hi &lt;em&gt;username&lt;/em&gt;! You<span class="err">&#39;</span>ve successfully authenticated, but GitHub does not provide shell access.</code></pre></div><p>到这里, 已经生成了SSH Key, 这里的主要作用是在本地Git和Github进行连接时必须要进行身份确认, <span class="caps">SSH</span> key就是认证凭证.</p>
+<h2>设置你的账号信息</h2>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>git config --global user.name <span class="s2">&quot;你的名字&quot;</span>
+<span class="nv">$ </span>git config --global user.email <span class="s2">&quot;your_email@youremail.com&quot;</span></code></pre></div><p>现在你可以成功连接GitHub了,测试连接放在下一篇里, 因为现在你的远程仓库中还没有代码可以pull到本地.</p>
+            </div>
+        </div>
+
+        <!--
+        <div class='sns'>
+        <div class="addthis_toolbox addthis_default_style ">
+        <a class="addthis_button_preferred_1"></a>
+        <a class="addthis_button_preferred_2"></a>
+        <a class="addthis_button_preferred_3"></a>
+        <a class="addthis_button_preferred_6"></a>
+        <a class="addthis_button_preferred_7"></a>
+        <a class="addthis_button_compact"></a>
+        </div>
+        <script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+        <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4df3c7a42c2a2e7e"></script>
+        </div>
+        -->
+        <br>
+
+        <div class="related">
+            <h3>Related Posts</h3>
+            <table class="post-list">
+                
+                <tr>
+                    <th><a href='/blog/2013/04/03/buildBlog_4.html'>一起写blog-Hacking篇</a></th>
+                    <td>03 Apr 2013</td>
+                    <td><a href='/blog/2013/04/03/buildBlog_4.html#disqus_thread'>Comments</a></td>
+                </tr>
+                
+                <tr>
+                    <th><a href='/blog/2013/03/30/buildBlog_3.html'>一起写blog-搭建篇</a></th>
+                    <td>30 Mar 2013</td>
+                    <td><a href='/blog/2013/03/30/buildBlog_3.html#disqus_thread'>Comments</a></td>
+                </tr>
+                
+                <tr>
+                    <th><a href='/blog/2013/03/28/buildBlog_1.html'>一起写blog-起始篇</a></th>
+                    <td>28 Mar 2013</td>
+                    <td><a href='/blog/2013/03/28/buildBlog_1.html#disqus_thread'>Comments</a></td>
+                </tr>
+                
+            </table>
+        </div>
+
+        <div id="disqus_thread"></div>
+
+        <!--
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'leevenluo'; // required: replace example with your forum shortname
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+
+        <noscript>
+            Please enable JavaScript to view the
+            <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+
+        <a href='#disqus_thread'>View Comments</a>
+        <script type="text/javascript" charset="utf-8">
+            var disqus_url = "http://dyang.github.com//blog/2013/03/28/buildBlog_2.html";
+            var disqus_developer = 1;
+        </script>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript" src="http://disqus.com/forums/dyang/embed.js"></script><noscript><a href="http://dyang.disqus.com/?url=ref">View the discussion thread.</a></noscript>
+        -->
+
     </div>
-    <script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
-    <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4df3c7a42c2a2e7e"></script>
-    <!-- AddThis Button END -->  
-  </div>
-</div>
 </div>
 
-<div class="related">
-  <h3>Related Posts</h3>
-  <table class="post-list">
-    
-      <tr>
-        <th><a href='/blog/2013/04/03/buildBlog_4.html'>让大家一起来写blog吧-Hacking篇</a></th>
-        <td>03 Apr 2013</td>
-        <td><a href='/blog/2013/04/03/buildBlog_4.html#disqus_thread'>Comments</a></td>
-      </tr>
-    
-      <tr>
-        <th><a href='/blog/2013/03/30/buildBlog_3.html'>让大家一起来写blog吧-搭建篇</a></th>
-        <td>30 Mar 2013</td>
-        <td><a href='/blog/2013/03/30/buildBlog_3.html#disqus_thread'>Comments</a></td>
-      </tr>
-    
-      <tr>
-        <th><a href='/blog/2013/03/28/buildBlog_1.html'>让大家一起来写blog吧-起始篇</a></th>
-        <td>28 Mar 2013</td>
-        <td><a href='/blog/2013/03/28/buildBlog_1.html#disqus_thread'>Comments</a></td>
-      </tr>
-    
-  </table>
-</div>
+            </div>
 
-<script type="text/javascript" charset="utf-8">
-  var disqus_url = "http://dyang.github.com//blog/2013/03/28/buildBlog_2.html";
-  var disqus_developer = 1;
-</script>
-<div id="disqus_thread"></div>
-<script type="text/javascript" src="http://disqus.com/forums/dyang/embed.js"></script><noscript><a href="http://dyang.disqus.com/?url=ref">View the discussion thread.</a></noscript>
+            <div class='home_box' id='home_right'>
+            <h2>Categories</h2>
+            <div id='github-projects-categ'>
+                <div class="repo">
+                    <h4>博客讨论( 4 )</h4>
+                </div>
+            </div>
 
-      <div class='clearfix'></div>
-  </div>
+            <h2>Popular Posts</h2>
+            <div id='github-projects-pop'>
+                <div class="repo">
+                    
+                        <h3><a href="/blog/2013/04/03/buildBlog_4.html">一起写blog-Hacking篇</a></h3>
+                    
+                        <h3><a href="/blog/2013/03/30/buildBlog_3.html">一起写blog-搭建篇</a></h3>
+                    
+                        <h3><a href="/blog/2013/03/28/buildBlog_2.html">一起写blog-配置篇</a></h3>
+                    
+                        <h3><a href="/blog/2013/03/28/buildBlog_1.html">一起写blog-起始篇</a></h3>
+                    
+                </div>
+            </div>
 
-  <div id='footer'>
-      Copyright &copy; 2013 Leeven Luo. Theme and code by <a href="http://github.com/mbleigh">Michael Bleigh</a>. Hosted by <a href='http://github.com/dyang/dyang.github.com/' target='_blank'>GitHub</a> and powered by <a href='http://github.com/mojombo/jekyll'>Jekyll</a>.
-  </div>
+            <div id="article-index">
+                <div id="article-index-fixed">
+                    <h2>Catalog</h2>
+                    <div id='toc' class='repo'>
+                    </div>
+                    <!--
+                    <div id='article-catalog' data-spy="scroll">
+                        <ul class="nav nav-tabs repo" role="tablist" id="article-catalog-index">
+                        </ul>
+                    </div>
+                    -->
+                </div>
+            </div>
 
-  <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+            <!--
+            <div id="pageviewcount">
+                <a href="http://info.flagcounter.com/2sOh">
+                    <img src="http://s01.flagcounter.com/count/2sOh/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_18/viewers_0/labels_0/pageviews_0/flags_0/" alt="Flag Counter" border="0">
+                </a>
+            <div>
+            -->
+            </div>
+            <div class='clearfix'></div>
+        </div>
 
-      ga('create', 'UA-50648311-1', 'leevenluo.info');
-      ga('send', 'pageview');
-  </script>
+        <div id='footer'>
+            Copyright &copy; 2015 Leeven Luo. Theme and code by
+            <a href="http://github.com/leevenluo">Leevenluo</a>. Hosted by
+            <a href='http://github.com/leevenluo/leevenluo.github.com/' target='_blank'>GitHub</a> and powered by
+            <a href='http://github.com/mojombo/jekyll'>Jekyll</a>.
+        </div>
+    </body>
 
-  </body>
+    <script language="javascript" type="text/javascript">
+        function loadjs (script_name, script_id) {
+            var script   = document.createElement('script');
+            var charset  = 'utf-8';
+            var scriptTp = 'text/javascript';
+
+            script.setAttribute('type',     scriptTp);
+            script.setAttribute('src',      script_name);
+            script.setAttribute('charset',  charset);
+            script.setAttribute('scriptid', script_id);
+
+            scriptId = document.getElementById(script_id);
+
+            if (scriptId) {
+                document.getElementsByTagName('head')[0].removeChild(scriptId);
+            }
+
+            document.getElementsByTagName('head')[0].appendChild(script);
+        }
+
+        function onPageLoad () {
+            var script = '/dist/js/jquery.min.js'
+            loadjs(script, 'jqueryId');
+
+            var script = '/dist/js/bootstrap.min.js'
+            loadjs(script, 'bootstpId');
+
+            var script = '/dist/js/toc.js'
+            loadjs(script, 'tocId');
+
+            var script = '/javascripts/main.js';
+            loadjs(script, 'mainId');
+        }
+
+        window.onload = onPageLoad;
+
+    </script>
+
 </html>
+
+
+
+
+
+
+

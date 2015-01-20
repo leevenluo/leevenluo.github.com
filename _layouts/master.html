@@ -1,56 +1,149 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
-  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<!--html4-->
+<!--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">-->
 
+<!--html5-->
+<!DOCTYPE html>
 <html>
-  <head>
-    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <head>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8">
 
-    {% if page.description %}
-        <meta name="description" content="{{page.description}}" />
-    {% else %}
-        <meta name="description" content="{{site.description}}" />
-    {% endif %}
+        {% if page.description %}
+            <meta name="description" content="{{page.description}}" />
+        {% else %}
+            <meta name="description" content="{{site.description}}" />
+        {% endif %}
 
-    <title>Leeven Luo - {{ page.title }}</title>
-    <link rel="stylesheet" href="/stylesheets/master.css" type="text/css" media="screen" charset="utf-8"/>
+        <title>Leeven Luo - {{ page.title }}</title>
+        <link rel="stylesheet" href="/dist/css/bootstrap.min.css" type="text/css" media="screen" charset="utf-8"/>
+        <link rel="stylesheet" href="/stylesheets/master.css" type="text/css" media="screen" charset="utf-8"/>
 
-    <!--language highlight-->
-    <link rel="stylesheet" href="/stylesheets/highlight.css" type="text/css" media="all" charset="utf-8"/>
-    <link rel='alternate' type='application/rss+xml' href='http://feeds.feedburner.com/JoinTheConversation' />
+        <!--language highlight-->
+        <link rel="stylesheet" href="/stylesheets/highlight.css" type="text/css" media="all" charset="utf-8"/>
+        <link rel='alternate' type='application/rss+xml' href='http://feeds.feedburner.com/JoinTheConversation'/>
+    </head>
 
-    <script src="/javascripts/jquery.js" type="text/javascript" charset="utf-8"></script>
-    <script src="/javascripts/jquery.github.js" type="text/javascript" charset="utf-8"></script>
+    <body>
+        <header id="header">
+            <hgroup>
+                <h1>leevenluo</h1>
+                <h2>-- Don't put off till tomorrow what shoude be done today</h2>
+            </hgroup>
+        </header>
 
-  </head>
+        <div id="header-hold">
+            <nav id="header-nav">
+                <ul id="main-nav">
+                    <li><a href='/'><span>Home</span></a></li>
+                    <li><a href='/about.html'><span>About</span></a></li>
+                    <li><a href='http://github.com/leevenluo/' target='_blank' rel='me'><span>GitHub</span></a></li>
+                </ul>
 
-  <body>
-  <div id='menu'>
-      <ul>
-          <li><a href='/'>Home</a></li>
-          <li><a href='/blog.html'>Blog</a></li>
-          <li><a href='/about.html'>About</a></li>
-          <li><a href='http://github.com/leevenluo/' target='_blank' rel='me'>GitHub</a></li>
-      </ul>
-  </div>
+                <!-- remain search input
+                <div id="main-search" class="input-group">
+                    <input type="text" id="main-search-input" class="form-control">
+                </div>
+                -->
+            </nav>
+        </div>
 
-  <div id='content'>
-      {{ content }}
-      <div class='clearfix'></div>
-  </div>
+        <div id='content'>
+            <div class='home_box' id='home_left'>
+                {{ content }}
+            </div>
 
-  <div id='footer'>
-      Copyright &copy; 2013 Leeven Luo. Theme and code by <a href="http://github.com/mbleigh">Michael Bleigh</a>. Hosted by <a href='http://github.com/dyang/dyang.github.com/' target='_blank'>GitHub</a> and powered by <a href='http://github.com/mojombo/jekyll'>Jekyll</a>.
-  </div>
+            <div class='home_box' id='home_right'>
+            <h2>Categories</h2>
+            <div id='github-projects-categ'>
+                <div class="repo">
+                    <h4>博客讨论( {{ site.categories.blog | size }} )</h4>
+                </div>
+            </div>
 
-  <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+            <h2>Popular Posts</h2>
+            <div id='github-projects-pop'>
+                <div class="repo">
+                    {% for post in site.posts %}
+                        <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
+                    {% endfor %}
+                </div>
+            </div>
 
-      ga('create', 'UA-50648311-1', 'leevenluo.info');
-      ga('send', 'pageview');
-  </script>
+            <div id="article-index">
+                <div id="article-index-fixed">
+                    <h2>Catalog</h2>
+                    <div id='toc' class='repo'>
+                    </div>
+                    <!--
+                    <div id='article-catalog' data-spy="scroll">
+                        <ul class="nav nav-tabs repo" role="tablist" id="article-catalog-index">
+                        </ul>
+                    </div>
+                    -->
+                </div>
+            </div>
 
-  </body>
+            <!--
+            <div id="pageviewcount">
+                <a href="http://info.flagcounter.com/2sOh">
+                    <img src="http://s01.flagcounter.com/count/2sOh/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_18/viewers_0/labels_0/pageviews_0/flags_0/" alt="Flag Counter" border="0">
+                </a>
+            <div>
+            -->
+            </div>
+            <div class='clearfix'></div>
+        </div>
+
+        <div id='footer'>
+            Copyright &copy; 2015 Leeven Luo. Theme and code by
+            <a href="http://github.com/leevenluo">Leevenluo</a>. Hosted by
+            <a href='http://github.com/leevenluo/leevenluo.github.com/' target='_blank'>GitHub</a> and powered by
+            <a href='http://github.com/mojombo/jekyll'>Jekyll</a>.
+        </div>
+    </body>
+
+    <script language="javascript" type="text/javascript">
+        function loadjs (script_name, script_id) {
+            var script   = document.createElement('script');
+            var charset  = 'utf-8';
+            var scriptTp = 'text/javascript';
+
+            script.setAttribute('type',     scriptTp);
+            script.setAttribute('src',      script_name);
+            script.setAttribute('charset',  charset);
+            script.setAttribute('scriptid', script_id);
+
+            scriptId = document.getElementById(script_id);
+
+            if (scriptId) {
+                document.getElementsByTagName('head')[0].removeChild(scriptId);
+            }
+
+            document.getElementsByTagName('head')[0].appendChild(script);
+        }
+
+        function onPageLoad () {
+            var script = '/dist/js/jquery.min.js'
+            loadjs(script, 'jqueryId');
+
+            var script = '/dist/js/bootstrap.min.js'
+            loadjs(script, 'bootstpId');
+
+            var script = '/dist/js/toc.js'
+            loadjs(script, 'tocId');
+
+            var script = '/javascripts/main.js';
+            loadjs(script, 'mainId');
+        }
+
+        window.onload = onPageLoad;
+
+    </script>
+
 </html>
+
+
+
+
+
+
+

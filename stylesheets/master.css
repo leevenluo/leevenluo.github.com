@@ -1,12 +1,114 @@
+html {
+    background:     #252525 url('/images/background.png') top left
+}
+
 body {
-  font-family: Verdana, ff-meta-serif-web-pro-1, ff-meta-serif-web-pro-2, Georgia, sans-serif;
-  background: #A4CFBE;
-  color: #6C6E58;
+    font-family:        微软雅黑, Verdana, ff-meta-serif-web-pro-1, ff-meta-serif-web-pro-2, Georgia, sans-serif;
+    color:              #6C6E58;
+    margin:             0 auto;
+    max-width:          1200px;
+    background-color:   #252525;
+}
+
+header {
+    padding-top:    1.5em;
+    padding-bottom: 1.5em;
+    padding-left:   55px;
+    padding-right:  55px;
+    background:     #333;
+}
+
+body > header h1 {
+    display:        inline-block;
+    margin:         0;
+    font-size:      2.2em;
+    font-family:    "Futura",sans-serif;
+    font-weight:    normal;
+    line-height:    1.2em;
+    margin-bottom:  0.6667em;
+}
+
+body > header h2 {
+    margin:         .2em 0 0;
+    font-size:      1.5em;
+    color:          #aaa;
+    font-weight:    normal;
+}
+
+nav {
+    padding-top:    .35em;
+    padding-bottom: .35em;
+    padding-left:   55px;
+    padding-right:  55px;
+    overflow:       hidden;
+    background:     url('/images/background.png'),linear-gradient(#e0e0e0,#cccccc,#b0b0b0);
+    z-index:        1;
+}
+
+ul {
+    overflow:       hidden;
+}
+
+li {
+    display:        inline;
+    float:          left;
+    font-size:      2em;
+}
+
+nav ul li:first-child {
+    padding-left:   0;
+}
+
+nav li + li {
+    border-left:    1px solid #b0b0b0;
+    margin-left:    .8em;
+}
+
+nav a {
+    text-shadow:    #ebebeb 0 1px;
+}
+
+nav li + li a {
+    padding-left:   .8em;
+    border-left:    1px solid #dedede;
+}
+
+nav > div#main-search {
+    float:  right;
+    margin: 10px auto;
+}
+
+#wrapper li {
+    font-size:  1.2em;
+    display:    block;
+    float:      none;
+}
+
+h4 {
+    font-size; 20px;
+}
+
+ul#article-catalog-index {
+    font-size: .6em;
+}
+
+div#header-hold {
+    position: relative;
+    height: 70px;
+}
+
+div#article-index {
+    position: relative;
+    height: 171px;
+}
+
+img {
+    margin: 20px 0;
 }
 
 .more { font-size: 0.7em;}
 
-img.right { 
+img.right {
   float: right;
   margin: 15px;
 }
@@ -30,48 +132,25 @@ a:hover {
   border-radius: 1.5em;
 }
 
-#menu {
-  top:0;
-  left:0;
-  width:100%;
-  background: #0F0F0F;
-  position: absolute;
+#main-nav {
+    float:  left;
+    margin: 10px auto;
 }
-
-#menu ul {
-  list-style: none;
-}
-
-#menu ul li {
-  float:left;
-  width:100px;
-  margin-left:3px;
-  line-height:10px;
-}
-
-#menu ul li a {
-  color: #FFF5CC;
-  display:block;
-  text-align:center;
-  height:30px;
-  font-weight: bold;
-}
-
 
 #content {
-  padding: 1em 2em;
+    /*float: left;*/
+    margin-right:   300px;
 }
 
 #content h2 {
-  margin: 0 0 0.5em 0;
-  color: black;
-  font-size: 1em;
-  font-style: italic;
+    /*color:      rgb(178, 172, 172);*/
+    font-size:  20px;
 }
 
 #content p {
-  line-height: 140%;
-  letter-spacing: -0.03em;
+    line-height:    140%;
+    letter-spacing: 0.03em;
+    font-size:      1.2em;
 }
 
 div.date {
@@ -83,13 +162,12 @@ div.date {
 }
 
 div.post {
-  padding: 1em;
-  margin-bottom: 2em;
-  font-size: 90%;
+    padding:        1em;
+    margin-bottom:  2em;
 }
 
 .post h1 {
-  margin-top: 0.2em;
+    font-size:  25px;
 }
 
 .post { color: #333; }
@@ -102,7 +180,7 @@ div.post {
   padding: 0.3em 0;
   margin: 0 0 0.2em 0;
   border-bottom: 1px dashed #dba;
-  font-size: 0.7em;
+  font-size: 1.0em;
 }
 
 .post br { margin-bottom: 10px;}
@@ -152,22 +230,19 @@ div.related {
 }
 
 #footer {
-  margin-bottom: 2em;
-  color: #0088cc;
-  font-size: 0.9em;
-  padding: 0.5em;
-  text-align: center;
-  float:none;
+    margin-bottom:  2em;
+    color:          #EAEBEC;
+    font-size:      1.5em;
+    padding:        0.5em;
+    text-align:     center;
 }
 
 .home_box {
-  float: left;
+    /*float: left;*/
 }
 
 #content .home_box h2 {
   padding: 0;
-  border-bottom: 1px solid #255;
-  margin-bottom: 0 0 1em 0;
 }
 
 .home_box h2 a {
@@ -175,40 +250,48 @@ div.related {
 }
 
 #home_left {
-  width: 67%;
+    width:  100%;
+    float:  left;
 }
 
 #home_right {
-  width: 16em;
-  margin-left: 4em;
+    width:          300px;
+    float:          left;
+    margin:         0 -100% 0 0;
+    padding:        1.2em 0px 20px 20px;
 }
 
 .clearfix { clear: both;}
 
 #footer a {
-  color: #3E423A;
+  /*color: #3E423A;*/
   font-weight: normal;
 }
 
+#pageviewcount {
+    float: left;
+}
+
 .repo {
-  background: #fff5cc;
-  border: 1px solid #dda;
-  padding: 0.7em 1em;
-  font-size: 0.8em;
-  letter-spacing: -0.03em;
-  margin: 1em 1em 0 0;
-  -moz-border-radius: 0.5em;
-  -webkit-border-radius: 0.5em;
-  border-radius: 0.5em;
+    background:             #fff5cc;
+    border:                 1px solid #dda;
+    padding:                0.7em 1em;
+    font-size:              0.8em;
+    letter-spacing:         -0.03em;
+    margin:                 1em 0em 0 0;
+    -moz-border-radius:     0.5em;
+    -webkit-border-radius:  0.5em;
+    border-radius:          0.5em;
+    overflow:               hidden;
 }
 .repo h3 {
   margin: 0 0 0.3em 0.3em;
 }
 .repo h3 a {
-  font-weight: normal;
-  color: #3E423A;
-  letter-spacing: 0;
-  font-size: 1em;
+    font-weight:    normal;
+    color:          #3E423A;
+    letter-spacing: 0;
+    font-size:      .8em;
 }
 
 #github-projects.big .repo {
@@ -232,9 +315,67 @@ a img { border: 0; }
 
 .widget {
   float: left;
-  margin: 4px 30px 4px 4px;	
+  margin: 4px 30px 4px 4px;
 }
 
 /*code highlight*/
-.highlight pre {background-color: #505050;}
-.highlight pre code{color: white;}
+.highlight {
+    margin: 20px 0px;
+}
+
+.highlight pre {
+    background-color: #505050;
+}
+
+.highlight pre code {
+    color:      white;
+    font-size:  1.1em;
+}
+
+/*toc*/
+/*
+#toc {
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    position: fixed;
+    background: #333;
+    box-shadow: inset -5px 0 5px 0px #000;
+    width: 150px;
+    padding-top: 20px;
+    color: #fff;
+}
+*/
+
+#toc ul {
+    margin:     0;
+    padding:    0;
+    list-style: none;
+}
+
+#toc li {
+    padding:        4px;
+    font-size:      20px;
+    margin:         5px;
+    width:          252px;
+}
+
+#toc a {
+    /*color: #fff;*/
+    text-decoration: none;
+    display: block;
+}
+
+#toc li.h1 {
+    /*padding-left: 10px;*/
+}
+
+#toc li.h2 {
+    padding-left: 20px;
+}
+
+#toc .toc-active {
+    background: #C4D0DB;
+    /*box-shadow: inset -5px 0px 10px -5px #000;*/
+}
+
