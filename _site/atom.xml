@@ -3,7 +3,7 @@
  
  <title>Happy Hacking</title>
  <link href="http://dyang.github.com/atom.xml" rel="self"/>
- <updated>2015-01-21T12:50:14+08:00</updated>
+ <updated>2015-01-22T11:04:37+08:00</updated>
  <id>http://dyang.github.com</id>
  <author>
    <name>Derek Yang</name>
@@ -13,9 +13,9 @@
  
  <entry>
    <title>一起写blog-Hacking篇</title>
-   <link href="http://dyang.github.com/blog/2013/04/03/buildBlog_4.html"/>
+   <link href="http://dyang.github.com/blog/2013/04/03/buildBlog_hacking.html"/>
    <updated>2013-04-03T00:00:00+08:00</updated>
-   <id>http://dyang.github.com/blog/2013/04/03/buildBlog_4</id>
+   <id>http://dyang.github.com/blog/2013/04/03/buildBlog_hacking</id>
    <content type="html">&lt;h1&gt;Hacking篇&lt;/h1&gt;
 &lt;p&gt;之前的搭建教程已经可以帮助你构建一个博客的雏形, 不过目前的它还比较单调, 因为所有的操作都是github帮你完成了, github已经为我们提供了免费的域名和空间, 希望我们能自己动手DIY一个自己喜欢的博客样板, 为github减轻一些负担, 也为自己打造一个专属自己的博客&lt;/p&gt;
 &lt;p&gt;开始之前, 我们需要简单回顾一下在起始篇中谈到的本次搭建博客的整体思路, 即: &lt;strong&gt;先在本地编写符合Jekyll规范的网站源码, 然后上传到github, 由github生成并托管整个网站&lt;/strong&gt; . 现在Git配置和Github的搭建已经完成, 接下来就是要学习符合jekyll规范的编码和文件组织&lt;/p&gt;
@@ -111,9 +111,9 @@ Successfully generated site: /home/lxinji/MainDir -&amp;gt; /home/lxinji/MainDir
  
  <entry>
    <title>一起写blog-搭建篇</title>
-   <link href="http://dyang.github.com/blog/2013/03/30/buildBlog_3.html"/>
+   <link href="http://dyang.github.com/blog/2013/03/30/buildBlog_building.html"/>
    <updated>2013-03-30T00:00:00+08:00</updated>
-   <id>http://dyang.github.com/blog/2013/03/30/buildBlog_3</id>
+   <id>http://dyang.github.com/blog/2013/03/30/buildBlog_building</id>
    <content type="html">&lt;h1&gt;搭建篇&lt;/h1&gt;
 &lt;h1&gt;GitHub Pages 搭建&lt;/h1&gt;
 &lt;p&gt;紧接着第二章配置篇, 在第二章已经完成了本地Git环境配置, 那么接下来就可以搭建Github Pages。其实只需要两步, 就可以完成个人主页的搭建:&lt;/p&gt;
@@ -134,9 +134,9 @@ Successfully generated site: /home/lxinji/MainDir -&amp;gt; /home/lxinji/MainDir
  
  <entry>
    <title>一起写blog-配置篇</title>
-   <link href="http://dyang.github.com/blog/2013/03/28/buildBlog_2.html"/>
+   <link href="http://dyang.github.com/blog/2013/03/28/buildBlog_configure.html"/>
    <updated>2013-03-28T00:00:00+08:00</updated>
-   <id>http://dyang.github.com/blog/2013/03/28/buildBlog_2</id>
+   <id>http://dyang.github.com/blog/2013/03/28/buildBlog_configure</id>
    <content type="html">&lt;h1&gt;配置篇&lt;/h1&gt;
 &lt;h1&gt;配置和使用Github&lt;/h1&gt;
 &lt;p&gt;要使用Git, 需要安装它的客户端, 推荐在Linux下使用Git, 会比较方便. Windows版的下载地址在 &lt;a href=&quot;http://code.google.com/p/msysgit/downloads/list&quot;&gt;这里&lt;/a&gt; . 其他系统的安装也可以参考 &lt;a href=&quot;https://help.github.com/articles/set-up-git&quot;&gt;官方的安装教程&lt;/a&gt; .&lt;/p&gt;
@@ -190,9 +190,9 @@ Are you sure you want to &lt;span class=&quot;k&quot;&gt;continue&lt;/span&gt; c
  
  <entry>
    <title>一起写blog-起始篇</title>
-   <link href="http://dyang.github.com/blog/2013/03/28/buildBlog_1.html"/>
+   <link href="http://dyang.github.com/blog/2013/03/28/buildBlog_beginning.html"/>
    <updated>2013-03-28T00:00:00+08:00</updated>
-   <id>http://dyang.github.com/blog/2013/03/28/buildBlog_1</id>
+   <id>http://dyang.github.com/blog/2013/03/28/buildBlog_beginning</id>
    <content type="html">&lt;h1&gt;起始篇&lt;/h1&gt;
 &lt;p&gt;我这里所讲的博客搭建环境是: &lt;b&gt;github pages + jekyll&lt;/b&gt;&lt;/p&gt;
 &lt;p&gt;在这里, 先感谢以下文章的作者, 是你们的博文让我可以成功搭建博客, 在我的文章中或多或少的引用了你们文章中的片段, 只为更多的朋友能早日建立属于他们自己的博客！&lt;/p&gt;
