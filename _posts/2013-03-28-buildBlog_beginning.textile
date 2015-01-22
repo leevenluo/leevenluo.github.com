@@ -2,6 +2,7 @@
 layout:     post
 title:      一起写blog-起始篇
 categories: blog
+unqid:      587daa3abc5c6a1322fc05cdc14840be
 ---
 
 h1. 起始篇

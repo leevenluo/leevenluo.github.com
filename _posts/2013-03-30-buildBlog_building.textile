@@ -2,6 +2,7 @@
 layout:     post
 title:      一起写blog-搭建篇
 categories: blog
+unqid:      d319c07ca3d6c1a6854a6fa67cddb50d
 ---
 
 h1. 搭建篇

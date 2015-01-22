@@ -1,15 +1,15 @@
 /* -----------------------------*/
 /**
  * @Author  leevenzhl@gmail.com
- * @Brief   function init work
+ * @Brief   setting post
  * @Returns null
  */
 /* -----------------------------*/
 var settingPost = function () {
-    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    //CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE
     var disqus_shortname = 'leevenluo'; // required: replace example with your forum shortname
 
-    /* * * DON'T EDIT BELOW THIS LINE * * */
+    //DON'T EDIT BELOW THIS LINE
     setTimeout(function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = false;
         dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
@@ -20,12 +20,53 @@ var settingPost = function () {
 /* -----------------------------*/
 /**
  * @Author  leevenzhl@gmail.com
+ * @Brief   setting article pageview
+ * @Returns null
+ */
+/* -----------------------------*/
+var settingPageView = function () {
+    $('.post #article-title').append($('#pageView'));
+
+    $('#article-title h1:first').css({
+        "display" : "inline",
+    });
+
+    $('#article-title #pageView').css({
+        "display" : "inline",
+        "float"   : "right",
+        "height"  : "60px",
+        "width"   : "240px",
+    });
+
+    $('#article-title #pageView p').css({
+        "display"    : "inline-block",
+        "height"     : "30px",
+        "width"      : "100px",
+        "font-style" : "italic",
+        "color"      : "rgba(0, 13, 255, 0.65)",
+    });
+
+    $('#article-title #pageView a img').css({
+        "margin-top"    : "1px",
+        "margin-bottom" : "9px",
+        "display"       : "inline-block",
+    });
+}
+
+/* -----------------------------*/
+/**
+ * @Author  leevenzhl@gmail.com
  * @Brief   function init work
  * @Returns null
  */
 /* -----------------------------*/
 var initWork = function () {
+
+    //setting post
     settingPost();
+
+    //setting article pageview
+    settingPageView();
 }
 
 /* -----------------------------*/

@@ -2,6 +2,7 @@
 layout:     post
 title:      一起写blog-配置篇
 categories: blog
+unqid:      610d9d97b79b516abc14232be3cc5f4b
 ---
 
 h1. 配置篇

@@ -48,14 +48,16 @@
             <div class='home_box' id='home_left'>
                 <div id='wrapper'>
     <div class='post'>
-        <h1>
-            <a href=''>一起写blog-搭建篇</a>
+        <!-- page view counter id setting -->
+        <script type="text/javascript"> window.unqid = "d319c07ca3d6c1a6854a6fa67cddb50d" </script>
+
+        <div id="article-title">
+            <h1><a href='/blog/2013/03/30/buildBlog_building.html'>一起写blog-搭建篇</a></h1>
             <div class='date'> - 30 Mar 2013</div>
-        </h1>
+        </div>
 
         <div class='body'>
-            <div data-spy="scroll" data-target="#article-catalog" data-offset="0">
-                <h1>搭建篇</h1>
+            <h1>搭建篇</h1>
 <h1>GitHub Pages 搭建</h1>
 <p>紧接着第二章配置篇, 在第二章已经完成了本地Git环境配置, 那么接下来就可以搭建Github Pages。其实只需要两步, 就可以完成个人主页的搭建:</p>
 <p>PS: 若想创建形如“username.github.com”域名主页, 每个用户名只能创建一个</p>
@@ -71,7 +73,6 @@
 <p>细心的读者应该已经发现你创建的代码仓库里已经有了代码, 没错, 那个就是Github为你生成个人主页的模板,在下一篇里我会和你一起来了解该如何编写和提交个人主页代码。</p>
 <h1>一些扩展</h1>
 <p><a href="https://help.github.com/categories/20/articles">Github Pages官方教程</a></p>
-            </div>
         </div>
 
         <!--
@@ -116,41 +117,13 @@
         </div>
 
         <div id="disqus_thread"></div>
-
-        <!--
-        <div id="disqus_thread"></div>
-        <script type="text/javascript">
-            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-            var disqus_shortname = 'leevenluo'; // required: replace example with your forum shortname
-
-            /* * * DON'T EDIT BELOW THIS LINE * * */
-            (function() {
-                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-            })();
-        </script>
-
-        <noscript>
-            Please enable JavaScript to view the
-            <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-
-        <a href='#disqus_thread'>View Comments</a>
-        <script type="text/javascript" charset="utf-8">
-            var disqus_url = "http://dyang.github.com//blog/2013/03/30/buildBlog_building.html";
-            var disqus_developer = 1;
-        </script>
-        <div id="disqus_thread"></div>
-        <script type="text/javascript" src="http://disqus.com/forums/dyang/embed.js"></script><noscript><a href="http://dyang.disqus.com/?url=ref">View the discussion thread.</a></noscript>
-        -->
-
     </div>
 </div>
 
             </div>
 
             <div class='home_box' id='home_right'>
+
             <h2>Categories</h2>
             <div id='github-projects-categ'>
                 <div class="repo">
@@ -178,22 +151,9 @@
                     <h2>Catalog</h2>
                     <div id='toc' class='repo'>
                     </div>
-                    <!--
-                    <div id='article-catalog' data-spy="scroll">
-                        <ul class="nav nav-tabs repo" role="tablist" id="article-catalog-index">
-                        </ul>
-                    </div>
-                    -->
                 </div>
             </div>
 
-            <!--
-            <div id="pageviewcount">
-                <a href="http://info.flagcounter.com/2sOh">
-                    <img src="http://s01.flagcounter.com/count/2sOh/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_18/viewers_0/labels_0/pageviews_0/flags_0/" alt="Flag Counter" border="0">
-                </a>
-            <div>
-            -->
             </div>
             <div class='clearfix'></div>
         </div>
@@ -208,6 +168,14 @@
         <script type="text/javascript" src="/dist/js/jquery.min.js" charset="utf-8" scriptid="jqueryId"></script>
         <script type="text/javascript" src="/dist/js/bootstrap.min.js" charset="utf-8" scriptid="bootstpId"></script>
         <script type="text/javascript" src="/dist/js/toc.js" charset="utf-8" scriptid="tocId"></script>
+
+        <!-- page view counter loading -->
+        <script type="text/javascript" charset="utf-8">
+            var div     = '<div id="pageView">';
+            var wording = '<p>PageView : </p>';
+            var src     = div + wording + '<script src="http://counter1.allfreecounter.com/private/counter.js?c=';
+            document.write(src + window.unqid + '" charset="utf-8"><\/script></div>');
+        </script>
     </body>
 
     <script language="javascript" type="text/javascript">
@@ -231,21 +199,11 @@
         }
 
         function onPageLoad () {
-            //var script = '/dist/js/jquery.min.js'
-            //loadjs(script, 'jqueryId');
-
-            //var script = '/dist/js/bootstrap.min.js'
-            //loadjs(script, 'bootstpId');
-
-            //var script = '/dist/js/toc.js'
-            //loadjs(script, 'tocId');
-
             var script = '/javascripts/main.js';
             loadjs(script, 'mainId');
         }
 
-        window.onload = onPageLoad;
-
+        window.addEventListener('load', onPageLoad);
     </script>
 
 </html>

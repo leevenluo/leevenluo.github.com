@@ -2,6 +2,7 @@
 layout:     post
 title:      一起写blog-Hacking篇
 categories: blog
+unqid:      b9c39c2ca4803208d77198d090a9e2ce
 ---
 
 h1. Hacking篇
