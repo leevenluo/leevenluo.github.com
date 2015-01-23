@@ -66,7 +66,7 @@ var initWork = function () {
     settingPost();
 
     //setting article pageview
-    settingPageView();
+    //settingPageView();
 }
 
 /* -----------------------------*/

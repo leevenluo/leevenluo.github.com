@@ -91,6 +91,7 @@
         <script type="text/javascript" src="/dist/js/jquery.min.js" charset="utf-8" scriptid="jqueryId"></script>
         <script type="text/javascript" src="/dist/js/bootstrap.min.js" charset="utf-8" scriptid="bootstpId"></script>
         <script type="text/javascript" src="/dist/js/toc.js" charset="utf-8" scriptid="tocId"></script>
+        <script type="text/javascript" src="/javascripts/main.js" charset="utf-8" scriptid="mainId"></script>
 
         <!-- page view counter loading -->
         <script type="text/javascript" charset="utf-8">
@@ -99,8 +100,40 @@
             var src     = div + wording + '<script src="http://counter1.allfreecounter.com/private/counter.js?c=';
             document.write(src + window.unqid + '" charset="utf-8"><\/script></div>');
         </script>
+        <script type="text/javascript" src="/javascripts/pageview.js" charset="utf-8" scriptid="pvId"></script>
+
+        <!--
+            $('.post #article-title').append($('#pageView'));
+
+            $('#article-title h1:first').css({
+                "display" : "inline",
+            });
+
+            $('#article-title #pageView').css({
+                "display" : "inline",
+                "float"   : "right",
+                "height"  : "60px",
+                "width"   : "240px",
+            });
+
+            $('#article-title #pageView p').css({
+                "display"    : "inline-block",
+                "height"     : "30px",
+                "width"      : "100px",
+                "font-style" : "italic",
+                "color"      : "rgba(0, 13, 255, 0.65)",
+            });
+
+            $('#article-title #pageView a img').css({
+                "margin-top"    : "1px",
+                "margin-bottom" : "9px",
+                "display"       : "inline-block",
+            });
+        </script>
+        -->
     </body>
 
+    <!--
     <script language="javascript" type="text/javascript">
         function loadjs (script_name, script_id) {
             var script   = document.createElement('script');
@@ -128,6 +161,7 @@
 
         window.addEventListener('load', onPageLoad);
     </script>
+    -->
 
 </html>
 
