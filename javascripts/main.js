@@ -51,6 +51,7 @@ var settingPageView = function () {
         "margin-bottom" : "9px",
         "display"       : "inline-block",
     });
+
 }
 
 /* -----------------------------*/
