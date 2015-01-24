@@ -11,7 +11,7 @@
             <meta name="description" content="" />
         
 
-        <title>Leeven Luo - 一起写blog-起始篇</title>
+        <title>Leeven Luo - 域名申请与配置小结</title>
         <link rel="stylesheet" href="/dist/css/bootstrap.min.css" type="text/css" media="screen" charset="utf-8"/>
         <link rel="stylesheet" href="/stylesheets/master.css" type="text/css" media="screen" charset="utf-8"/>
 
@@ -49,11 +49,11 @@
                 <div id='wrapper'>
     <div class='post'>
         <!-- page view counter id setting -->
-        <script type="text/javascript"> window.unqid = "587daa3abc5c6a1322fc05cdc14840be" </script>
+        <script type="text/javascript"> window.unqid = "3fdb8e318f661046818d8836240ceec7" </script>
 
         <div id="article-title">
-            <h1><a href='/blog/2013/03/28/buildBlog_beginning.html'>一起写blog-起始篇</a></h1>
-            <div class='date'> - 28 Mar 2013</div>
+            <h1><a href='/domain/2015/01/22/buildBlog_CustomDomain.html'>域名申请与配置小结</a></h1>
+            <div class='date'> - 22 Jan 2015</div>
         </div>
 
         <div id="transpost">
@@ -61,32 +61,56 @@
         </div>
 
         <div class='body'>
-            <h1>起始篇</h1>
-<p>我这里所讲的博客搭建环境是: <b>github pages + jekyll</b></p>
-<p>在这里, 先感谢以下文章的作者, 是你们的博文让我可以成功搭建博客, 在我的文章中或多或少的引用了你们文章中的片段, 只为更多的朋友能早日建立属于他们自己的博客！</p>
-<p><a href="http://beiyuu.com/github-pages/">beiyuu博客</a><br />
-<a href="http://yanping.me/cn/blog/2012/03/18/github-pages-step-by-step/">yanping博客</a></p>
-<h1>什么是gitbub pages？</h1>
-<p>首先需要介绍下Github, GitHub 是一个用于使用Git版本控制系统项目的共享虚拟主机服务. 它由GitHub公司（曾称Logical Awesome）的开发者Chris Wanstrath、PJ Hyett和Tom Preston-Werner使用Ruby on Rails编写而成. 总的来说, github 是一个免费的代码管理仓库, 负责开发项目的代码托管, 关于github的相关信息可以 <a href="http://zh.wikipedia.org/wiki/GitHub">点击这里</a> .</p>
-<p>github给你提供了项目的存储空间, 在你的项目主页上可以浏览源码树:</p>
-<p><img width="552" height="230" src="/images/buildBlog_1.0.png"/></p>
-<p>不过这样的项目主页似乎不怎么友好, 不能提供简易的操作和展示项目的模型和效果, 所以github需要提供一个友好且易于展示项目的平台, github pages就这样诞生了. github Pages可以被认为是用户编写的、托管在github上的静态网页.</p>
-<p>github提供模板, 允许站内生成网页, 但也允许用户自己编写网页, 然后上传. 有意思的是, 这种上传并不是单纯的上传, 而是会经过Jekyll程序的再处理.</p>
-<h1>Jekyll是什么？</h1>
-<p>Jekyll（发音/&#8217;dʒiːk əl/, &quot;杰克尔&quot;）是一个静态站点生成器, 它会根据网页源码生成静态文件. 它提供了模板、变量、插件等功能, 所以实际上可以用来编写整个网站. 整个思路到这里就很明显了. 你先在本地编写符合Jekyll规范的网站源码, 然后上传到github, 由github生成并托管整个网站.</p>
-<p>这种做法的好处是:</p>
-<ul>
-	<li>免费, 无限流量.</li>
-	<li>享受git的版本管理功能, 不用担心文章遗失.</li>
-	<li>你只要用自己喜欢的编辑器写文章就可以了, 其他事情一概不用操心, 都由github处理.</li>
-</ul>
-<p>它的缺点是:</p>
-<ul>
-	<li>有一定技术门槛, 你必须要懂一点git和网页开发.</li>
-	<li>它生成的是静态网页, 添加动态功能必须使用外部服务, 比如评论功能就只能用disqus.</li>
-	<li>它不适合大型网站, 因为没有用到数据库, 每运行一次都必须遍历全部的文本文件, 网站越大, 生成时间越长.</li>
-</ul>
-<p>但是, 综合来看, 它不失为搭建中小型Blog或项目主页的最佳选项之一.</p>
+            <h1>Web请求模型初识</h1>
+<p>首先，我们先从最简单的请求网络模型了解Web访问流程（如图1-1），流程包括：</p>
+<p>1、用户发起第三方站点对应域名的Web请求（比如：百度 www.baidu.com）<br />
+2、域名通过DNS查询到对应站点的主机IP（比如：www.baidu.com &#8594; 119.75.218.70）<br />
+3、最后向该服务器IP（80端口）发起http请求，等待服务器Response</p>
+<p>流程中需要记住的核心是：域名仅仅只是方便记忆的别名（相较IP，域名还有很多优点，只是和本文相关的内容是这点）</p>
+<p><img src="/images/customDomain/1.png" alt="" /><br />
+<br/></p>
+<h1>域名申请Web模型</h1>
+<p>在了解简单Web请求模型后，已经基本清楚域名的作用，那么， <strong>该如何申请域名呢？域名运营商为我们做了什么事？</strong> 刚才在第一节DNS查询对应关系中隐藏了部分细节，其中最重要的是： <strong>域名怎么知道要去哪个DNS IP查询？</strong></p>
+<p>带着这几个问题，我们来看一下改进后Web请求模型（添加申请域名步骤）【如图1-2】</p>
+<p>（省略第一节中已经提到的步骤3-5）<br />
+1、用户通过域名运营商申请独立域名（比如GoDaddy）<br />
+2、域名运营商将域名记录更新到国际根域名服务器（也称顶级域名）（为什么不是DNS？）</p>
+<p><img src="/images/customDomain/2.png" alt="" /><br />
+<br/></p>
+<p>Now，我们来梳理几个盲点：<br />
+1、明确顶级域名服务商 <strong>不等于</strong> DNS，DNS仅仅是存储一条域名到IP对应关系的服务器<br />
+2、1-2图中第四步域名查询过程中，在默认DNS查询不到对应记录的条件下， <strong>到顶级域名服务器递归查询，第二步域名商将域名记录更新到顶级域名服务器的目的就是使该查询命中，那么该记录是否是域名与IP对应记录？答案不是</strong><br />
+3、申请过域名的同学都知道，域名运营商有自己（或者默认）的DNS服务器， <strong>所以第三点中更新到顶级域名的记录应该不是域名与IP对应记录，而是域名与能解析该域名的服务器IP</strong><br />
+4、当查询顶级域名命中后，会再到对应的服务器IP（DNS服务器）查询对应第三方服务器IP<br />
+<br/></p>
+<h1>DNS定制Web模型</h1>
+<p>域名合理使用的关键在于对Web请求模型了解深度，上面两个主题已经做了简单介绍。下面的主题是上面模型的补充，主要解决的问题是如何做好域名解析容灾，说通俗一点就是如何更好管理自己域名的解析服务器，一种比较常见的做法就是找一个第三方域名解析提供商，这样做能带给你的好处包括：</p>
+<p>1、完善的监控体系，保证7 * 24小时解析服务器不因宕机而无法解析域名<br />
+2、这点是最重要的，选择一个响应快、操作交互简单的第三方域名提供商。不清楚是否是网络被墙的缘故，访问GoDaddy总是响应很慢，对于域名的申请我就忍了（毕竟实惠），可是对于博客运营经常需要关注域名解析情况，老这样就遭不住，所以我果断没有GoDaddy的域名管理，直接选用了DNSPod，至少现在我觉得用得挺流畅和方便的 : )</p>
+<p>那我们还是来看一下新模型（如图1-3）</p>
+<p>（省略第二节中已经提到的步骤1-2、5-7）<br />
+3、将域名解析工作托管给第三方（本文的例子是 DNSPod）<br />
+4、将DNSPod的域名解析服务器域名覆盖到域名运营商默认DNS解析服务器（GoDaddy会将记录更新到顶级域名服务器）</p>
+<p><img src="/images/customDomain/3.png" alt="" /><br />
+<br/></p>
+<h1>Github定制域名Web模型</h1>
+<p>前戏已经够足，差不多该实操走完整套流程。因为本博域名也是自己申请的，所以实际的例子就用Github Page搭建blog定制域名走一个。先上一个完整流程架构图（如图1-4）</p>
+<p><img width="811px" height="499px" src="/images/customDomain/4.png" /><br />
+<br/></p>
+<p>整个流程步骤：<br />
+1、GoDaddy申请域名a.com<br />
+2、Github Page搭建，默认域名a.github.io，CNAME文件中写blog.a.com<br />
+3、DNSPod记录一条CNAME记录：blog.a.com &#8594; a.github.io<br />
+4、DNSPod服务器域名覆盖到GoDaddy默认域名服务器域名<br />
+5、GoDaddy将域名对应提供解析服务器IP注册到顶级域名<br />
+6、访问blog.a.com<br />
+7、假设默认DNS缓存没有查询到，顶级域名服务器查询到提供解析的服务器IP（DNSPod服务器IP），查询出blog.a.com &#8594; a.github.io对应的IP（a.github.io对应的IP）<br />
+8、向a.github.io对应的IP发起http请求，Github page内容就返回了</p>
+<p>恩，大概就这些内容，假如有说得不对的地方或者有疑问的地方，可以留言给我，希望大家多多交流，相互学习</p>
+<h1>Git-Page域名配置参考</h1>
+<p><a href="https://help.github.com/articles/setting-up-a-custom-domain-with-github-pages/">Github Pages定制域名配置</a><br />
+<a href="https://help.github.com/articles/adding-a-cname-file-to-your-repository/">Github Pages CNAME文件配置</a><br />
+<a href="https://help.github.com/articles/about-custom-domains-for-github-pages-sites/">Github 顶级与二级域名配置</a></p>
         </div>
 
         <!--
@@ -110,12 +134,6 @@
             <table class="post-list">
                 
                 <tr>
-                    <th><a href='/domain/2015/01/22/buildBlog_CustomDomain.html'>域名申请与配置小结</a></th>
-                    <td>22 Jan 2015</td>
-                    <td><a href='/domain/2015/01/22/buildBlog_CustomDomain.html#disqus_thread'>Comments</a></td>
-                </tr>
-                
-                <tr>
                     <th><a href='/blog/2013/04/03/buildBlog_hacking.html'>一起写blog-Hacking篇</a></th>
                     <td>03 Apr 2013</td>
                     <td><a href='/blog/2013/04/03/buildBlog_hacking.html#disqus_thread'>Comments</a></td>
@@ -125,6 +143,12 @@
                     <th><a href='/blog/2013/03/30/buildBlog_building.html'>一起写blog-搭建篇</a></th>
                     <td>30 Mar 2013</td>
                     <td><a href='/blog/2013/03/30/buildBlog_building.html#disqus_thread'>Comments</a></td>
+                </tr>
+                
+                <tr>
+                    <th><a href='/blog/2013/03/28/buildBlog_configure.html'>一起写blog-配置篇</a></th>
+                    <td>28 Mar 2013</td>
+                    <td><a href='/blog/2013/03/28/buildBlog_configure.html#disqus_thread'>Comments</a></td>
                 </tr>
                 
             </table>
