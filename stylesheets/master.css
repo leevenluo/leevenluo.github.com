@@ -3,8 +3,7 @@ html {
 }
 
 body {
-    font-family:        "Lucida Grande", "Lucida Sans Unicode", Helvetica, "Microsoft JhengHei", "Microsoft YaHei", Tohoma, Arial;
-
+    font-family:        "Microsoft YaHei", Tohoma, Arial;
     color:              #6C6E58;
     margin:             0 auto;
     max-width:          1200px;
