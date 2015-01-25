@@ -1,0 +1,19 @@
+---
+title:  About
+layout: about
+---
+
+{% for category in site.categories %}
+h1. {{ category | first }} （{{ category | last | size }}）
+
+<ul id="categories">
+    {% for post in category.last %}
+        <li>
+            <span>{{ post.date | date:"%Y %b %d" }}</span>
+            <a href="{{ post.url }}">{{ post.title }}</a>
+        </li>
+    {% endfor %}
+</ul>
+
+{% endfor %}
+
