@@ -1,7 +1,10 @@
 ---
 layout:     post
 title:      域名申请与配置小结
-categories: domain
+categories:
+    - domain
+    - blog
+
 unqid:      3fdb8e318f661046818d8836240ceec7
 ---
 

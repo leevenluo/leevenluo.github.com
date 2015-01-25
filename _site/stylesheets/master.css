@@ -3,7 +3,8 @@ html {
 }
 
 body {
-    font-family:        微软雅黑, Verdana, ff-meta-serif-web-pro-1, ff-meta-serif-web-pro-2, Georgia, sans-serif;
+    font-family:        "Lucida Grande", "Lucida Sans Unicode", Helvetica, "Microsoft JhengHei", "Microsoft YaHei", Tohoma, Arial;
+
     color:              #6C6E58;
     margin:             0 auto;
     max-width:          1200px;
@@ -150,7 +151,7 @@ a:hover {
 #content p {
     line-height:    140%;
     letter-spacing: 0.03em;
-    font-size:      1.2em;
+    font-size:      19px;
 }
 
 div.date {
@@ -167,7 +168,8 @@ div.post {
 }
 
 .post h1 {
-    font-size:  25px;
+    font-size:      25px;
+    font-weight:    bold;
 }
 
 .post { color: #333; }
@@ -242,7 +244,8 @@ div.related {
 }
 
 #content .home_box h2 {
-  padding: 0;
+  padding:          0;
+  font-weight:      bold;
 }
 
 .home_box h2 a {

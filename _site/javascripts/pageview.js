@@ -24,6 +24,7 @@ var settingPageView = function () {
         "height"     : "30px",
         "width"      : "100px",
         "font-style" : "italic",
+        "font-size"  : "18px",
         "color"      : "rgba(0, 13, 255, 0.65)",
     });
 

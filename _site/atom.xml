@@ -3,7 +3,7 @@
  
  <title>Happy Hacking</title>
  <link href="http://dyang.github.com/atom.xml" rel="self"/>
- <updated>2015-01-25T02:44:07+08:00</updated>
+ <updated>2015-01-25T14:43:33+08:00</updated>
  <id>http://dyang.github.com</id>
  <author>
    <name>Derek Yang</name>
@@ -13,9 +13,9 @@
  
  <entry>
    <title>域名申请与配置小结</title>
-   <link href="http://dyang.github.com/domain/2015/01/22/buildBlog_CustomDomain.html"/>
+   <link href="http://dyang.github.com/domain/blog/2015/01/22/buildBlog_CustomDomain.html"/>
    <updated>2015-01-22T00:00:00+08:00</updated>
-   <id>http://dyang.github.com/domain/2015/01/22/buildBlog_CustomDomain</id>
+   <id>http://dyang.github.com/domain/blog/2015/01/22/buildBlog_CustomDomain</id>
    <content type="html">&lt;h1&gt;Web请求模型初识&lt;/h1&gt;
 &lt;p&gt;首先，我们先从最简单的请求网络模型了解Web访问流程（如图1-1），流程包括：&lt;/p&gt;
 &lt;p&gt;1、用户发起第三方站点对应域名的Web请求（比如：百度 www.baidu.com）&lt;br /&gt;
