@@ -3,13 +3,50 @@
  
  <title>Happy Hacking</title>
  <link href="http://dyang.github.com/atom.xml" rel="self"/>
- <updated>2015-01-25T16:49:27+08:00</updated>
+ <updated>2015-01-26T14:36:01+08:00</updated>
  <id>http://dyang.github.com</id>
  <author>
    <name>Derek Yang</name>
    <email>yanghada@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>imac安装win7双系统小记</title>
+   <link href="http://dyang.github.com/mac/windows7/2015/01/25/imacInstallWin7.html"/>
+   <updated>2015-01-25T00:00:00+08:00</updated>
+   <id>http://dyang.github.com/mac/windows7/2015/01/25/imacInstallWin7</id>
+   <content type="html">&lt;h1&gt;装机背景&lt;/h1&gt;
+&lt;p&gt;最近遇到些特殊的需求，需要windows才能支持，没办法，只能在imac上装一个windows，那现在面临的选择是格盘重装，还是装双系统？&lt;/p&gt;
+&lt;p&gt;虽然之前在笔记本上也装过不少linux系统，ubuntu版本除外（为了降低安装系统的难度和风险，分区是在windows逻辑分区内进行，无需配置系统引导（比如grub）），其他版本安装，都需要自己了解系统分区，重新分区给新系统并为多系统配置入口引导，属于是放弃治疗型的。虽然有一些经验，由于一直没有尝试在苹果机装系统，也不能直接移植过来。先百度下前人安装的经验吧&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/imacInstWin7/1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;h1&gt;装机流程介绍&lt;/h1&gt;
+&lt;p&gt;新系统安装的整体流程是亘古不变的：分区 &amp;#8594; 安装新系统 &amp;#8594; 安装引导、驱动；在网上看了几篇相关的教程，imac系统安装双系统依靠软件： &lt;strong&gt;Boot camp&lt;/strong&gt; ，整体流程不涉及太多有风险的步骤，细节参考 &lt;a href=&quot;http://jingyan.baidu.com/article/95c9d20d9cb070ec4f75615a.html&quot;&gt;安装教程&lt;/a&gt; ，以下主要讲述安装过程中遇到的问题与解决方法&lt;/p&gt;
+&lt;h2&gt;没有USB驱动器&lt;/h2&gt;
+&lt;p&gt;&amp;#8220;没有USB驱动器连接到系统，请先插入USB驱动器，然后再继续&amp;#8221; 提示错误？&lt;/p&gt;
+&lt;p&gt;原因：由于不同的mac机器硬件配置不一致，所以在安装玩windows7之后需要安装的驱动也不一致。安装之前需要提供外接存储设备，imac会根据机器的详细配置，下载win7对应的驱动支持。所以需要是因为没有插入外接USB导致该问题提示。&lt;br /&gt;
+解决：插入大于1G以上的外接存储设备（比如USB存储）即可解决该问题&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/imacInstWin7/2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;h2&gt;无创建win7安装磁盘选项&lt;/h2&gt;
+&lt;p&gt;&amp;#8220;Boot Camp选择任务页，无第一项window7安装磁盘选项&amp;#8221; ？&lt;/p&gt;
+&lt;p&gt;原因：不明，一些有经验的同学反馈是系统是阉割版的系统导致，要有该项需要balalalla&amp;#8230;的一堆设置；&lt;br /&gt;
+解决：因为本人安装是用系统盘，所以不需要创建新win7安装磁盘，直接跳过，最后也成功安装了；&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/imacInstWin7/2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;h2&gt;无法使用该USB驱动器&lt;/h2&gt;
+&lt;p&gt;Boot Camp选择任务页，点击&amp;quot;继续&amp;quot;后，弹出提示&amp;quot;无法使用该USB驱动器，请将该USB驱动器格式化为单个FAT分区&amp;quot; ？&lt;/p&gt;
+&lt;p&gt;原因：系统无法识别USB驱动器的文件系统格式；（有些同学在windows把U盘下面格式化FAT格式还是不行，应该是在windows的FAT格式化以后不满足Mac想要的FAT格式）&lt;br /&gt;
+解决： 插入U盘，在Mac中打开【应用程序】中&amp;quot;其他&amp;quot;文件夹下的&amp;quot;磁盘工具&amp;quot;，左边栏选择那个U盘，右边选择&amp;quot;抹掉&amp;quot;选项卡，格式选择：MS-&lt;acronym title=&quot;FAT&quot;&gt;&lt;span class=&quot;caps&quot;&gt;DOC&lt;/span&gt;&lt;/acronym&gt;，点击【抹掉】&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/imacInstWin7/2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;h2&gt;win7系统没有声音&lt;/h2&gt;
+&lt;p&gt;安装完系统进入win7发现没有声音？&lt;/p&gt;
+&lt;p&gt;原因：相关驱动没有安装&lt;br /&gt;
+解决：这里有两种办法，第一种就是手动安装之前下载的适配驱动（Boot Camp名字文件夹）；第二种就是安装驱动精灵，安装对应驱动；&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/imacInstWin7/2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;h1&gt;安装Review&lt;/h1&gt;
+&lt;p&gt;总的来说，赞水果系统极致的用户体验，为用户考虑了各种条件的需求，尽可能多的减少用户修改系统对数据造成的安全风险，同时增加工具帮助用户解决需求。很喜欢分区动画的交互，清晰易懂，比输入生硬的磁盘空间大小（ie，k、M、G&amp;#8230;）单位更友好；&lt;/p&gt;
+&lt;p&gt;假如以上文章有模糊、问题的地方希望积极给我指出，大家相互交流，共同进步～&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/imacInstWin7/3.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;</content>
+ </entry>
  
  <entry>
    <title>域名申请与配置小结</title>

@@ -51,68 +51,48 @@
 <div id='wrapper'>
     <div class='post'>
         <!-- page view counter id setting -->
-        <script type="text/javascript"> window.unqid = "3fdb8e318f661046818d8836240ceec7" </script>
+        <script type="text/javascript"> window.unqid = "2d1d18ef2f3db9d70c6fcd937326451f" </script>
 
         <div id="article-title">
-            <h1><a href='/domain/blog/2015/01/22/buildBlog_CustomDomain.html'>域名申请与配置小结</a></h1>
-            <div class='date'> - 22 Jan 2015</div>
+            <h1><a href='/mac/windows7/2015/01/25/imacInstallWin7.html'>imac安装win7双系统小记</a></h1>
+            <div class='date'> - 25 Jan 2015</div>
         </div>
 
         <div id="transpost">
-            <p><a href="/domain/blog/2015/01/22/buildBlog_CustomDomain.html"><<<转载请注明出处,谢谢～>>></转载请注明出处,谢谢～></a></p>
+            <p><a href="/mac/windows7/2015/01/25/imacInstallWin7.html"><<<转载请注明出处,谢谢～>>></转载请注明出处,谢谢～></a></p>
         </div>
 
         <div class='body'>
-            <h1>Web请求模型初识</h1>
-<p>首先，我们先从最简单的请求网络模型了解Web访问流程（如图1-1），流程包括：</p>
-<p>1、用户发起第三方站点对应域名的Web请求（比如：百度 www.baidu.com）<br />
-2、域名通过DNS查询到对应站点的主机IP（比如：www.baidu.com &#8594; 119.75.218.70）<br />
-3、最后向该服务器IP（80端口）发起http请求，等待服务器Response</p>
-<p>流程中需要记住的核心是：域名仅仅只是方便记忆的别名（相较IP，域名还有很多优点，只是和本文相关的内容是这点）</p>
-<p><img src="/images/customDomain/1.png" alt="" /><br />
-<br/></p>
-<h1>域名申请Web模型</h1>
-<p>在了解简单Web请求模型后，已经基本清楚域名的作用，那么， <strong>该如何申请域名呢？域名运营商为我们做了什么事？</strong> 刚才在第一节DNS查询对应关系中隐藏了部分细节，其中最重要的是： <strong>域名怎么知道要去哪个DNS IP查询？</strong></p>
-<p>带着这几个问题，我们来看一下改进后Web请求模型（添加申请域名步骤）【如图1-2】</p>
-<p>（省略第一节中已经提到的步骤3-5）<br />
-1、用户通过域名运营商申请独立域名（比如GoDaddy）<br />
-2、域名运营商将域名记录更新到国际根域名服务器（也称顶级域名）（为什么不是DNS？）</p>
-<p><img src="/images/customDomain/2.png" alt="" /><br />
-<br/></p>
-<p>Now，我们来梳理几个盲点：<br />
-1、明确顶级域名服务商 <strong>不等于</strong> DNS，DNS仅仅是存储一条域名到IP对应关系的服务器<br />
-2、1-2图中第四步域名查询过程中，在默认DNS查询不到对应记录的条件下， <strong>到顶级域名服务器递归查询，第二步域名商将域名记录更新到顶级域名服务器的目的就是使该查询命中，那么该记录是否是域名与IP对应记录？答案不是</strong><br />
-3、申请过域名的同学都知道，域名运营商有自己（或者默认）的DNS服务器， <strong>所以第三点中更新到顶级域名的记录应该不是域名与IP对应记录，而是域名与能解析该域名的服务器IP</strong><br />
-4、当查询顶级域名命中后，会再到对应的服务器IP（DNS服务器）查询对应第三方服务器IP<br />
-<br/></p>
-<h1>DNS定制Web模型</h1>
-<p>域名合理使用的关键在于对Web请求模型了解深度，上面两个主题已经做了简单介绍。下面的主题是上面模型的补充，主要解决的问题是如何做好域名解析容灾，说通俗一点就是如何更好管理自己域名的解析服务器，一种比较常见的做法就是找一个第三方域名解析提供商，这样做能带给你的好处包括：</p>
-<p>1、完善的监控体系，保证7 * 24小时解析服务器不因宕机而无法解析域名<br />
-2、这点是最重要的，选择一个响应快、操作交互简单的第三方域名提供商。不清楚是否是网络被墙的缘故，访问GoDaddy总是响应很慢，对于域名的申请我就忍了（毕竟实惠），可是对于博客运营经常需要关注域名解析情况，老这样就遭不住，所以我果断没有GoDaddy的域名管理，直接选用了DNSPod，至少现在我觉得用得挺流畅和方便的 : )</p>
-<p>那我们还是来看一下新模型（如图1-3）</p>
-<p>（省略第二节中已经提到的步骤1-2、5-7）<br />
-3、将域名解析工作托管给第三方（本文的例子是 DNSPod）<br />
-4、将DNSPod的域名解析服务器域名覆盖到域名运营商默认DNS解析服务器（GoDaddy会将记录更新到顶级域名服务器）</p>
-<p><img src="/images/customDomain/3.png" alt="" /><br />
-<br/></p>
-<h1>Github定制域名Web模型</h1>
-<p>前戏已经够足，差不多该实操走完整套流程。因为本博域名也是自己申请的，所以实际的例子就用Github Page搭建blog定制域名走一个。先上一个完整流程架构图（如图1-4）</p>
-<p><img width="811px" height="499px" src="/images/customDomain/4.png" /><br />
-<br/></p>
-<p>整个流程步骤：<br />
-1、GoDaddy申请域名a.com<br />
-2、Github Page搭建，默认域名a.github.io，CNAME文件中写blog.a.com<br />
-3、DNSPod记录一条CNAME记录：blog.a.com &#8594; a.github.io<br />
-4、DNSPod服务器域名覆盖到GoDaddy默认域名服务器域名<br />
-5、GoDaddy将域名对应提供解析服务器IP注册到顶级域名<br />
-6、访问blog.a.com<br />
-7、假设默认DNS缓存没有查询到，顶级域名服务器查询到提供解析的服务器IP（DNSPod服务器IP），查询出blog.a.com &#8594; a.github.io对应的IP（a.github.io对应的IP）<br />
-8、向a.github.io对应的IP发起http请求，Github page内容就返回了</p>
-<p>恩，大概就这些内容，假如有说得不对的地方或者有疑问的地方，可以留言给我，希望大家多多交流，相互学习</p>
-<h1>Git-Page域名配置参考</h1>
-<p><a href="https://help.github.com/articles/setting-up-a-custom-domain-with-github-pages/">Github Pages定制域名配置</a><br />
-<a href="https://help.github.com/articles/adding-a-cname-file-to-your-repository/">Github Pages CNAME文件配置</a><br />
-<a href="https://help.github.com/articles/about-custom-domains-for-github-pages-sites/">Github 顶级与二级域名配置</a></p>
+            <h1>装机背景</h1>
+<p>最近遇到些特殊的需求，需要windows才能支持，没办法，只能在imac上装一个windows，那现在面临的选择是格盘重装，还是装双系统？</p>
+<p>虽然之前在笔记本上也装过不少linux系统，ubuntu版本除外（为了降低安装系统的难度和风险，分区是在windows逻辑分区内进行，无需配置系统引导（比如grub）），其他版本安装，都需要自己了解系统分区，重新分区给新系统并为多系统配置入口引导，属于是放弃治疗型的。虽然有一些经验，由于一直没有尝试在苹果机装系统，也不能直接移植过来。先百度下前人安装的经验吧</p>
+<p><img src="/images/imacInstWin7/1.png" alt="" /></p>
+<h1>装机流程介绍</h1>
+<p>新系统安装的整体流程是亘古不变的：分区 &#8594; 安装新系统 &#8594; 安装引导、驱动；在网上看了几篇相关的教程，imac系统安装双系统依靠软件： <strong>Boot camp</strong> ，整体流程不涉及太多有风险的步骤，细节参考 <a href="http://jingyan.baidu.com/article/95c9d20d9cb070ec4f75615a.html">安装教程</a> ，以下主要讲述安装过程中遇到的问题与解决方法</p>
+<h2>没有USB驱动器</h2>
+<p>&#8220;没有USB驱动器连接到系统，请先插入USB驱动器，然后再继续&#8221; 提示错误？</p>
+<p>原因：由于不同的mac机器硬件配置不一致，所以在安装玩windows7之后需要安装的驱动也不一致。安装之前需要提供外接存储设备，imac会根据机器的详细配置，下载win7对应的驱动支持。所以需要是因为没有插入外接USB导致该问题提示。<br />
+解决：插入大于1G以上的外接存储设备（比如USB存储）即可解决该问题</p>
+<p><img src="/images/imacInstWin7/2.png" alt="" /></p>
+<h2>无创建win7安装磁盘选项</h2>
+<p>&#8220;Boot Camp选择任务页，无第一项window7安装磁盘选项&#8221; ？</p>
+<p>原因：不明，一些有经验的同学反馈是系统是阉割版的系统导致，要有该项需要balalalla&#8230;的一堆设置；<br />
+解决：因为本人安装是用系统盘，所以不需要创建新win7安装磁盘，直接跳过，最后也成功安装了；</p>
+<p><img src="/images/imacInstWin7/2.png" alt="" /></p>
+<h2>无法使用该USB驱动器</h2>
+<p>Boot Camp选择任务页，点击&quot;继续&quot;后，弹出提示&quot;无法使用该USB驱动器，请将该USB驱动器格式化为单个FAT分区&quot; ？</p>
+<p>原因：系统无法识别USB驱动器的文件系统格式；（有些同学在windows把U盘下面格式化FAT格式还是不行，应该是在windows的FAT格式化以后不满足Mac想要的FAT格式）<br />
+解决： 插入U盘，在Mac中打开【应用程序】中&quot;其他&quot;文件夹下的&quot;磁盘工具&quot;，左边栏选择那个U盘，右边选择&quot;抹掉&quot;选项卡，格式选择：MS-<acronym title="FAT"><span class="caps">DOC</span></acronym>，点击【抹掉】</p>
+<p><img src="/images/imacInstWin7/2.png" alt="" /></p>
+<h2>win7系统没有声音</h2>
+<p>安装完系统进入win7发现没有声音？</p>
+<p>原因：相关驱动没有安装<br />
+解决：这里有两种办法，第一种就是手动安装之前下载的适配驱动（Boot Camp名字文件夹）；第二种就是安装驱动精灵，安装对应驱动；</p>
+<p><img src="/images/imacInstWin7/2.png" alt="" /></p>
+<h1>安装Review</h1>
+<p>总的来说，赞水果系统极致的用户体验，为用户考虑了各种条件的需求，尽可能多的减少用户修改系统对数据造成的安全风险，同时增加工具帮助用户解决需求。很喜欢分区动画的交互，清晰易懂，比输入生硬的磁盘空间大小（ie，k、M、G&#8230;）单位更友好；</p>
+<p>假如以上文章有模糊、问题的地方希望积极给我指出，大家相互交流，共同进步～</p>
+<p><img src="/images/imacInstWin7/3.png" alt="" /></p>
         </div>
 
         <br>
@@ -131,7 +111,7 @@
             <script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
             <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4df3c7a42c2a2e7e"></script>
         </div>
-        <a href='/domain/blog/2015/01/22/buildBlog_CustomDomain.html#disqus_thread'>View Comments</a>
+        <a href='/mac/windows7/2015/01/25/imacInstallWin7.html#disqus_thread'>View Comments</a>
         -->
     </div>
 </div>
@@ -146,12 +126,15 @@
                 <div class="repo">
                     <h4><a href="/categories.html">博客讨论( 5 )</a></h4>
                     <h4><a href="/categories.html">域名讨论( 1 )</a></h4>
+                    <h4><a href="/categories.html">Mac系统讨论( 1 )</a></h4>
                 </div>
             </div>
 
             <h2>Popular Posts</h2>
             <div id='github-projects-pop'>
                 <div class="repo">
+                    
+                        <h3><a href="/mac/windows7/2015/01/25/imacInstallWin7.html">imac安装win7双系统小记</a></h3>
                     
                         <h3><a href="/domain/blog/2015/01/22/buildBlog_CustomDomain.html">域名申请与配置小结</a></h3>
                     
