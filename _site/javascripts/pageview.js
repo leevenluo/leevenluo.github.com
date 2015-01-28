@@ -26,7 +26,6 @@ var settingPageView = function () {
         "font-style"     : "italic",
         "font-size"      : "18px",
         "color"          : "rgba(0, 13, 255, 0.65)",
-        "letter-spacing" : "0.04em",
     });
 
     $('#article-title #pageView a img').css({
