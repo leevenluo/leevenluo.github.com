@@ -11,7 +11,7 @@
             <meta name="description" content="" />
         
 
-        <title>Leeven Luo - 一起写blog-配置篇</title>
+        <title>Leeven Luo - Scrapy安装配置初探</title>
         <link rel="stylesheet" href="/dist/css/bootstrap.min.css" type="text/css" media="screen" charset="utf-8"/>
         <link rel="stylesheet" href="/stylesheets/master.css" type="text/css" media="screen" charset="utf-8"/>
 
@@ -50,11 +50,11 @@
                 <div id='wrapper'>
     <div class='post'>
         <!-- page view counter id setting -->
-        <script type="text/javascript"> window.unqid = "610d9d97b79b516abc14232be3cc5f4b" </script>
+        <script type="text/javascript"> window.unqid = "05f365f963bb4790d4ab9c29ae473e77" </script>
 
         <div id="article-title">
-            <h1><a href='/blog/2013/03/28/buildBlog_configure.html'>一起写blog-配置篇</a></h1>
-            <div class='date'> - 28 Mar 2013</div>
+            <h1><a href='/scrapy/python/crawler/2015/01/28/scrapyInstallConfig.html'>Scrapy安装配置初探</a></h1>
+            <div class='date'> - 28 Jan 2015</div>
         </div>
 
         <div id="transpost">
@@ -62,55 +62,76 @@
         </div>
 
         <div class='body'>
-            <h1>配置篇</h1>
-<h1>配置和使用Github</h1>
-<p>要使用Git, 需要安装它的客户端, 推荐在Linux下使用Git, 会比较方便. Windows版的下载地址在 <a href="http://code.google.com/p/msysgit/downloads/list">这里</a> . 其他系统的安装也可以参考 <a href="https://help.github.com/articles/set-up-git">官方的安装教程</a> .</p>
-<p>下载安装客户端之后, 各个系统的配置就类似了, 我们使用windows作为例子, Linux和Mac与此类似. 为了更好的完成下面的步骤, 建议先到 <a href="http://github.com">Github站点</a> 申请自己的帐号, 因为后面的步骤中需要用到. 在Windows下, 打开Git Bash, 其他系统下面则打开终端（Terminal）</p>
-<p><strong>注意: 下面的步骤是设置给Github提交代码的权限</strong></p>
-<h2>检查SSH keys的设置</h2>
-<p>首先我们需要检查你电脑上现有的ssh key:</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span><span class="nb">cd</span> ~/.ssh</code></pre></div><p>如果显示“No such file or directory”, 跳到第三步, 否则继续.</p>
-<h2>保存ssh key设置</h2>
-<p>因为已经存在key文件, 所以需要备份旧的数据并删除:</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>ls
-id_rsa  id_rsa.pub  known_hosts
-<span class="nv">$ </span>mkdir key_backup
-<span class="nv">$ </span>mv id_rsa* key_backup</code></pre></div><h2>生成新的SSH Key</h2>
-<p>输入下面的代码, 就可以生成新的key文件, 我们只需要默认设置就好, 所以当需要输入文件名的时候, 回车就好.</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>ssh-keygen -t rsa -C <span class="s2">&quot;邮件地址@youremail.com&quot;</span>
-Generating public/private rsa key pair.
-Enter file in which to save the key <span class="o">(</span>/Users/your_user_directory/.ssh/id_rsa<span class="o">)</span>:&lt;回车就好&gt;</code></pre></div><p>然后系统会要你输入加密串（Passphrase）:</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">Enter passphrase <span class="o">(</span>empty <span class="k">for</span> no passphrase<span class="o">)</span>:&lt;输入加密串&gt;
-Enter same passphrase again:&lt;再次输入加密串&gt;</code></pre></div><p>最后看到这样的界面, 就成功设置ssh key了:</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">Your identification has been saved in /home/lxinji/.ssh/id_rsa.
-Your public key has been saved in /home/lxinji/.ssh/id_rsa.pub.
-The key fingerprint is:
-6a:a4:c9:98:85:48:c4:c9:38:9e:90:fa:23:b8:ca:54 loxinji@gmail.com
-The key<span class="err">&#39;</span>s randomart image is:
-+--<span class="o">[</span> RSA 2048<span class="o">]</span>----+
-<span class="p">|</span>+o.              <span class="p">|</span>
-<span class="p">|</span>*+               <span class="p">|</span>
-<span class="p">|</span>+o.              <span class="p">|</span>
-<span class="p">|</span>o+ .             <span class="p">|</span>
-<span class="p">|</span>o..E. . S        <span class="p">|</span>
-<span class="p">|</span>o +<span class="o">=</span> + .         <span class="p">|</span>
-<span class="p">|</span> +o.+ o          <span class="p">|</span>
-<span class="p">|</span>+    .           <span class="p">|</span>
-<span class="p">|</span>o.               <span class="p">|</span>
-+-----------------+</code></pre></div><h2>添加SSH Key到GitHub</h2>
-<p>在本机设置SSH Key之后, 需要添加到GitHub上, 以完成SSH链接的设置. 用文本编辑工具打开id_rsa.pub文件, 如果看不到这个文件, 你需要设置显示隐藏文件. 准确的复制这个文件的内容, 才能保证设置的成功. 在GitHub的主页上右上角点击设置按钮:</p>
-<p><img src="/images/buildBlog_4.0.jpg" alt="" /></p>
-<p>在左侧选择SSH Keys项, 点击“Add <span class="caps">SSH</span> key”, 把复制的内容粘贴进去, 然后点击Add Key按钮即可, 注意: 若添加不成功, 请重新复制本地SSH Keys</p>
-<h2>验证效果</h2>
-<p>可以输入下面的命令, 看看设置是否成功, git@github.com的部分不要修改:</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>ssh -T git@github.com</code></pre></div><p>如果是下面的反应(本人配置没有出现过, 若出现可以参考以下方法):</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">The authenticity of host <span class="s1">&#39;github.com (207.97.227.239)&#39;</span> can<span class="err">&#39;</span>t be established.
-RSA key fingerprint is 16:27:ac:a5:76:28:2d:36:63:1b:56:4d:eb:df:a6:48.
-Are you sure you want to <span class="k">continue</span> connecting <span class="o">(</span>yes/no<span class="o">)</span>?</code></pre></div><p>不要紧张, 输入yes就好, 然后会看到:</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">Hi &lt;em&gt;username&lt;/em&gt;! You<span class="err">&#39;</span>ve successfully authenticated, but GitHub does not provide shell access.</code></pre></div><p>到这里, 已经生成了SSH Key, 这里的主要作用是在本地Git和Github进行连接时必须要进行身份确认, <span class="caps">SSH</span> key就是认证凭证.</p>
-<h2>设置你的账号信息</h2>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>git config --global user.name <span class="s2">&quot;你的名字&quot;</span>
-<span class="nv">$ </span>git config --global user.email <span class="s2">&quot;your_email@youremail.com&quot;</span></code></pre></div><p>现在你可以成功连接GitHub了,测试连接放在下一篇里, 因为现在你的远程仓库中还没有代码可以pull到本地.</p>
+            <h1>Scrapy初识</h1>
+<p>Scrapy目的是为爬取网站数据，提取结构性数据而编写的框架。应用包括数据挖掘，信息处理或存储历史数据等一系列的程序中。 其最初是为了页面抓取（更确切来说， 网络抓取）所设计的， 也可以应用在获取API所返回的数据(例如 Amazon Associates Web Services ) 或者通用的网络爬虫。Scrapy用途广泛，可以用于数据挖掘、监测和自动化测试等领域。</p>
+<p>由于项目需求支持，不经意间了解到它，当时是这样的，我自己评估整个工作的工作量后，写抓取客户端不是多困难的事情，但是解析抓取回来网页的工作却是过程中最耗时，假如可以，我希望有一套既能满足抓取需求，同时又具有网页解析加抽取能力的框架，加上最近对python比较感冒，估摸着应该会有（python背后有千万级的开源库支持），朝着这个方向找下去，Scrapy就粗线了。</p>
+<p>这里先说结果，Scrapy大大超出我的预期，除了满足我的需求外，还有很多加分选项的支持，假如时间允许的话，我打算把Scrapy框架源代码看一下，学习一下这个功能强大但架构轻便的东东。所以这会又是一个开源学习系列（继OSQA之后，可能写这篇文章时候还没有来得及把OSQA开源学习系列文章更新，我会逐渐更新的哈，最近工作还是太忙，写文章时间有限）</p>
+<h1>Scrapy架构梳理</h1>
+<h2>Scrapy架构流程图</h2>
+<p><img src="/images/scrapy/1.png" alt="" /></p>
+<h2>Scrapy基础组件介绍</h2>
+<p>Scrapy主要包括以下组件：</p>
+<ol>
+	<li><strong>引擎(Scrapy)</strong> ： 用来处理整个系统的数据流处理， 触发事务(框架核心)</li>
+	<li><strong>调度器(Scheduler)</strong> ： 用来接受引擎发过来的请求， 压入队列中， 并在引擎再次请求的时候返回. 可以想像成一个URL（抓取网页的网址或者说是链接）的优先队列， 由它来决定下一个要抓取的网址是什么， 同时去除重复的网址</li>
+	<li><strong>下载器(Downloader)</strong> ： 用于下载网页内容， 并将网页内容返回给蜘蛛(Scrapy下载器是建立在twisted这个高效的异步模型上的)</li>
+	<li><strong>爬虫(Spiders)</strong> ： 爬虫是主要干活的， 用于从特定的网页中提取自己需要的信息， 即所谓的实体(Item)。用户也可以从中提取出链接，让Scrapy继续抓取下一个页面</li>
+	<li><strong>项目管道(Pipeline)</strong> ： 负责处理爬虫从网页中抽取的实体，主要的功能是持久化实体、验证实体的有效性、清除不需要的信息。当页面被爬虫解析后，将被发送到项目管道，并经过几个特定的次序处理数据</li>
+	<li><strong>调度中间件(Scheduler Middewares)</strong> ： 介于Scrapy引擎和调度之间的中间件，从Scrapy引擎发送到调度的请求和响应</li>
+	<li><strong>下载器中间件(Downloader Middlewares)</strong> ： 位于Scrapy引擎和下载器之间的框架，主要是处理Scrapy引擎与下载器之间的请求及响应</li>
+	<li><strong>爬虫中间件(Spider Middlewares)</strong> ： 介于Scrapy引擎和爬虫之间的框架，主要工作是处理蜘蛛的响应输入和请求输出</li>
+</ol>
+<h2>Scrapy运行流程介绍</h2>
+<p>Scrapy运行流程大概如下：</p>
+<p>1、引擎从调度器中取出一个链接（URL）用于接下来的抓取<br />
+2、引擎把URL封装成一个请求（Request）传给下载器，下载器把资源下载下来，并封装成应答包（Response）<br />
+3、爬虫解析Response，若是解析出实体（Item），则交给实体管道进行进一步的处理；若是解析出的是链接（URL），则把URL交给调度器等待抓取</p>
+<h1>Scrapy框架安装</h1>
+<h2>pip安装</h2>
+<p>安装scrapy： <strong>pip install scrapy</strong></p>
+<p>安装成功后lib/site-packages文件夹中该具有的packages：</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">pyOpenSSL-0.14-py2.7.egg-info
+six-1.9.0.dist-info
+queuelib-1.2.2.dist-info
+scrapy
+Scrapy-0.24.4.dist-info
+lxml-3.4.1-py2.7.egg-info
+w3lib-1.11.0.dist-info
+cssselect-0.9.1-py2.7.egg-info
+Twisted-14.0.2-py2.7.egg-info
+cryptography-0.7.2-py2.7.egg-info
+zope.interface-4.1.2-py2.7-nspkg.pth
+zope.interface-4.1.2-py2.7.egg-info
+cffi-0.8.6-py2.7.egg-info
+pyasn1-0.1.7-py2.7.egg-info
+enum34-1.0.4-py2.7.egg-info
+pycparser-2.10-py2.7.egg-info</code></pre></div><h2>Scrapy安装过程问题汇总</h2>
+<p>1、ERROR: /bin/sh: xslt-config: command not found</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">Building lxml version 3.4.1.
+Building without Cython.
+ERROR: /bin/sh: xslt-config: <span class="nb">command </span>not found
+
+** make sure the development packages of libxml2 and libxslt are installed **</code></pre></div><p>解决： <strong>yum install libxslt-devel libxml2-devel</strong><br />
+<br/></p>
+<p>2、bz2 module is not available</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">使用pip安装twisted的时候出现
+
+CompressionError: bz2 module is not available 错误的。</code></pre></div><p>解决： <strong>yum install bzip2-devel</strong> ，安装完后建议重新编译python<br />
+<br/></p>
+<p>3、No package &#8216;libffi&#8217; found</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">pkg_resources.DistributionNotFound: cryptography&gt;<span class="o">=</span>0.2.1，于是运行
+easy_install cryptography 但是报  No package <span class="s1">&#39;libffi&#39;</span> found错误</code></pre></div><p>解决： <strong>yum install libffi-devel</strong><br />
+<br/></p>
+<p>4、UserWarning: You do not have the service_identity module installed</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">/data/leevenluo/python_proj/webcrawler/lib/python2.7/site-packages/twisted/internet/_sslverify.py:184: UserWarning: You <span class="k">do</span> not have the service_identity module installed. Please install it from &lt;https://pypi.python.org/pypi/service_identity&gt;. Without the service_identity module and a recent enough pyOpenSSL tosupport it， Twisted can perform only rudimentary TLS client hostnameverification.  Many valid certificate/hostname mappings may be rejected.
+  verifyHostname， <span class="nv">VerificationError</span> <span class="o">=</span> _selectVerifyImplementation<span class="o">()</span></code></pre></div><p>解决： <strong>pip install service_identity</strong><br />
+<br/></p>
+<h2>Scrapy安装完成验证</h2>
+<p>Scrapy是否安装完成，只用尝试项目生成： <strong>scrapy startproject tutorial</strong> ，假如成功代表安装完成</p>
+<h1>后续补充及参考文档</h1>
+<p>1、 框架基本使用方法<br />
+2、 <a href="http://scrapy.org/">Scrapy项目主页</a><br />
+3、 <a href="http://doc.scrapy.org/en/latest/">Scrapy文档API查询</a></p>
         </div>
 
         <!--
@@ -134,12 +155,6 @@ Are you sure you want to <span class="k">continue</span> connecting <span class=
             <table class="post-list">
                 
                 <tr>
-                    <th><a href='/scrapy/python/crawler/2015/01/28/scrapyInstallConfig.html'>Scrapy安装配置初探</a></th>
-                    <td>28 Jan 2015</td>
-                    <td><a href='/scrapy/python/crawler/2015/01/28/scrapyInstallConfig.html#disqus_thread'>Comments</a></td>
-                </tr>
-                
-                <tr>
                     <th><a href='/mac/windows7/2015/01/25/imacInstallWin7.html'>imac安装win7双系统小记</a></th>
                     <td>25 Jan 2015</td>
                     <td><a href='/mac/windows7/2015/01/25/imacInstallWin7.html#disqus_thread'>Comments</a></td>
@@ -149,6 +164,12 @@ Are you sure you want to <span class="k">continue</span> connecting <span class=
                     <th><a href='/domain/blog/2015/01/22/buildBlog_CustomDomain.html'>域名申请与配置小结</a></th>
                     <td>22 Jan 2015</td>
                     <td><a href='/domain/blog/2015/01/22/buildBlog_CustomDomain.html#disqus_thread'>Comments</a></td>
+                </tr>
+                
+                <tr>
+                    <th><a href='/blog/2013/04/03/buildBlog_hacking.html'>一起写blog-Hacking篇</a></th>
+                    <td>03 Apr 2013</td>
+                    <td><a href='/blog/2013/04/03/buildBlog_hacking.html#disqus_thread'>Comments</a></td>
                 </tr>
                 
             </table>

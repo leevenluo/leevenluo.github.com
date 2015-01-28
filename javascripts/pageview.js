@@ -20,12 +20,13 @@ var settingPageView = function () {
     });
 
     $('#article-title #pageView p').css({
-        "display"    : "inline-block",
-        "height"     : "30px",
-        "width"      : "100px",
-        "font-style" : "italic",
-        "font-size"  : "18px",
-        "color"      : "rgba(0, 13, 255, 0.65)",
+        "display"        : "inline-block",
+        "height"         : "30px",
+        "width"          : "100px",
+        "font-style"     : "italic",
+        "font-size"      : "18px",
+        "color"          : "rgba(0, 13, 255, 0.65)",
+        "letter-spacing" : "0.04em",
     });
 
     $('#article-title #pageView a img').css({

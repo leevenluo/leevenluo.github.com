@@ -51,48 +51,88 @@
 <div id='wrapper'>
     <div class='post'>
         <!-- page view counter id setting -->
-        <script type="text/javascript"> window.unqid = "2d1d18ef2f3db9d70c6fcd937326451f" </script>
+        <script type="text/javascript"> window.unqid = "05f365f963bb4790d4ab9c29ae473e77" </script>
 
         <div id="article-title">
-            <h1><a href='/mac/windows7/2015/01/25/imacInstallWin7.html'>imac安装win7双系统小记</a></h1>
-            <div class='date'> - 25 Jan 2015</div>
+            <h1><a href='/scrapy/python/crawler/2015/01/28/scrapyInstallConfig.html'>Scrapy安装配置初探</a></h1>
+            <div class='date'> - 28 Jan 2015</div>
         </div>
 
         <div id="transpost">
-            <p><a href="/mac/windows7/2015/01/25/imacInstallWin7.html"><<<转载请注明出处,谢谢～>>></转载请注明出处,谢谢～></a></p>
+            <p><a href="/scrapy/python/crawler/2015/01/28/scrapyInstallConfig.html"><<<转载请注明出处,谢谢～>>></转载请注明出处,谢谢～></a></p>
         </div>
 
         <div class='body'>
-            <h1>装机背景</h1>
-<p>最近遇到些特殊的需求，需要windows才能支持，没办法，只能在imac上装一个windows，那现在面临的选择是格盘重装，还是装双系统？</p>
-<p>虽然之前在笔记本上也装过不少linux系统，ubuntu版本除外（为了降低安装系统的难度和风险，分区是在windows逻辑分区内进行，无需配置系统引导（比如grub）），其他版本安装，都需要自己了解系统分区，重新分区给新系统并为多系统配置入口引导，属于是放弃治疗型的。虽然有一些经验，由于一直没有尝试在苹果机装系统，也不能直接移植过来。先百度下前人安装的经验吧</p>
-<p><img src="/images/imacInstWin7/1.png" alt="" /></p>
-<h1>装机流程介绍</h1>
-<p>新系统安装的整体流程是亘古不变的：分区 &#8594; 安装新系统 &#8594; 安装引导、驱动；在网上看了几篇相关的教程，imac系统安装双系统依靠软件： <strong>Boot camp</strong> ，整体流程不涉及太多有风险的步骤，细节参考 <a href="http://jingyan.baidu.com/article/95c9d20d9cb070ec4f75615a.html">安装教程</a> ，以下主要讲述安装过程中遇到的问题与解决方法</p>
-<h2>没有USB驱动器</h2>
-<p>&#8220;没有USB驱动器连接到系统，请先插入USB驱动器，然后再继续&#8221; 提示错误？</p>
-<p>原因：由于不同的mac机器硬件配置不一致，所以在安装玩windows7之后需要安装的驱动也不一致。安装之前需要提供外接存储设备，imac会根据机器的详细配置，下载win7对应的驱动支持。所以需要是因为没有插入外接USB导致该问题提示。<br />
-解决：插入大于1G以上的外接存储设备（比如USB存储）即可解决该问题</p>
-<p><img src="/images/imacInstWin7/2.png" alt="" /></p>
-<h2>无创建win7安装磁盘选项</h2>
-<p>&#8220;Boot Camp选择任务页，无第一项window7安装磁盘选项&#8221; ？</p>
-<p>原因：不明，一些有经验的同学反馈是系统是阉割版的系统导致，要有该项需要balalalla&#8230;的一堆设置；<br />
-解决：因为本人安装是用系统盘，所以不需要创建新win7安装磁盘，直接跳过，最后也成功安装了；</p>
-<p><img src="/images/imacInstWin7/2.png" alt="" /></p>
-<h2>无法使用该USB驱动器</h2>
-<p>Boot Camp选择任务页，点击&quot;继续&quot;后，弹出提示&quot;无法使用该USB驱动器，请将该USB驱动器格式化为单个FAT分区&quot; ？</p>
-<p>原因：系统无法识别USB驱动器的文件系统格式；（有些同学在windows把U盘下面格式化FAT格式还是不行，应该是在windows的FAT格式化以后不满足Mac想要的FAT格式）<br />
-解决： 插入U盘，在Mac中打开【应用程序】中&quot;其他&quot;文件夹下的&quot;磁盘工具&quot;，左边栏选择那个U盘，右边选择&quot;抹掉&quot;选项卡，格式选择：MS-<acronym title="FAT"><span class="caps">DOC</span></acronym>，点击【抹掉】</p>
-<p><img src="/images/imacInstWin7/2.png" alt="" /></p>
-<h2>win7系统没有声音</h2>
-<p>安装完系统进入win7发现没有声音？</p>
-<p>原因：相关驱动没有安装<br />
-解决：这里有两种办法，第一种就是手动安装之前下载的适配驱动（Boot Camp名字文件夹）；第二种就是安装驱动精灵，安装对应驱动；</p>
-<p><img src="/images/imacInstWin7/2.png" alt="" /></p>
-<h1>安装Review</h1>
-<p>总的来说，赞水果系统极致的用户体验，为用户考虑了各种条件的需求，尽可能多的减少用户修改系统对数据造成的安全风险，同时增加工具帮助用户解决需求。很喜欢分区动画的交互，清晰易懂，比输入生硬的磁盘空间大小（ie，k、M、G&#8230;）单位更友好；</p>
-<p>假如以上文章有模糊、问题的地方希望积极给我指出，大家相互交流，共同进步～</p>
-<p><img src="/images/imacInstWin7/3.png" alt="" /></p>
+            <h1>Scrapy初识</h1>
+<p>Scrapy目的是为爬取网站数据，提取结构性数据而编写的框架。应用包括数据挖掘，信息处理或存储历史数据等一系列的程序中。 其最初是为了页面抓取（更确切来说， 网络抓取）所设计的， 也可以应用在获取API所返回的数据(例如 Amazon Associates Web Services ) 或者通用的网络爬虫。Scrapy用途广泛，可以用于数据挖掘、监测和自动化测试等领域。</p>
+<p>由于项目需求支持，不经意间了解到它，当时是这样的，我自己评估整个工作的工作量后，写抓取客户端不是多困难的事情，但是解析抓取回来网页的工作却是过程中最耗时，假如可以，我希望有一套既能满足抓取需求，同时又具有网页解析加抽取能力的框架，加上最近对python比较感冒，估摸着应该会有（python背后有千万级的开源库支持），朝着这个方向找下去，Scrapy就粗线了。</p>
+<p>这里先说结果，Scrapy大大超出我的预期，除了满足我的需求外，还有很多加分选项的支持，假如时间允许的话，我打算把Scrapy框架源代码看一下，学习一下这个功能强大但架构轻便的东东。所以这会又是一个开源学习系列（继OSQA之后，可能写这篇文章时候还没有来得及把OSQA开源学习系列文章更新，我会逐渐更新的哈，最近工作还是太忙，写文章时间有限）</p>
+<h1>Scrapy架构梳理</h1>
+<h2>Scrapy架构流程图</h2>
+<p><img src="/images/scrapy/1.png" alt="" /></p>
+<h2>Scrapy基础组件介绍</h2>
+<p>Scrapy主要包括以下组件：</p>
+<ol>
+	<li><strong>引擎(Scrapy)</strong> ： 用来处理整个系统的数据流处理， 触发事务(框架核心)</li>
+	<li><strong>调度器(Scheduler)</strong> ： 用来接受引擎发过来的请求， 压入队列中， 并在引擎再次请求的时候返回. 可以想像成一个URL（抓取网页的网址或者说是链接）的优先队列， 由它来决定下一个要抓取的网址是什么， 同时去除重复的网址</li>
+	<li><strong>下载器(Downloader)</strong> ： 用于下载网页内容， 并将网页内容返回给蜘蛛(Scrapy下载器是建立在twisted这个高效的异步模型上的)</li>
+	<li><strong>爬虫(Spiders)</strong> ： 爬虫是主要干活的， 用于从特定的网页中提取自己需要的信息， 即所谓的实体(Item)。用户也可以从中提取出链接，让Scrapy继续抓取下一个页面</li>
+	<li><strong>项目管道(Pipeline)</strong> ： 负责处理爬虫从网页中抽取的实体，主要的功能是持久化实体、验证实体的有效性、清除不需要的信息。当页面被爬虫解析后，将被发送到项目管道，并经过几个特定的次序处理数据</li>
+	<li><strong>调度中间件(Scheduler Middewares)</strong> ： 介于Scrapy引擎和调度之间的中间件，从Scrapy引擎发送到调度的请求和响应</li>
+	<li><strong>下载器中间件(Downloader Middlewares)</strong> ： 位于Scrapy引擎和下载器之间的框架，主要是处理Scrapy引擎与下载器之间的请求及响应</li>
+	<li><strong>爬虫中间件(Spider Middlewares)</strong> ： 介于Scrapy引擎和爬虫之间的框架，主要工作是处理蜘蛛的响应输入和请求输出</li>
+</ol>
+<h2>Scrapy运行流程介绍</h2>
+<p>Scrapy运行流程大概如下：</p>
+<p>1、引擎从调度器中取出一个链接（URL）用于接下来的抓取<br />
+2、引擎把URL封装成一个请求（Request）传给下载器，下载器把资源下载下来，并封装成应答包（Response）<br />
+3、爬虫解析Response，若是解析出实体（Item），则交给实体管道进行进一步的处理；若是解析出的是链接（URL），则把URL交给调度器等待抓取</p>
+<h1>Scrapy框架安装</h1>
+<h2>pip安装</h2>
+<p>安装scrapy： <strong>pip install scrapy</strong></p>
+<p>安装成功后lib/site-packages文件夹中该具有的packages：</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">pyOpenSSL-0.14-py2.7.egg-info
+six-1.9.0.dist-info
+queuelib-1.2.2.dist-info
+scrapy
+Scrapy-0.24.4.dist-info
+lxml-3.4.1-py2.7.egg-info
+w3lib-1.11.0.dist-info
+cssselect-0.9.1-py2.7.egg-info
+Twisted-14.0.2-py2.7.egg-info
+cryptography-0.7.2-py2.7.egg-info
+zope.interface-4.1.2-py2.7-nspkg.pth
+zope.interface-4.1.2-py2.7.egg-info
+cffi-0.8.6-py2.7.egg-info
+pyasn1-0.1.7-py2.7.egg-info
+enum34-1.0.4-py2.7.egg-info
+pycparser-2.10-py2.7.egg-info</code></pre></div><h2>Scrapy安装过程问题汇总</h2>
+<p>1、ERROR: /bin/sh: xslt-config: command not found</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">Building lxml version 3.4.1.
+Building without Cython.
+ERROR: /bin/sh: xslt-config: <span class="nb">command </span>not found
+
+** make sure the development packages of libxml2 and libxslt are installed **</code></pre></div><p>解决： <strong>yum install libxslt-devel libxml2-devel</strong><br />
+<br/></p>
+<p>2、bz2 module is not available</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">使用pip安装twisted的时候出现
+
+CompressionError: bz2 module is not available 错误的。</code></pre></div><p>解决： <strong>yum install bzip2-devel</strong> ，安装完后建议重新编译python<br />
+<br/></p>
+<p>3、No package &#8216;libffi&#8217; found</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">pkg_resources.DistributionNotFound: cryptography&gt;<span class="o">=</span>0.2.1，于是运行
+easy_install cryptography 但是报  No package <span class="s1">&#39;libffi&#39;</span> found错误</code></pre></div><p>解决： <strong>yum install libffi-devel</strong><br />
+<br/></p>
+<p>4、UserWarning: You do not have the service_identity module installed</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">/data/leevenluo/python_proj/webcrawler/lib/python2.7/site-packages/twisted/internet/_sslverify.py:184: UserWarning: You <span class="k">do</span> not have the service_identity module installed. Please install it from &lt;https://pypi.python.org/pypi/service_identity&gt;. Without the service_identity module and a recent enough pyOpenSSL tosupport it， Twisted can perform only rudimentary TLS client hostnameverification.  Many valid certificate/hostname mappings may be rejected.
+  verifyHostname， <span class="nv">VerificationError</span> <span class="o">=</span> _selectVerifyImplementation<span class="o">()</span></code></pre></div><p>解决： <strong>pip install service_identity</strong><br />
+<br/></p>
+<h2>Scrapy安装完成验证</h2>
+<p>Scrapy是否安装完成，只用尝试项目生成： <strong>scrapy startproject tutorial</strong> ，假如成功代表安装完成</p>
+<h1>后续补充及参考文档</h1>
+<p>1、 框架基本使用方法<br />
+2、 <a href="http://scrapy.org/">Scrapy项目主页</a><br />
+3、 <a href="http://doc.scrapy.org/en/latest/">Scrapy文档API查询</a></p>
         </div>
 
         <br>
@@ -111,7 +151,7 @@
             <script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
             <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4df3c7a42c2a2e7e"></script>
         </div>
-        <a href='/mac/windows7/2015/01/25/imacInstallWin7.html#disqus_thread'>View Comments</a>
+        <a href='/scrapy/python/crawler/2015/01/28/scrapyInstallConfig.html#disqus_thread'>View Comments</a>
         -->
     </div>
 </div>
@@ -133,6 +173,8 @@
             <h2>Popular Posts</h2>
             <div id='github-projects-pop'>
                 <div class="repo">
+                    
+                        <h3><a href="/scrapy/python/crawler/2015/01/28/scrapyInstallConfig.html">Scrapy安装配置初探</a></h3>
                     
                         <h3><a href="/mac/windows7/2015/01/25/imacInstallWin7.html">imac安装win7双系统小记</a></h3>
                     

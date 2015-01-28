@@ -3,13 +3,90 @@
  
  <title>Happy Hacking</title>
  <link href="http://dyang.github.com/atom.xml" rel="self"/>
- <updated>2015-01-26T14:36:01+08:00</updated>
+ <updated>2015-01-28T16:27:03+08:00</updated>
  <id>http://dyang.github.com</id>
  <author>
    <name>Derek Yang</name>
    <email>yanghada@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Scrapy安装配置初探</title>
+   <link href="http://dyang.github.com/scrapy/python/crawler/2015/01/28/scrapyInstallConfig.html"/>
+   <updated>2015-01-28T00:00:00+08:00</updated>
+   <id>http://dyang.github.com/scrapy/python/crawler/2015/01/28/scrapyInstallConfig</id>
+   <content type="html">&lt;h1&gt;Scrapy初识&lt;/h1&gt;
+&lt;p&gt;Scrapy目的是为爬取网站数据，提取结构性数据而编写的框架。应用包括数据挖掘，信息处理或存储历史数据等一系列的程序中。 其最初是为了页面抓取（更确切来说， 网络抓取）所设计的， 也可以应用在获取API所返回的数据(例如 Amazon Associates Web Services ) 或者通用的网络爬虫。Scrapy用途广泛，可以用于数据挖掘、监测和自动化测试等领域。&lt;/p&gt;
+&lt;p&gt;由于项目需求支持，不经意间了解到它，当时是这样的，我自己评估整个工作的工作量后，写抓取客户端不是多困难的事情，但是解析抓取回来网页的工作却是过程中最耗时，假如可以，我希望有一套既能满足抓取需求，同时又具有网页解析加抽取能力的框架，加上最近对python比较感冒，估摸着应该会有（python背后有千万级的开源库支持），朝着这个方向找下去，Scrapy就粗线了。&lt;/p&gt;
+&lt;p&gt;这里先说结果，Scrapy大大超出我的预期，除了满足我的需求外，还有很多加分选项的支持，假如时间允许的话，我打算把Scrapy框架源代码看一下，学习一下这个功能强大但架构轻便的东东。所以这会又是一个开源学习系列（继OSQA之后，可能写这篇文章时候还没有来得及把OSQA开源学习系列文章更新，我会逐渐更新的哈，最近工作还是太忙，写文章时间有限）&lt;/p&gt;
+&lt;h1&gt;Scrapy架构梳理&lt;/h1&gt;
+&lt;h2&gt;Scrapy架构流程图&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&quot;/images/scrapy/1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;h2&gt;Scrapy基础组件介绍&lt;/h2&gt;
+&lt;p&gt;Scrapy主要包括以下组件：&lt;/p&gt;
+&lt;ol&gt;
+	&lt;li&gt;&lt;strong&gt;引擎(Scrapy)&lt;/strong&gt; ： 用来处理整个系统的数据流处理， 触发事务(框架核心)&lt;/li&gt;
+	&lt;li&gt;&lt;strong&gt;调度器(Scheduler)&lt;/strong&gt; ： 用来接受引擎发过来的请求， 压入队列中， 并在引擎再次请求的时候返回. 可以想像成一个URL（抓取网页的网址或者说是链接）的优先队列， 由它来决定下一个要抓取的网址是什么， 同时去除重复的网址&lt;/li&gt;
+	&lt;li&gt;&lt;strong&gt;下载器(Downloader)&lt;/strong&gt; ： 用于下载网页内容， 并将网页内容返回给蜘蛛(Scrapy下载器是建立在twisted这个高效的异步模型上的)&lt;/li&gt;
+	&lt;li&gt;&lt;strong&gt;爬虫(Spiders)&lt;/strong&gt; ： 爬虫是主要干活的， 用于从特定的网页中提取自己需要的信息， 即所谓的实体(Item)。用户也可以从中提取出链接，让Scrapy继续抓取下一个页面&lt;/li&gt;
+	&lt;li&gt;&lt;strong&gt;项目管道(Pipeline)&lt;/strong&gt; ： 负责处理爬虫从网页中抽取的实体，主要的功能是持久化实体、验证实体的有效性、清除不需要的信息。当页面被爬虫解析后，将被发送到项目管道，并经过几个特定的次序处理数据&lt;/li&gt;
+	&lt;li&gt;&lt;strong&gt;调度中间件(Scheduler Middewares)&lt;/strong&gt; ： 介于Scrapy引擎和调度之间的中间件，从Scrapy引擎发送到调度的请求和响应&lt;/li&gt;
+	&lt;li&gt;&lt;strong&gt;下载器中间件(Downloader Middlewares)&lt;/strong&gt; ： 位于Scrapy引擎和下载器之间的框架，主要是处理Scrapy引擎与下载器之间的请求及响应&lt;/li&gt;
+	&lt;li&gt;&lt;strong&gt;爬虫中间件(Spider Middlewares)&lt;/strong&gt; ： 介于Scrapy引擎和爬虫之间的框架，主要工作是处理蜘蛛的响应输入和请求输出&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2&gt;Scrapy运行流程介绍&lt;/h2&gt;
+&lt;p&gt;Scrapy运行流程大概如下：&lt;/p&gt;
+&lt;p&gt;1、引擎从调度器中取出一个链接（URL）用于接下来的抓取&lt;br /&gt;
+2、引擎把URL封装成一个请求（Request）传给下载器，下载器把资源下载下来，并封装成应答包（Response）&lt;br /&gt;
+3、爬虫解析Response，若是解析出实体（Item），则交给实体管道进行进一步的处理；若是解析出的是链接（URL），则把URL交给调度器等待抓取&lt;/p&gt;
+&lt;h1&gt;Scrapy框架安装&lt;/h1&gt;
+&lt;h2&gt;pip安装&lt;/h2&gt;
+&lt;p&gt;安装scrapy： &lt;strong&gt;pip install scrapy&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;安装成功后lib/site-packages文件夹中该具有的packages：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;pyOpenSSL-0.14-py2.7.egg-info
+six-1.9.0.dist-info
+queuelib-1.2.2.dist-info
+scrapy
+Scrapy-0.24.4.dist-info
+lxml-3.4.1-py2.7.egg-info
+w3lib-1.11.0.dist-info
+cssselect-0.9.1-py2.7.egg-info
+Twisted-14.0.2-py2.7.egg-info
+cryptography-0.7.2-py2.7.egg-info
+zope.interface-4.1.2-py2.7-nspkg.pth
+zope.interface-4.1.2-py2.7.egg-info
+cffi-0.8.6-py2.7.egg-info
+pyasn1-0.1.7-py2.7.egg-info
+enum34-1.0.4-py2.7.egg-info
+pycparser-2.10-py2.7.egg-info&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2&gt;Scrapy安装过程问题汇总&lt;/h2&gt;
+&lt;p&gt;1、ERROR: /bin/sh: xslt-config: command not found&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;Building lxml version 3.4.1.
+Building without Cython.
+ERROR: /bin/sh: xslt-config: &lt;span class=&quot;nb&quot;&gt;command &lt;/span&gt;not found
+
+** make sure the development packages of libxml2 and libxslt are installed **&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;解决： &lt;strong&gt;yum install libxslt-devel libxml2-devel&lt;/strong&gt;&lt;br /&gt;
+&lt;br/&gt;&lt;/p&gt;
+&lt;p&gt;2、bz2 module is not available&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;使用pip安装twisted的时候出现
+
+CompressionError: bz2 module is not available 错误的。&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;解决： &lt;strong&gt;yum install bzip2-devel&lt;/strong&gt; ，安装完后建议重新编译python&lt;br /&gt;
+&lt;br/&gt;&lt;/p&gt;
+&lt;p&gt;3、No package &amp;#8216;libffi&amp;#8217; found&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;pkg_resources.DistributionNotFound: cryptography&amp;gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0.2.1，于是运行
+easy_install cryptography 但是报  No package &lt;span class=&quot;s1&quot;&gt;&amp;#39;libffi&amp;#39;&lt;/span&gt; found错误&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;解决： &lt;strong&gt;yum install libffi-devel&lt;/strong&gt;&lt;br /&gt;
+&lt;br/&gt;&lt;/p&gt;
+&lt;p&gt;4、UserWarning: You do not have the service_identity module installed&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;/data/leevenluo/python_proj/webcrawler/lib/python2.7/site-packages/twisted/internet/_sslverify.py:184: UserWarning: You &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; not have the service_identity module installed. Please install it from &amp;lt;https://pypi.python.org/pypi/service_identity&amp;gt;. Without the service_identity module and a recent enough pyOpenSSL tosupport it， Twisted can perform only rudimentary TLS client hostnameverification.  Many valid certificate/hostname mappings may be rejected.
+  verifyHostname， &lt;span class=&quot;nv&quot;&gt;VerificationError&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; _selectVerifyImplementation&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;解决： &lt;strong&gt;pip install service_identity&lt;/strong&gt;&lt;br /&gt;
+&lt;br/&gt;&lt;/p&gt;
+&lt;h2&gt;Scrapy安装完成验证&lt;/h2&gt;
+&lt;p&gt;Scrapy是否安装完成，只用尝试项目生成： &lt;strong&gt;scrapy startproject tutorial&lt;/strong&gt; ，假如成功代表安装完成&lt;/p&gt;
+&lt;h1&gt;后续补充及参考文档&lt;/h1&gt;
+&lt;p&gt;1、 框架基本使用方法&lt;br /&gt;
+2、 &lt;a href=&quot;http://scrapy.org/&quot;&gt;Scrapy项目主页&lt;/a&gt;&lt;br /&gt;
+3、 &lt;a href=&quot;http://doc.scrapy.org/en/latest/&quot;&gt;Scrapy文档API查询&lt;/a&gt;&lt;/p&gt;</content>
+ </entry>
  
  <entry>
    <title>imac安装win7双系统小记</title>

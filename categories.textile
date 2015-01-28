@@ -3,7 +3,7 @@ title:  About
 layout: about
 ---
 
-{% for category in site.categories %}
+{% for category in site.categories | sort : last %}
 h1. {{ category | first }} （{{ category | last | size }}）
 
 <ul id="categories">
