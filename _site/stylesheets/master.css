@@ -181,6 +181,10 @@ div.post {
     font-weight:    bold;
 }
 
+#categories li {
+    font-size: 19px;
+}
+
 .post { color: #333; }
 
 .post h1 a {
