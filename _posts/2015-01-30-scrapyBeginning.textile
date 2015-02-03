@@ -1,0 +1,279 @@
+---
+layout:     post
+title:      Scrapy使用小结
+categories:
+    - scrapy
+    - python
+    - crawler
+
+unqid:      3baf23b1fc95ea478a6c70c4ef431326
+---
+
+h1. Scrapy Demo
+
+接着文章《Scrapy安装配置初探》，接下来要用Scrapy完成眼前需求，同时解决在过程中遇到的问题。真正开始前，首先得先用框架搭建一个简单的抓取Demo，然后再继续补充或修改其他功能点
+
+h2. Scrapy Demo目录树
+
+{% highlight bash %}
+tutorial/
+├── scrapy.cfg
+└── tutorial
+    ├── __init__.py
+    ├── items.py
+    ├── pipelines.py
+    ├── settings.py
+    └── spiders
+        ├── __init__.py
+{% endhighlight %}
+
+各个文件的主要功能是：（具体功能细节详见下文）
+
+# scrapy.cfg: 项目配置文件
+# tutorial/: 项目目录
+# tutorial/items.py: 项目items文件，保存抓取解析完的数据
+# tutorial/pipelines.py: 项目管道文件，抓取解析完的数据输出前会通过管道
+# tutorial/settings.py: 项目配置文件，抓取关键参数配置
+# tutorial/spiders: 放置spider的目录，主要抓取与解析业务逻辑也在这里
+
+h2. Scrapy Spider Demo
+
+接下来，只用在Spiders目录下创建一个文件，比如tutorial.py。然后开始编写用户Spider类，该类负责网页的抓取与指定内容的抽取，最重要的是支持XPath标记抽取。本来XPath是一套标注DOM的标准，类似于CSS中的元素选择器，在这里直接能通过标记并抽取出指定内容，确实被震惊了
+
+下面例子展示的代码中重要参数包括：
+# name：爬虫名字，必须是唯一的，在不同的Spider中必须定义不同的名字
+# allowed_domains：允许抓取的URL的域名
+# start_urls：标记Spider首次进行爬取的url列表。
+# parse：是Spider爬取页面回调方法。函数的唯一参数是初始URL列表完成爬取后的Response对象。该方法负责解析爬取返回的数据，提取数据(生成item)或者生成需要进一步处理的URL的Request对象。
+
+下面的例子同时也展示了XPath抽取Demo，使用的模块是HtmlXPathSelector，例子中抽取的内容是标题（链接内容）
+在创建项目的根目录下执行抓取命令： *scrapy crawl tutorial* ，不报错的前提下就能看到LOG中输出抽取的标题结果，同时执行当前目录下会生成Books文件，保存抓取返回的页面数据
+
+{% highlight python %}
+from scrapy.spider      import Spider
+from scrapy.selector    import HtmlXPathSelector
+
+class TutorialSpider (Spider) :
+
+    name = "tutorial"
+    allowed_domains = ["dmoz.org"]
+    start_urls = [
+            "http://www.dmoz.org/Computers/Programming/Languages/Python/Books/",
+    ]
+
+    def parse (self, response) :
+        filename = response.url.split("/")[-2]
+
+        outFile = open(filename, "wb")
+        outFile.write(response.body)
+
+        oHselet = HtmlXPathSelector(response)
+        sites = oHselet.select('//ul[@class=\'directory-url\']/li')
+
+        for site in sites :
+            title = site.select('a/text()').extract()
+            print title
+{% endhighlight %}
+
+h2. Scrapy Spider Items
+
+抽取结束后的数据如何保存？可能将数据直接写文件，写DB等，或者需要先将数据格式化，再做保存。这部分的工作由Items模块负责完成。可以将抽取返回的数据保存到Items对象中。方便后续以指定格式输出数据
+
+按照如下步骤修改文件，并执行命令： *scrapy crawl tutorial -o items.json -t json*
+
+1、修改tutorial/items.py文件
+
+{% highlight python %}
+# -*- coding: utf-8 -*-
+
+# Define here the models for your scraped items
+#
+# See documentation in:
+# http://doc.scrapy.org/en/latest/topics/items.html
+
+import scrapy
+
+
+class TutorialItem(scrapy.Item):
+    # define the fields for your item here like:
+    # name = scrapy.Field()
+
+    title = scrapy.Field()
+
+    pass
+{% endhighlight %}
+
+2、修改tutorial/spiders/tutorial.py文件
+
+{% highlight python %}
+from scrapy.spider      import Spider
+from scrapy.selector    import HtmlXPathSelector
+
+from tutorial.items     import TutorialItem
+
+class TutorialSpider (Spider) :
+    name = "tutorial"
+
+    allowed_domains = ["dmoz.org"]
+
+    start_urls = [
+            "http://www.dmoz.org/Computers/Programming/Languages/Python/Books/",
+    ]
+
+    def parse (self, response) :
+        filename = response.url.split("/")[-2]
+        outFile = open(filename, "wb")
+        outFile.write(response.body)
+
+        oHselet = HtmlXPathSelector(response)
+        sites = oHselet.select('//ul[@class=\'directory-url\']/li')
+
+        items = []
+        for site in sites :
+            item = TutorialItem()
+            title = site.select('a/text()').extract()
+            item['title'] = title
+            items.append(item)
+        return items
+{% endhighlight %}
+
+一切顺利的话，当前目录下又会增加一个以json格式生成的文件items.json，可以突然报错了，错误提示如下，找不到items，可是确实在tutorial package下有该模块，这里也困扰很久，最终导致该问题的根源竟是 *文件命名* 。
+
+还记得Sipders目录下创建的Spider类文件名称是tutorial.py，和包名字一样，所以import的时候，覆盖了顶层的tutorial。找到这个问题的方法是用package.__file__定位，两种不同情况下路径是不一样的。OK～叉开了一些题外话，现在修改下文件名字：tutorial/spiders/tutorial.py => tutorial/spiders/dmoz.py ，与抓取站点主域作为名字，现在在尝试一遍。
+
+{% highlight python %}
+File "/home/leeven/Desktop/python_proj/webcrawler/tutorial/tutorial/spiders/tutorial.py", line 4, in <module>
+    from tutorial.items     import TutorialItem
+ImportError: No module named items
+{% endhighlight %}
+
+修改后执行完items.json文件的内容如下：
+
+{% highlight json %}
+[{"title": ["Core Python Programming"]},
+{"title": ["Data Structures and Algorithms with Object-Oriented Design Patterns in Python"]},
+{"title": ["Dive Into Python 3"]},
+{"title": ["Foundations of Python Network Programming"]},
+{"title": ["Free Python books"]},
+{"title": ["FreeTechBooks: Python Scripting Language"]},
+{"title": ["How to Think Like a Computer Scientist: Learning with Python"]},
+{"title": ["An Introduction to Python"]},
+{"title": ["Learn to Program Using Python"]},
+{"title": ["Making Use of Python"]},
+{"title": ["Practical Python"]},
+{"title": ["Pro Python System Administration"]},
+{"title": ["Programming in Python 3 (Second Edition)"]},
+{"title": ["Python 2.1 Bible"]},
+{"title": ["Python 3 Object Oriented Programming"]},
+{"title": ["Python Language Reference Manual"]},
+{"title": ["Python Programming Patterns"]},
+{"title": ["Python Programming with the Java Class Libraries: A Tutorial for Building Web and Enterprise Applications with Jython"]},
+{"title": ["Python: Visual QuickStart Guide"]},
+{"title": ["Sams Teach Yourself Python in 24 Hours"]},
+{"title": ["Text Processing in Python"]},
+{"title": ["XML Processing with Python"]}]
+{% endhighlight %}
+
+h2. Scrapy Spider Pipelines
+
+Pipelines流程处理是在抓取解析完输出前，和Items对比，是在Items前处理。可以通过以下使用Case来印证。
+
+1、修改tutorial/pipelines.py文件，处理流程是过滤结果集中含有‘network’的条目，并抛出异常
+
+{% highlight python %}
+# -*- coding: utf-8 -*-
+
+# Define your item pipelines here
+#
+# Don't forget to add your pipeline to the ITEM_PIPELINES setting
+# See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
+
+from scrapy.exceptions import DropItem
+
+
+class TutorialPipeline(object):
+
+    #put all words in lowercase
+    words_to_filter = ['network']
+
+    def process_item(self, item, spider):
+
+        for word in self.words_to_filter :
+            if word in unicode(item['title']).lower() :
+                raise DropItem("Contains forbidden word: %s" % word)
+
+        return item
+{% endhighlight %}
+
+2、修改tutorial/settings文件，注册配置项ITEM_PIPELINES
+
+{% highlight python %}
+# -*- coding: utf-8 -*-
+
+# Scrapy settings for tutorial project
+#
+# For simplicity, this file contains only the most important settings by
+# default. All the other settings are documented here:
+#
+#     http://doc.scrapy.org/en/latest/topics/settings.html
+#
+
+BOT_NAME = 'tutorial'
+
+SPIDER_MODULES = ['tutorial.spiders']
+NEWSPIDER_MODULE = 'tutorial.spiders'
+
+ITEM_PIPELINES = ['tutorial.pipelines.TutorialPipeline']
+
+# Crawl responsibly by identifying yourself (and your website) on the user-agent
+#USER_AGENT = 'tutorial (+http://www.yourdomain.com)'
+{% endhighlight %}
+
+3、运行 *scrapy crawl tutorial -o items.json -t json* ，结果集中少了这条记录 {"title": ["Foundations of Python Network Programming"]}
+
+{% highlight json %}
+[{"title": ["Core Python Programming"]},
+{"title": ["Data Structures and Algorithms with Object-Oriented Design Patterns in Python"]},
+{"title": ["Dive Into Python 3"]},
+{"title": ["Free Python books"]},
+{"title": ["FreeTechBooks: Python Scripting Language"]},
+{"title": ["How to Think Like a Computer Scientist: Learning with Python"]},
+{"title": ["An Introduction to Python"]},
+{"title": ["Learn to Program Using Python"]},
+{"title": ["Making Use of Python"]},
+{"title": ["Practical Python"]},
+{"title": ["Pro Python System Administration"]},
+{"title": ["Programming in Python 3 (Second Edition)"]},
+{"title": ["Python 2.1 Bible"]},
+{"title": ["Python 3 Object Oriented Programming"]},
+{"title": ["Python Language Reference Manual"]},
+{"title": ["Python Programming Patterns"]},
+{"title": ["Python Programming with the Java Class Libraries: A Tutorial for Building Web and Enterprise Applications with Jython"]},
+{"title": ["Python: Visual QuickStart Guide"]},
+{"title": ["Sams Teach Yourself Python in 24 Hours"]},
+{"title": ["Text Processing in Python"]},
+{"title": ["XML Processing with Python"]}]
+{% endhighlight %}
+
+过滤异常日志
+
+{% highlight python %}
+2015-02-03 14:25:48+0800 [tutorial] WARNING: Dropped: Contains forbidden word: network
+	{'title': [u'Foundations of Python Network Programming']}
+{% endhighlight %}
+
+h1. 后续补充及参考文档
+
+1、 框架基本使用方法
+2、 "Scrapy项目主页":http://scrapy.org/
+3、 "Scrapy文档API查询":http://doc.scrapy.org/en/latest/
+
+
+
+
+
+
+
+
+
+
