@@ -264,7 +264,7 @@ ITEM_PIPELINES = ['tutorial.pipelines.TutorialPipeline']
 
 h1. 后续补充及参考文档
 
-1、 框架基本使用方法
+1、 框架使用技巧
 2、 "Scrapy项目主页":http://scrapy.org/
 3、 "Scrapy文档API查询":http://doc.scrapy.org/en/latest/
 
