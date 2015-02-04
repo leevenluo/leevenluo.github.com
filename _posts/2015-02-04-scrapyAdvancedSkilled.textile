@@ -1,0 +1,200 @@
+---
+layout:     post
+title:      Scrapy实战进阶技巧
+categories:
+    - scrapy
+    - python
+    - crawler
+
+unqid:      b72c851d5a6135654f547a800f17627a
+---
+
+h1. Scrapy 实战场景讨论
+
+前两章讲解的内容已经基本囊括Scrapy入门知识，本章将着眼实际应用场景，讲解方式以遇到实际问题，通过Scrapy提供的支持特性解决问题形式展开
+
+h2. Scrapy Spider 参数透传
+
+背景：整个抓取和抽取流程都已经通了，接下来遇到的问题是，抓取的每一条任务可能都绑定独立的信息，这些信息希望能带到响应结束，可能还需要继续往下透传。
+
+现状：回想一下之前完成的Demo，传入的抓取任务都放在start_urls参数中，根本无法再指定多一些的参数，或者就连传入的参数都有很大的限制，只能传入有效的URL。
+
+解决方案：这个时候就该求助 "Scrapy API文档":http://doc.scrapy.org/en/latest/topics/spiders.html?highlight=start_requests#scrapy.spider.Spider.start_requests ，因为用户自定义Spider类是继承Spider类，所以首先得从Spider API找起
+
+{% highlight python %}
+"""
+start_requests()
+This method must return an iterable with the first Requests to crawl for this spider.
+"""
+
+def start_requests(self):
+    return [scrapy.FormRequest("http://www.example.com/login",
+                               formdata={'user': 'john', 'pass': 'secret'},
+                               callback=self.logged_in)]
+
+def logged_in(self, response):
+    # here you would extract links to follow and return Requests for
+    # each of them, with another callback
+    pass
+{% endhighlight %}
+
+首次抓取的请求入口函数就是start_requests()，所以之前的Demo中是用调用默认函数，控制入口逻辑只需要覆盖该函数定义即可。那还是没有找到透传的参数入口。看完FormRequest API介绍，该API是针对Http Post Form Data处理场景，继承自Request，继续定位 "Request":http://doc.scrapy.org/en/latest/topics/request-response.html?highlight=formrequest#scrapy.http.Request ，答案就在下面：
+
+{% highlight python %}
+"""
+meta
+A dict that contains arbitrary metadata for this request. This dict is empty for new Requests, and is usually populated by different Scrapy components (extensions, middlewares, etc). So the data contained in this dict depends on the extensions you have enabled.
+
+See Request.meta special keys for a list of special meta keys recognized by Scrapy.
+
+This dict is shallow copied when the request is cloned using the copy() or replace() methods, and can also be accessed, in your spider, from the response.meta attribute.
+"""
+
+class scrapy.http.Request(url[, callback, method='GET', headers, body, cookies, meta, encoding='utf-8', priority=0, dont_filter=False, errback])
+{% endhighlight %}
+
+下面把上面涉及的内容串联起来，做一些有趣的事情：
+
+修改：tutorial/spiders/dmoz.py
+
+{% highlight python %}
+from scrapy.spider          import Spider
+from scrapy.selector        import HtmlXPathSelector
+from scrapy.http.request    import Request
+
+from tutorial.items     import TutorialItem
+
+class TutorialSpider (Spider) :
+    name = "tutorial"
+
+    allowed_domains = ["dmoz.org"]
+
+    start_urls = [
+            "1|http://www.dmoz.org/Computers/Programming/Languages/Python/Books/",
+    ]
+
+    def start_requests (self) :
+        for items in self.start_urls :
+            url = items.split("|")[1].strip()
+            bid = items.split("|")[0]
+            yield Request(url,
+                          meta = {
+                            'bid' : bid,
+                          },
+                          callback = self.parse,)
+
+    def parse (self, response) :
+        filename = response.url.split("/")[-2]
+        outFile = open(filename, "wb")
+        outFile.write(response.body)
+
+        oHselet = HtmlXPathSelector(response)
+        sites = oHselet.select('//ul[@class=\'directory-url\']/li')
+
+        items = []
+        for site in sites :
+            item = TutorialItem()
+            title = site.select('a/text()').extract()
+            item['title'] = title
+            item['bid']   = response.meta['bid']
+            items.append(item)
+        return items
+{% endhighlight %}
+
+修改：tutorial/items.py
+
+{% highlight python %}
+# -*- coding: utf-8 -*-
+
+# Define here the models for your scraped items
+#
+# See documentation in:
+# http://doc.scrapy.org/en/latest/topics/items.html
+
+import scrapy
+
+
+class TutorialItem(scrapy.Item):
+    # define the fields for your item here like:
+    # name = scrapy.Field()
+
+    title = scrapy.Field()
+    bid   = scrapy.Field()
+
+    pass
+{% endhighlight %}
+
+运行命令： *scrapy crawl tutorial -o items.json -t json* ，打开本地items.json查看数据：
+
+{% highlight json %}
+[{"bid": "1", "title": ["Core Python Programming"]},
+{"bid": "1", "title": ["Data Structures and Algorithms with Object-Oriented Design Patterns in Python"]},
+{"bid": "1", "title": ["Dive Into Python 3"]},
+{"bid": "1", "title": ["Free Python books"]},
+{"bid": "1", "title": ["FreeTechBooks: Python Scripting Language"]},
+{"bid": "1", "title": ["How to Think Like a Computer Scientist: Learning with Python"]},
+{"bid": "1", "title": ["An Introduction to Python"]},
+{"bid": "1", "title": ["Learn to Program Using Python"]},
+{"bid": "1", "title": ["Making Use of Python"]},
+{"bid": "1", "title": ["Practical Python"]},
+{"bid": "1", "title": ["Pro Python System Administration"]},
+{"bid": "1", "title": ["Programming in Python 3 (Second Edition)"]},
+{"bid": "1", "title": ["Python 2.1 Bible"]},
+{"bid": "1", "title": ["Python 3 Object Oriented Programming"]},
+{"bid": "1", "title": ["Python Language Reference Manual"]},
+{"bid": "1", "title": ["Python Programming Patterns"]},
+{"bid": "1", "title": ["Python Programming with the Java Class Libraries: A Tutorial for Building Web and Enterprise Applications with Jython"]},
+{"bid": "1", "title": ["Python: Visual QuickStart Guide"]},
+{"bid": "1", "title": ["Sams Teach Yourself Python in 24 Hours"]},
+{"bid": "1", "title": ["Text Processing in Python"]},
+{"bid": "1", "title": ["XML Processing with Python"]}]
+{% endhighlight %}
+
+结果中可以看到已经将初始URL集合中用“|”分割的第一个参数透传到Response中，Over～～
+
+h2. Scrapy Spider 防屏蔽
+
+背景：一旦爬虫爬取网页的频率过高，可能被第三方网站识别并采取屏蔽措施，假如是短暂的还能接受，假如是永久的，那就会造成及其严重的后果，爬虫就彻底失效了
+
+现状：整个流程已经按照需求都正常跑了，不到一个小时，Scrapy的Debug日志中开始出现大量40X或者30X返回码，很可能是被屏蔽了
+
+解决办法：（特别声明，前提条件1）该屏蔽是暂时的；2）解决方案仅仅是一种折中的方案，需要完全解决需要更多的策略和硬件条件，比如足够多的出口IP）
+
+还是老办法，查找 "Scrapy API文档":http://doc.scrapy.org/en/latest/topics/spiders.html?highlight=start_requests#scrapy.spider.Spider.start_requests ，要相信通用的问题框架应该都有考虑到。其实这次去查找，目标比较明确，确认默认抓取频率的阈值。其次按需设定阈值。该设置项估计再settings中，找到以下几种配置：
+
+{% highlight python %}
+CONCURRENT_REQUESTS
+Default: 16
+
+The maximum number of concurrent (ie. simultaneous) requests that will be performed by the Scrapy downloader.
+
+CONCURRENT_REQUESTS_PER_DOMAIN
+Default: 8
+
+The maximum number of concurrent (ie. simultaneous) requests that will be performed to any single domain.
+
+CONCURRENT_REQUESTS_PER_IP
+Default: 0
+
+The maximum number of concurrent (ie. simultaneous) requests that will be performed to any single IP. If non-zero, the CONCURRENT_REQUESTS_PER_DOMAIN setting is ignored, and this one is used instead. In other words, concurrency limits will be applied per IP, not per domain.
+
+This setting also affects DOWNLOAD_DELAY: if CONCURRENT_REQUESTS_PER_IP is non-zero, download delay is enforced per IP, not per domain.
+{% endhighlight %}
+
+最后根据实际情况，选用的配置是CONCURRENT_REQUESTS_PER_IP，settings.py中设置“CONCURRENT_REQUESTS_PER_IP = 1”，Over OK～
+
+h1. 后续补充及参考文档
+
+1、 估计是到源码级分享
+2、 "Scrapy项目主页":http://scrapy.org/
+3、 "Scrapy文档API查询":http://doc.scrapy.org/en/latest/
+
+
+
+
+
+
+
+
+
+
