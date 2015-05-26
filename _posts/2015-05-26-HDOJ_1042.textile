@@ -1,0 +1,265 @@
+---
+layout:     post
+title:      HDOJ-1042
+categories:
+    - algorithm
+
+unqid:      86a25600469272c892b540011bb991e6
+---
+
+h1. HDOJ-1042-N!
+
+题干主题：该题的目的实现N的阶乘(0 <= N <= 1000)，题目原题链接 "点击这里":http://acm.hdu.edu.cn/showproblem.php?pid=1042
+
+原先解决思路：用加法模拟乘法，借用1002大数加法，算法OK
+
+推荐解决思路：还是大数的思路，用数组模拟迭代乘法，注意处理进位
+
+过程Review：
+原先的解决思路：
+处理>1000以上的数字必超时，时间复杂度O(n^3)，具体算法代码如下；
+
+推荐解决思路：
+1 ) 估算10000!多少位(推导和算法见下文)？用C解法需要预先分配数组，C++用容器就不存在：）
+2 ) 估算数组类型选择(一位：10000，int标准类型足矣)；
+3 ) 估算进位总数类型选择(10000 * 位数)，这里位数约等于36000，结果3.6 * 10^8，保险用long就行(< 2 ^ 32 = 43 * 10^8)
+
+h2. C++ 版本 - N! 位数
+
+{% highlight c++ %}
+/*
+* @author leevenzhl@gmail.com
+* @brief  对于任意一个给定的正整数a，
+*         假设 10^(x-1) <= a < 10^x，那么显然a的位数为x位，
+*         又因为
+*         log10(10^(x-1)) <= log10(a) < (log10(10^x))
+*         即 x-1 <= log10(a) < x
+*         则 (int)log10(a) = x-1,
+*         即 (int)log10(a)+1 = x
+* @date   2015-05-26
+*/
+
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+int main(int argc, char *argv[])
+{
+    size_t iNum;
+    cin >> iNum;
+
+    //处理0的阶乘
+    if (iNum == 0)
+    {
+        cout << 1 << endl;
+    }
+
+    double dBit = 0;
+    for (size_t i = 1; i <= iNum; i ++)
+    {
+        dBit += log10(i);
+    }
+
+    cout << static_cast<int>(dBit + 1) << endl;
+
+    return 0;
+}
+
+{% endhighlight %}
+
+h2. C++ 版本 -- 原先解决思路
+
+{% highlight c++ %}
+/*
+ * @author leevenzhl@gmail.com
+ * @date   2015-05-26
+ **/
+
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+string add(const string& sAddA, const string& sAddB)
+{
+    string sA = sAddA, sB = sAddB;
+
+    //补位逻辑，位数少的在前面补0，补齐与位数长的一致
+    size_t iMaxLong;
+    if (sA.size() != sB.size())
+    {
+        iMaxLong = sA.size() > sB.size() ? sA.size() : sB.size();
+
+        if (iMaxLong > sA.size())
+        {
+            string sZero(iMaxLong - sA.size(), '0');
+            sA = sZero + sA;
+        }
+        else
+        {
+            string sZero(iMaxLong - sB.size(), '0');
+            sB = sZero + sB;
+        }
+    }
+    else
+    {
+        iMaxLong = sA.size();
+    }
+
+    //倒序处理位数相加，进位处理
+    string sResult(iMaxLong, '0');
+    int    iHigh = 0;
+    int    i = iMaxLong;
+    while (--i >= 0)
+    {
+        char cLeft, cRight;
+        cLeft  = sA[i];
+        cRight = sB[i];
+
+        int iResult = (cLeft - '0') + (cRight - '0');
+
+        char c = (iResult + iHigh) % 10 + '0';
+        sResult[i] = c;
+
+        iHigh = (iResult + iHigh) / 10;
+
+        if (i == 0 && iHigh > 0)
+        {
+            char cMaxBit = iHigh + '0';
+            string s(1, cMaxBit);
+            sResult = s + sResult;
+        }
+    }
+
+    return sResult;
+}
+
+int main (int argc, char *argv[])
+{
+    while (!cin.eof())
+    {
+        size_t iNum;
+        cin >> iNum;
+
+        if (iNum == 0 || iNum == 1)
+        {
+            cout << "1" << endl;
+        }
+        else if (iNum == 2)
+        {
+            cout << "2" << endl;
+        }
+        else
+        {
+            //N * (N - 1) == (N - 1) (结果 + 基数)
+            //例子：3 * 2 == ((2 + 2) + 2)
+            string sResult = "", sBegin = "1";
+            for (size_t i = 2; i <= iNum; i ++)
+            {
+                int k = i - 1;
+
+                sResult = sBegin;
+                while (k--)
+                {
+                    sResult = add(sResult, sBegin);
+                }
+
+                sBegin = sResult;
+            }
+
+            cout << sResult << endl;
+        }
+    }
+
+    return 0;
+}
+{% endhighlight %}
+
+h2. C++ 版本 -- 推荐解决思路
+
+{% highlight c++ %}
+/*
+ * @author leevenzhl@gmail.com
+ * @date   2015-05-26
+ **/
+
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+int main (int argc, char *argv[])
+{
+    size_t iNum;
+
+    while (cin >> iNum)
+    {
+        if (iNum == 0 || iNum == 1)
+        {
+            cout << "1" << endl;
+        }
+        else if (iNum == 2)
+        {
+            cout << "2" << endl;
+        }
+        else
+        {
+            vector<int> vResult;
+            vResult.push_back(1);
+
+            size_t iLen = vResult.size();
+
+            for (size_t i = 2; i <= iNum; i ++)
+            {
+                long lCarry = 0;
+
+                //处理进位
+                for (size_t k = 0; k < iLen; k ++)
+                {
+                    vResult[k] = (vResult[k] * i) + lCarry;
+
+                    lCarry     = vResult[k] / 10;
+                    vResult[k] = vResult[k] % 10;
+
+                    //处理头部进位,需要扩展容器
+                    if (k + 1 == iLen && lCarry > 0)
+                    {
+                        size_t iCount = 0;
+                        while (lCarry)
+                        {
+                            vResult.push_back(lCarry % 10);
+
+                            lCarry = lCarry / 10;
+
+                            iCount++;
+                            iLen++;
+                        }
+                        break;
+                    }
+                }
+            }
+
+            //高位到低位倒序输出结果
+            for (int i = iLen - 1; i >= 0; i --)
+            {
+                cout << vResult[i];
+            }
+            cout << endl;
+        }
+    }
+
+    return 0;
+}
+{% endhighlight %}
+
+
+
+
+
+
+
+
+
+

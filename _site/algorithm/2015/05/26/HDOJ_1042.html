@@ -11,7 +11,7 @@
             <meta name="description" content="" />
         
 
-        <title>Leeven Luo - HDOJ-1002</title>
+        <title>Leeven Luo - HDOJ-1042</title>
         <link rel="stylesheet" href="/dist/css/bootstrap.min.css" type="text/css" media="screen" charset="utf-8"/>
         <link rel="stylesheet" href="/stylesheets/master.css" type="text/css" media="screen" charset="utf-8"/>
 
@@ -50,11 +50,11 @@
                 <div id='wrapper'>
     <div class='post'>
         <!-- page view counter id setting -->
-        <script type="text/javascript"> window.unqid = "cb41df3221dd5a9efe231ea646e91172" </script>
+        <script type="text/javascript"> window.unqid = "" </script>
 
         <div id="article-title">
-            <h1><a href='/algorithm/2015/05/20/HDOJ_1002.html'>HDOJ-1002</a></h1>
-            <div class='date'> - 20 May 2015</div>
+            <h1><a href='/algorithm/2015/05/26/HDOJ_1042.html'>HDOJ-1042</a></h1>
+            <div class='date'> - 26 May 2015</div>
         </div>
 
         <div id="transpost">
@@ -62,18 +62,59 @@
         </div>
 
         <div class='body'>
-            <h1><span class="caps">HDOJ</span>-1002-A + B Problem II</h1>
-<p>题干主题：该题的目的实现两个正整数求和，加数与被加数位数&lt;=1000，题目原题链接 <a href="http://acm.hdu.edu.cn/showproblem.php?pid=1002">点击这里</a></p>
-<p>解决思路：加数、被加数和结果都用数组存储每一位，过程需要处理进位</p>
+            <h1><span class="caps">HDOJ</span>-1042-N!</h1>
+<p>题干主题：该题的目的实现N的阶乘(0 &lt;= N &lt;= 1000)，题目原题链接 <a href="http://acm.hdu.edu.cn/showproblem.php?pid=1042">点击这里</a></p>
+<p>原先解决思路：用加法模拟乘法，借用1002大数加法，算法OK</p>
+<p>推荐解决思路：还是大数的思路，用数组模拟迭代乘法，注意处理进位</p>
 <p>过程Review：<br />
-1 ) 处理顺序与读入的顺序相反;<br />
-2 ) 结果位数比加数与被加数中最长的多一位保护进位处理<br />
-3 ) 注意输出格式，每一个Case中空一行(最后结果之后不空)，+ 和 = 号左右有空格等;<br />
-4 ) 提交出现RA，仔细找一些边界条件测试，本Case就找一个位数不相同会进位的测试就OK，比如 1 + 9</p>
-<h2>C++ 版本</h2>
+原先的解决思路：<br />
+处理&gt;1000以上的数字必超时，时间复杂度O(n^3)，具体算法代码如下；</p>
+<p>推荐解决思路：<br />
+1 ) 估算10000!多少位(推导和算法见下文)？用C解法需要预先分配数组，C++用容器就不存在：）<br />
+2 ) 估算数组类型选择(一位：10000，int标准类型足矣)；<br />
+3 ) 估算进位总数类型选择(10000 * 位数)，这里位数约等于36000，结果3.6 * 10^8，保险用long就行(&lt; 2 ^ 32 = 43 * 10^8)</p>
+<h2>C++ 版本 &#8211; N! 位数</h2>
+<div class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="cm">/*</span>
+<span class="cm">* @author leevenzhl@gmail.com</span>
+<span class="cm">* @brief  对于任意一个给定的正整数a，</span>
+<span class="cm">*         假设 10^(x-1) &lt;= a &lt; 10^x，那么显然a的位数为x位，</span>
+<span class="cm">*         又因为</span>
+<span class="cm">*         log10(10^(x-1)) &lt;= log10(a) &lt; (log10(10^x))</span>
+<span class="cm">*         即 x-1 &lt;= log10(a) &lt; x</span>
+<span class="cm">*         则 (int)log10(a) = x-1,</span>
+<span class="cm">*         即 (int)log10(a)+1 = x</span>
+<span class="cm">* @date   2015-05-26</span>
+<span class="cm">*/</span>
+
+<span class="cp">#include &lt;iostream&gt;</span>
+<span class="cp">#include &lt;cmath&gt;</span>
+
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="kt">size_t</span> <span class="n">iNum</span><span class="p">;</span>
+    <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">iNum</span><span class="p">;</span>
+
+    <span class="c1">//处理0的阶乘</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">iNum</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kt">double</span> <span class="n">dBit</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">iNum</span><span class="p">;</span> <span class="n">i</span> <span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">dBit</span> <span class="o">+=</span> <span class="n">log10</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">dBit</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span></code></pre></div><h2>C++ 版本 &#8212; 原先解决思路</h2>
 <div class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="cm">/*</span>
 <span class="cm"> * @author leevenzhl@gmail.com</span>
-<span class="cm"> * @date   2015-05-20</span>
+<span class="cm"> * @date   2015-05-26</span>
 <span class="cm"> **/</span>
 
 <span class="cp">#include &lt;iostream&gt;</span>
@@ -137,20 +178,111 @@
 
 <span class="kt">int</span> <span class="nf">main</span> <span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
 <span class="p">{</span>
-    <span class="kt">size_t</span> <span class="n">iCount</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">iCount</span><span class="p">;</span>
-
-    <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">iCount</span><span class="p">;</span> <span class="n">i</span> <span class="o">++</span><span class="p">)</span>
+    <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">cin</span><span class="p">.</span><span class="n">eof</span><span class="p">())</span>
     <span class="p">{</span>
-        <span class="n">string</span> <span class="n">sA</span><span class="p">,</span> <span class="n">sB</span><span class="p">;</span>
-        <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">sA</span> <span class="o">&gt;&gt;</span> <span class="n">sB</span><span class="p">;</span>
+        <span class="kt">size_t</span> <span class="n">iNum</span><span class="p">;</span>
+        <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">iNum</span><span class="p">;</span>
 
-        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Case &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;:&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">sA</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; + &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">sB</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; = &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">add</span><span class="p">(</span><span class="n">sA</span><span class="p">,</span> <span class="n">sB</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-
-        <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">iCount</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">iNum</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">iNum</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
         <span class="p">{</span>
-            <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+            <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;1&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">iNum</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;2&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">else</span>
+        <span class="p">{</span>
+            <span class="c1">//N * (N - 1) == (N - 1) (结果 + 基数)</span>
+            <span class="c1">//例子：3 * 2 == ((2 + 2) + 2)</span>
+            <span class="n">string</span> <span class="n">sResult</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">sBegin</span> <span class="o">=</span> <span class="s">&quot;1&quot;</span><span class="p">;</span>
+            <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">iNum</span><span class="p">;</span> <span class="n">i</span> <span class="o">++</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+
+                <span class="n">sResult</span> <span class="o">=</span> <span class="n">sBegin</span><span class="p">;</span>
+                <span class="k">while</span> <span class="p">(</span><span class="n">k</span><span class="o">--</span><span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="n">sResult</span> <span class="o">=</span> <span class="n">add</span><span class="p">(</span><span class="n">sResult</span><span class="p">,</span> <span class="n">sBegin</span><span class="p">);</span>
+                <span class="p">}</span>
+
+                <span class="n">sBegin</span> <span class="o">=</span> <span class="n">sResult</span><span class="p">;</span>
+            <span class="p">}</span>
+
+            <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">sResult</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span></code></pre></div><h2>C++ 版本 &#8212; 推荐解决思路</h2>
+<div class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="cm">/*</span>
+<span class="cm"> * @author leevenzhl@gmail.com</span>
+<span class="cm"> * @date   2015-05-26</span>
+<span class="cm"> **/</span>
+
+<span class="cp">#include &lt;iostream&gt;</span>
+<span class="cp">#include &lt;string&gt;</span>
+<span class="cp">#include &lt;vector&gt;</span>
+
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="nf">main</span> <span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="kt">size_t</span> <span class="n">iNum</span><span class="p">;</span>
+
+    <span class="k">while</span> <span class="p">(</span><span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">iNum</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">iNum</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">iNum</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;1&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">iNum</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;2&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">else</span>
+        <span class="p">{</span>
+            <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">vResult</span><span class="p">;</span>
+            <span class="n">vResult</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+
+            <span class="kt">size_t</span> <span class="n">iLen</span> <span class="o">=</span> <span class="n">vResult</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+
+            <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">iNum</span><span class="p">;</span> <span class="n">i</span> <span class="o">++</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="kt">long</span> <span class="n">lCarry</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+                <span class="c1">//处理进位</span>
+                <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">iLen</span><span class="p">;</span> <span class="n">k</span> <span class="o">++</span><span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="n">vResult</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">vResult</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">*</span> <span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="n">lCarry</span><span class="p">;</span>
+
+                    <span class="n">lCarry</span>     <span class="o">=</span> <span class="n">vResult</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">/</span> <span class="mi">10</span><span class="p">;</span>
+                    <span class="n">vResult</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">vResult</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">%</span> <span class="mi">10</span><span class="p">;</span>
+
+                    <span class="c1">//处理头部进位,需要扩展容器</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">k</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">==</span> <span class="n">iLen</span> <span class="o">&amp;&amp;</span> <span class="n">lCarry</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+                    <span class="p">{</span>
+                        <span class="kt">size_t</span> <span class="n">iCount</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+                        <span class="k">while</span> <span class="p">(</span><span class="n">lCarry</span><span class="p">)</span>
+                        <span class="p">{</span>
+                            <span class="n">vResult</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">lCarry</span> <span class="o">%</span> <span class="mi">10</span><span class="p">);</span>
+
+                            <span class="n">lCarry</span> <span class="o">=</span> <span class="n">lCarry</span> <span class="o">/</span> <span class="mi">10</span><span class="p">;</span>
+
+                            <span class="n">iCount</span><span class="o">++</span><span class="p">;</span>
+                            <span class="n">iLen</span><span class="o">++</span><span class="p">;</span>
+                        <span class="p">}</span>
+                        <span class="k">break</span><span class="p">;</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+
+            <span class="c1">//高位到低位倒序输出结果</span>
+            <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">iLen</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">--</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">vResult</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+            <span class="p">}</span>
+            <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
         <span class="p">}</span>
     <span class="p">}</span>
 
@@ -179,9 +311,9 @@
             <table class="post-list">
                 
                 <tr>
-                    <th><a href='/algorithm/2015/05/26/HDOJ_1042.html'>HDOJ-1042</a></th>
-                    <td>26 May 2015</td>
-                    <td><a href='/algorithm/2015/05/26/HDOJ_1042.html#disqus_thread'>Comments</a></td>
+                    <th><a href='/algorithm/2015/05/20/HDOJ_1002.html'>HDOJ-1002</a></th>
+                    <td>20 May 2015</td>
+                    <td><a href='/algorithm/2015/05/20/HDOJ_1002.html#disqus_thread'>Comments</a></td>
                 </tr>
                 
                 <tr>
