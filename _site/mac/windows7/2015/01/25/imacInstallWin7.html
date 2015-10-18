@@ -142,6 +142,7 @@
             </div>
 
             <div class='home_box' id='home_right'>
+            <h2 id='total_page_view'>TotalPageView</h2>
 
             <h2>Categories</h2>
             <div id='github-projects-categ'>
@@ -220,39 +221,14 @@
             var wording = '<p>PageView : </p>';
             var src     = div + wording + '<script src="http://counter1.allfreecounter.com/private/counter.js?c=';
             document.write(src + window.unqid + '" charset="utf-8"><\/script></div>');
+
+            var jsSrc   = '//ra.revolvermaps.com/0/0/6.js?i=0nmhf2tutle&amp;m=0&amp;s=220&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=0'
+            div         = '<div id="totalPageView">';
+            src         = div + '<script type="text/javascript" src="' + jsSrc;
+            document.write(src + '" ><\/script></div>');
         </script>
         <script type="text/javascript" src="/javascripts/pageview.js" charset="utf-8" scriptid="pvId"></script>
     </body>
-
-    <!--
-    <script language="javascript" type="text/javascript">
-        function loadjs (script_name, script_id) {
-            var script   = document.createElement('script');
-            var charset  = 'utf-8';
-            var scriptTp = 'text/javascript';
-
-            script.setAttribute('type',     scriptTp);
-            script.setAttribute('src',      script_name);
-            script.setAttribute('charset',  charset);
-            script.setAttribute('scriptid', script_id);
-
-            scriptId = document.getElementById(script_id);
-
-            if (scriptId) {
-                document.getElementsByTagName('head')[0].removeChild(scriptId);
-            }
-
-            document.getElementsByTagName('head')[0].appendChild(script);
-        }
-
-        function onPageLoad () {
-            var script = '/javascripts/main.js';
-            loadjs(script, 'mainId');
-        }
-
-        window.addEventListener('load', onPageLoad);
-    </script>
-    -->
 
 </html>
 

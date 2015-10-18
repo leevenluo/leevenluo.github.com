@@ -8,10 +8,6 @@
 var settingPageView = function () {
     $('.post #article-title').append($('#pageView'));
 
-    //$('#article-title h1:first').css({
-        //"display" : "inline",
-    //});
-
     $('#article-title #pageView').css({
         "display" : "inline",
         "float"   : "right",
@@ -35,9 +31,27 @@ var settingPageView = function () {
     });
 }
 
-//var div     = '<div id="pageView">';
-//var wording = '<p>PageView : </p>';
-//var src     = div + wording + '<script src="http://counter1.allfreecounter.com/private/counter.js?c=';
-//document.write(src + window.unqid + '" charset="utf-8"><\/script></div>');
+/* -----------------------------*/
+/**
+ * @Author  leevenzhl@gmail.com
+ * @Brief   setting article pageview
+ * @Returns null
+ */
+/* -----------------------------*/
+var settingTotalPageView = function () {
+    $('#total_page_view').append($('#totalPageView'));
 
-setTimeout(function() {settingPageView();}, 0);
+    /*
+    $('#article-title #pageView').css({
+        "display" : "inline",
+        "float"   : "right",
+        "height"  : "60px",
+        "width"   : "240px",
+    });
+    */
+}
+
+setTimeout(function() {
+    settingPageView();
+    settingTotalPageView();
+}, 0);
