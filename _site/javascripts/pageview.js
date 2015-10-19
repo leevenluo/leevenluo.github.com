@@ -40,15 +40,6 @@ var settingPageView = function () {
 /* -----------------------------*/
 var settingTotalPageView = function () {
     $('#total_page_view').append($('#totalPageView'));
-
-    /*
-    $('#article-title #pageView').css({
-        "display" : "inline",
-        "float"   : "right",
-        "height"  : "60px",
-        "width"   : "240px",
-    });
-    */
 }
 
 setTimeout(function() {

@@ -1,0 +1,223 @@
+---
+layout:     post
+title:      Spark环境搭建与实战
+categories:
+    - spark
+    - scala
+    - 日志统计
+
+unqid:      ed0e2884c90b1f850ca65438928c5a4f
+---
+
+h1. 背景初识
+
+最近工作开始涉及离线大数据统计，鉴于Spark流行热度以及对项目适合的使用场景，决定基于Spark平台实现统计需求，同时借机接触、学习Spark。
+
+**Spark官网项目地址:** "点击这里":http://spark.apache.org/
+
+**什么是Spark？**
+
+*Official: Apache Spark is a fast and general engine for large-scale data processing.*
+
+h1. Scala + Spark 环境搭建
+
+h2. Scala环境搭建
+
+*1）* "Scala下载":http://www.scala-lang.org/download/ ，官网会根据系统选择对应的安装包
+
+*2）* 根据安装提示完成安装，配置 "环境变量":http://www.scala-lang.org/download/install.html ，本人配置如下：(zsh)
+
+{% highlight sh %}
+# Add environment variable scala
+export SCALA_HOME=/usr/local/opt/scala
+export PATH=$PATH:$SCALA_HOME/bin
+{% endhighlight %}
+
+PS：配置完生效记得：$source ~/.zshrc
+
+*3）* 验证scala安装效果，参考 "这里":http://scala-lang.org/documentation/getting-started.html?_ga=1.164851575.990549473.1445225664#your_first_lines_of_code  
+
+h2. Spark环境搭建
+
+Spark是基于分布式文件系统的计算平台，架构上都是集群部署，可是对于刚入门或者资源有限(单PC)未免门槛太高，有没有解决办法呢？
+
+答案是肯定的，这里简单描述下Spark部署的几种机制：
+
+*1）* local模式，本地模式，本地单机模拟分布式集群，适用本地开发、测试
+
+*2）* standalone，集群模式，Master／Slave架构，有单点问题，需借助HA的框架解决
+
+*3）* on yarn，集群模式， 运行在 yarn 资源管理器框架之上，由 yarn 负责资源管理，Spark 负责任务调度和计算
+
+*4）* on mesos，集群模式，运行在 mesos 资源管理器框架之上，由 mesos 负责资源管理，Spark 负责任务调度和计算
+
+*5）* on cloud，集群模式，比如 AWS 的 EC2，使用这个模式能很方便的访问 Amazon的 S3;Spark 支持多种分布式存储系统：HDFS 和 S3
+
+这里先抛出两个问题，这也是笔者使用的时候思考过的，不是什么复杂的问题，不过有助于读者熟悉搭建流程细节，答案见文章结束Review：
+
+*1）* local模式存在Master／Slave模式吗？
+
+*2）* local模式和standalone模式区别是什么？
+
+笔者搭建过程用的是local模式，重点也只讲local模式：
+
+*1）* "Spark下载":http://spark.apache.org/downloads.html ，注意下载选项Choose a package type，选择Pre-build Hadoop 1.X
+
+*2）* 完成第一步下载，解压tgz，将解压结果spark-1.5.1-bin-hadoop1 cp至/Users/leeven/Library/ ，同时配置环境变量：
+
+{% highlight sh %}
+# Add environment variable spark
+export SPARK_HOME=/Users/leeven/Library/spark-1.5.1-bin-hadoop1
+export PATH=$PATH:$SPARK_HOME/bin
+{% endhighlight %}
+
+PS：配置完生效记得：$source ~/.zshrc
+
+*3）* 验证安装结果，如下图尝试运行spark-shell，测试例子参考 "这里":http://spark.apache.org/examples.html
+
+{% highlight sh %}
+leeven@luoxindeMacBook-Pro ~> $ spark-shell
+Welcome to
+      ____              __
+     / __/__  ___ _____/ /__
+    _\ \/ _ \/ _ `/ __/  '_/
+   /___/ .__/\_,_/_/ /_/\_\   version 1.5.1
+      /_/
+
+Using Scala version 2.10.4 (Java HotSpot(TM) 64-Bit Server VM, Java 1.8.0_60)
+Type in expressions to have them evaluated.
+Type :help for more information.
+15/10/19 14:24:18 WARN SparkConf:
+SPARK_WORKER_INSTANCES was detected (set to '2').
+This is deprecated in Spark 1.0+.
+
+Please instead use:
+ - ./spark-submit with --num-executors to specify the number of executors
+ - Or set SPARK_EXECUTOR_INSTANCES
+ - spark.executor.instances to configure the number of instances in the spark config.
+{% endhighlight %}
+
+h2. eclipse+scala+spark 环境搭建
+
+在完成scala和spark环境搭建后，已经能在spark-shell中使用scala调用spark rdd API操作，进行简单测试和验证。现在已经可以开始开发spark程序：
+
+*1）* 开发scala程序
+
+*2）* 运用 "sbt":https://github.com/CSUG/real_world_scala/blob/master/02_sbt.markdown 打包jar包
+
+*3）* 使用spark-submit命令提交jar包执行job
+
+笔者在参考sbt使用流程觉得比较繁琐，通过查阅网上资料，可以基于eclipse搭建集scala开发、打包IDE，这样的话应该能节约开发成本，scala官网有一个scala-IDE也是基于eclipse平台，不过笔者之前就已经有一个eclipse版本，也不想重新再装一个，正好scala可以当插件下载，搭建流程如下：
+
+*1）* eclipse Help -> Install New Software... Add http://download.scala-ide.org/sdk/lithium/e44/scala211/stable/site
+
+*2）* 选择Scala IDE For Eclipse && Scala IDE For Eclipse development support，安装即可
+
+*3）* 建立Scala工程，在工程Build Path -> Libraries添加spark lib依赖，依赖jar包：/Users/leeven/Library/spark-1.5.1-bin-hadoop1/lib/spark-assembly-1.5.1-hadoop1.2.1.jar ，假如出现不兼容问题，推荐将scala版本切换至scala 2.10.*版本，配置截图如下：
+
+<img width="811px" height="499px" src="/images/sparkBegin/eclipse_config_build_path.png" />
+
+h2. Spark应用实战
+
+接下来基于以上搭建的Spark环境，运用eclipse＋scala＋sparklib的IDE，实现一个统计词频的Spark Job：
+
+*1）* eclipse建立Scala工程，建立Scala Object，编写Scala统计词频程序，如下：
+
+{% highlight scala %}
+
+import org.apache.spark.SparkContext
+
+object MyProgram {
+  
+def main(args: Array[String]){
+    if (args.length != 1 ){
+      println("usage is org.test.WordCount <input>")
+      return
+    }
+    
+    //初始化SparkContext
+    val sc = new SparkContext()
+
+    //读待统计文件
+    val textFile = sc.textFile(args(1))
+
+    //迭代按行分割词，并放入tuple，将最终tuple reduceByKey，累加出现的次数
+    val result = textFile.flatMap(line => line.split("\\s+")).map(word => (word, 1)).reduceByKey(_ + _)
+                   
+    //打印统计结果
+    result.foreach(a => print(a + "\n"))
+    println(result.count)
+    
+    //先将worker结果汇总到master并打印统计结果
+    var resultCollect = result.collect()
+    resultCollect.foreach(a => print(a + "\n"))
+    }
+}
+
+{% endhighlight %}
+
+*2）* 将scala工程export成jar包，比如myprogram.jar，然后在执行目录存放带统计文件(测试的是spark目录下README.md)，先用jps命令查询spark启用master和worker的情况，假如没有启用，则先调用start-all.sh脚本启用spark，再用spark-submit提交Job任务：
+
+{% highlight sh %}
+
+leeven@luoxindeMacBook-Pro ~/Desktop/spark/TotalCount> $ jps
+2112 Jps
+1371
+
+leeven@luoxindeMacBook-Pro ~/Desktop/spark/TotalCount> $ ~/Library/spark-1.5.1-bin-hadoop1/sbin/start-all.sh
+starting org.apache.spark.deploy.master.Master, logging to /Users/leeven/Library/spark-1.5.1-bin-hadoop1/sbin/../logs/spark-leeven-org.apache.spark.deploy.master.Master-1-luoxindeMacBook-Pro.local.out
+localhost: starting org.apache.spark.deploy.worker.Worker, logging to /Users/leeven/Library/spark-1.5.1-bin-hadoop1/sbin/../logs/spark-leeven-org.apache.spark.deploy.worker.Worker-1-luoxindeMacBook-Pro.local.out
+localhost: starting org.apache.spark.deploy.worker.Worker, logging to /Users/leeven/Library/spark-1.5.1-bin-hadoop1/sbin/../logs/spark-leeven-org.apache.spark.deploy.worker.Worker-2-luoxindeMacBook-Pro.local.out
+
+leeven@luoxindeMacBook-Pro ~/Desktop/spark/TotalCount> $ jps
+2386 Worker
+2435 Jps
+2213 Master
+1371
+2334 Worker
+
+leeven@luoxindeMacBook-Pro ~/Desktop/spark/TotalCount> $ spark-submit --name "MyProgram" --master spark://localhost:7077 --executor-memory 512M --class MyProgram ./myprogram.jar ./README.md
+15/10/19 20:25:46 WARN SparkConf:
+SPARK_WORKER_INSTANCES was detected (set to '2').
+This is deprecated in Spark 1.0+.
+
+Please instead use:
+ - ./spark-submit with --num-executors to specify the number of executors
+ - Or set SPARK_EXECUTOR_INSTANCES
+ - spark.executor.instances to configure the number of instances in the spark config.
+
+15/10/19 20:25:47 WARN MetricsSystem: Using default name DAGScheduler for source because spark.app.id is not set.
+15/10/19 20:25:50 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+15/10/19 20:25:50 WARN LoadSnappy: Snappy native library not loaded
+268
+(package,1)
+(this,1)
+...
+(结果省略)
+
+{% endhighlight %}
+
+spark同时还提供WebUI供跑任务流程查询，包括master和slave，消耗的内存、耗时等，默认的URL：http://localhost:8080/ ，效果如下图：
+
+<img width="811px" height="499px" src="/images/sparkBegin/spark_webui.png" />
+
+h1. 过程Review
+
+到这里，Spark的搭建和基本应用已经走完一遍，其实回望整个搭建流程，还是比较简单的，没有太多环境的耦合，最终基于eclipse配置的IDE仅仅是一种快速开发Spark应用程序的方式，网上还有很多种IDE的搭建教程，有兴趣的读者可自行尝试。
+
+之前开头遗留的问题在这里解答下，
+
+*1）* local模式存在Master／Slave模式吗？
+答：存在，最终执行提交Job看WebUI就清楚了
+
+*2）* local模式和standalone模式区别是什么？
+答：这个问题其实是在第一个问题基础之上回答的，两种模式都有Master和Slave，表面感觉没有区别，其实区别仅在对Hadoop环境的依赖，standalone需要依赖
+
+整个流程读者是不是都清楚了？实战部分的代码是不是也看懂了，包括提交Job的执行日志？笔者抛出两个问题，读者能否解答：
+
+*1）* start-all.sh启动脚本为什么多启动了一个Slave？
+
+*2）* 实战程序执行结果打印日志是否能对应得上？
+
+
+
